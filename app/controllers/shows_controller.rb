@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
     @shows = Show.all
 
     respond_to do |format|
-     # format.html # index.html.erb
+      format.html # index.html.erb
       #format.json { render json: @shows.to_json(:include=>[:people]) }
       format.json{}
       format.xml{}
