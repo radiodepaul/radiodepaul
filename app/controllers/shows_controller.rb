@@ -5,9 +5,13 @@ class ShowsController < ApplicationController
     @shows = Show.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @shows.to_json(:include=>[:people]) }
+     # format.html # index.html.erb
+      #format.json { render json: @shows.to_json(:include=>[:people]) }
+      format.json{}
+      format.xml{}
     end
+  
+  
   end
 
   # GET /shows/1
@@ -18,6 +22,7 @@ class ShowsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @show.to_json(:include=>[:people]) }
+      format.xml { render xml: @show }
     end
   end
 
