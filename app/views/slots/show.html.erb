@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Show:</b>
+  <%= @slot.show.title %>
+</p>
+
+<p>
+  <b>Quarter:</b>
+  <%= @slot.quarter %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @slot.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @slot.end_time %>
+</p>
+
+<p>
+  <b>Monday:</b>
+  <%= @slot.monday %>
+</p>
+
+<p>
+  <b>Tuesday:</b>
+  <%= @slot.tuesday %>
+</p>
+
+<p>
+  <b>Wednesday:</b>
+  <%= @slot.wednesday %>
+</p>
+
+<p>
+  <b>Thursday:</b>
+  <%= @slot.thursday %>
+</p>
+
+<p>
+  <b>Friday:</b>
+  <%= @slot.friday %>
+</p>
+
+<p>
+  <b>Saturday:</b>
+  <%= @slot.saturday %>
+</p>
+
+<p>
+  <b>Sunday:</b>
+  <%= @slot.sunday %>
+</p>
+
+
+<%= link_to 'Edit', edit_slot_path(@slot) %> |
+<%= link_to 'Back', slots_path %>

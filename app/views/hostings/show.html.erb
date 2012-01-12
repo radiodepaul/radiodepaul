@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Show:</b>
+  <%= @hosting.show.title %>
+</p>
+
+<p>
+  <b>Person:</b>
+  <%= @hosting.person.first_last_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_hosting_path(@hosting), :class => "action" %> |
+<%= link_to 'Back', hostings_path, :class => "action" %>

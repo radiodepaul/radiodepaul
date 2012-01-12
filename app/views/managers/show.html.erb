@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @manager.person.first_last_name %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= @manager.position %>
+</p>
+
+<p>
+  <b>Office hours:</b>
+  <%= @manager.office_hours %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @manager.email %>
+</p>
+
+<p>
+  <b>Phone number:</b>
+  <%= @manager.phone_number %>
+</p>
+
+
+<%= link_to 'Edit', edit_manager_path(@manager), :class => "action" %> |
+<%= link_to 'Back', managers_path, :class => "action" %>

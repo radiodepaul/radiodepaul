@@ -1,0 +1,36 @@
+<%= form_for(@manager) do |f| %>
+  <% if @manager.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manager.errors.count, "error") %> prohibited this manager from being saved:</h2>
+
+      <ul>
+      <% @manager.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<div class="field">
+		<%= f.label :person_id %><br />
+		<%= collection_select(:manager, :person_id, Person.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>
+
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </div>
+  <div class="field">
+    <%= f.label :office_hours %><br />
+    <%= f.text_area :office_hours %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_number %><br />
+    <%= f.text_field :phone_number %>
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Assign Manager', :class => "form_submit" %>
+  </div>
+<% end %>

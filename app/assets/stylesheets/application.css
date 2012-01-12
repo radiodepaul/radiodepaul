@@ -1,0 +1,130 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree . 
+*/
+body {
+	background-color:#EEEDF1;
+	color: #333;
+  	font-size: 13px;
+  	line-height: 18px;
+}
+p#head {
+	font-size:48px;
+}
+p#head a, p#head a:link, p#head a:visited {
+	color:#55665E;
+}
+p#head a:hover {
+	color:#41514a;
+	text-decoration:none;
+}
+p, ol, ul, td {
+	color:#55665E;
+	font-size:14px;
+	font-family:futura-pt, sans-serif;
+}
+p {
+	line-height:18px;
+}
+td {
+	line-height:32px;
+}
+tr.odd {
+	background-color:#dedede;
+}
+a, a:link, a:visited {
+	color:#542733;
+	text-decoration:none;
+	font-family:futura-pt, sans-serif;
+}
+a:hover {
+	text-decoration:underline;
+}
+a.action, a:link.action, a:visited.action {
+	padding:6px 10px;
+	background-color:#f3f3f3;
+	border:2px solid #cbcbcb;
+	color:#333;
+}
+a.action:hover {
+	color:#000;
+	text-decoration:none;
+	border:2px solid #727272;
+}
+h1, h2, h3 {
+	font-family:futura-pt, sans-serif;
+}
+h1 {
+	font-size:24px;
+	font-weight:bold;
+	color:#55665E;
+}
+h2 {
+	font-color:#000;
+}
+nav {
+	position:absolute;
+	top:40px;
+	left:300px;
+}
+nav ul {
+	line-height:50px;
+}
+nav ul li {
+	display:inline;
+	
+}
+nav ul a, nav ul a:link, nav ul a:visited {
+	color:#fff;
+	background-color:#ce4c31;
+	padding:10px 40px;
+}
+input.form_submit:hover, nav ul a:hover {
+	background-color:#c03d21;
+	cursor:pointer;
+	text-decoration:none;
+}
+div.bar {
+	width:100%;
+	height:30px;
+	border-bottom:2px solid #55665E;
+}
+div.bar h1, div.bar h2 {
+	margin-left:10px;
+	line-height:28px;
+}
+/* FORMS */
+input, textarea {  
+    padding: 9px;  
+    border: solid 1px #E5E5E5;  
+    outline: 0;  
+    font: normal 13px/100% Verdana, Tahoma, sans-serif;  
+    width: 200px;  
+    background: #FFFFFF;  
+    }  
+  
+textarea {  
+    width: 400px;  
+    max-width: 400px;  
+    height: 150px;  
+    line-height: 150%;  
+    }  
+  
+input:hover, textarea:hover, input:focus, textarea:focus {  
+    border-color: #C9C9C9;  
+    }  
+  
+.form label {  
+    margin-left: 10px;  
+    color: #999999;  
+    }  
+  
+input.form_submit {  
+    color:#fff;
+	background-color:#ce4c31;
+	padding:10px 40px; 
+	margin-bottom:12px;
+}

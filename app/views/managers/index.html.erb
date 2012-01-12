@@ -1,0 +1,29 @@
+<h1>Managers</h1>
+
+<table>
+  <tr>
+		<th>Name</th>
+    <th>Position</th>
+    <th>Email</th>
+    <th>Phone number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @managers.each do |manager| %>
+  <tr class="<%= cycle("even", "odd") %>">
+		<td><%= manager.person.first_last_name %></td>
+    <td><%= manager.position %></td>
+    <td><%= manager.email %></td>
+    <td><%= manager.phone_number %></td>
+    <td><%= link_to 'Show', manager, :class => "action" %></td>
+    <td><%= link_to 'Edit', edit_manager_path(manager), :class => "action" %></td>
+    <td><%= link_to 'Delete', manager, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Assign a New Manager', new_manager_path, :class => "action" %>

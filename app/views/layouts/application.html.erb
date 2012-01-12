@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Radio DePaul</title>
+  <script type="text/javascript" src="http://use.typekit.com/twt5fua.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<p id="head"><%= link_to 'Radio DePaul', root_url %></p>
+<nav>
+	<ul>
+		<li><%= link_to "Shows", shows_path %></li>
+		<li><%= link_to "Hostings", hostings_path %></li>
+		<li><%= link_to "People", people_path %></li>
+		<li><%= link_to "Managers", managers_path %></li>
+		<li><%= link_to "Slots", slots_path %></li>
+	</ul>
+</nav>
+<%= yield %>
+
+</body>
+</html>

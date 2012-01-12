@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  show_id: 1
+  quarter: MyString
+  start_time: 2012-01-11 19:21:30
+  end_time: 2012-01-11 19:21:30
+  monday: false
+  tuesday: false
+  wednesday: false
+  thursday: false
+  friday: false
+  saturday: false
+  sunday: false
+
+two:
+  show_id: 1
+  quarter: MyString
+  start_time: 2012-01-11 19:21:30
+  end_time: 2012-01-11 19:21:30
+  monday: false
+  tuesday: false
+  wednesday: false
+  thursday: false
+  friday: false
+  saturday: false
+  sunday: false

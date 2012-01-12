@@ -1,0 +1,72 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @person.first_last_name %>
+</p>
+
+<p>
+  <b>Nickname:</b>
+  <%= @person.nickname %>
+</p>
+
+  <p><b>Shows Hosted:</b></p>
+	<ul>
+<% @person.shows.find(:all, :order => 'title').each do |show| %>
+	<li><%= link_to show.title, :controller => "shows", :action => "show", :id => show.id %></li>
+<% end %>
+</ul>
+
+<p>
+  <b>Bio:</b>
+  <%= @person.bio %>
+</p>
+
+<p>
+  <b>Influences:</b>
+  <%= @person.influences %>
+</p>
+
+<p>
+  <b>Facebook username:</b>
+  <%= @person.facebook_username %>
+</p>
+
+<p>
+  <b>Linkedin username:</b>
+  <%= @person.linkedin_username %>
+</p>
+
+<p>
+  <b>Twitter username:</b>
+  <%= @person.twitter_username %>
+</p>
+
+<p>
+  <b>Website url:</b>
+  <%= @person.website_url %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @person.email %>
+</p>
+
+<p>
+  <b>Major:</b>
+  <%= @person.major %>
+</p>
+
+<p>
+  <b>Class year:</b>
+  <%= @person.class_year %>
+</p>
+
+<p>
+  <b>Hometown:</b>
+  <%= @person.hometown %>
+</p>
+
+
+<%= link_to 'Edit', edit_person_path(@person), :class => "action" %> |
+<%= link_to 'Back', people_path, :class => "action" %>

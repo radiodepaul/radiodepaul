@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @show.title %>
+</p>
+
+<p>
+  <b>Host(s):</b>
+  <% @show.people.find(:all, :order => 'last_name').each do |person| %>
+		<li><%= link_to person.last_first_name, :controller => "people", :action => "show", :id => person.id %></li>
+	<% end %>
+</p>
+
+<p>
+  <b>Genre:</b>
+  <%= @show.genre %>
+</p>
+
+<p>
+  <b>Short description:</b>
+  <%= @show.short_description %>
+</p>
+
+<p>
+  <b>Long description:</b>
+  <%= @show.long_description %>
+</p>
+
+<p>
+  <b>Facebook page username:</b>
+  <%= @show.facebook_page_username %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @show.email %>
+</p>
+
+<p>
+  <b>Twitter username:</b>
+  <%= @show.twitter_username %>
+</p>
+
+<p>
+  <b>Website url:</b>
+  <%= @show.website_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_show_path(@show), :class => "action" %> |
+<%= link_to 'Back', shows_path, :class => "action" %>
