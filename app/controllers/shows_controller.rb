@@ -1,6 +1,9 @@
 class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
+  
+  respond_to :json, :xml, :html
+  
   def index
     @shows = Show.all
 
@@ -10,6 +13,8 @@ class ShowsController < ApplicationController
       format.json{}
       format.xml{}
     end
+  
+    respond_with( @shows )
   
   
   end
