@@ -7,7 +7,7 @@ class ShowsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       #format.json { render json: @shows.to_json(:include=>[:people]) }
-      format.json{ :status => 200, :headers => ACCESS_CONTROL  }
+      format.json{}
       format.xml{}
     end
   
