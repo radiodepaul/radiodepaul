@@ -2,21 +2,15 @@ class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
   
-  respond_to :json, :xml, :html
+  respond_to :html, :xml, :json, :js
   
   def index
     @shows = Show.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      #format.json { render json: @shows.to_json(:include=>[:people]) }
-      format.json{}
-      format.xml{}
+    respond_with(@shows.to_json(:include=>[:people])) do |format|
+    format.js  { render :json => @shows.to_json(:include=>[:people]), :callback => params[:callback] }
     end
-  
-    respond_with( @shows )
-  
-  
+
   end
 
   # GET /shows/1
