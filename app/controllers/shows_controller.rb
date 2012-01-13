@@ -7,8 +7,11 @@ class ShowsController < ApplicationController
   def index
     @shows = Show.all
 
-    respond_with(@shows.to_json(:include=>[:people])) do |format|
-    format.js  { render :json => @shows.to_json(:include=>[:people]), :callback => params[:callback] }
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js  { render :json => @shows.to_json(:include=>[:people]), :callback => params[:callback] }
+      format.json  { render :json => @shows }
+      format.xml  { render :xml => @shows }
     end
 
   end
@@ -20,8 +23,9 @@ class ShowsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @show.to_json(:include=>[:people]) }
-      format.xml { render xml: @show }
+      format.js  { render :json => @show, :callback => params[:callback] }
+      format.json  { render :json => @show }
+      format.xml  { render :xml => @show }
     end
   end
 
@@ -30,9 +34,8 @@ class ShowsController < ApplicationController
   def new
     @show = Show.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @show }
+    respond_with(@show) do |format|
+      format.js  { render :json => @show.to_json(:include=>[:people]), :callback => params[:callback] }
     end
   end
 
