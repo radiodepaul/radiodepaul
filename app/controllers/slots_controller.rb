@@ -1,4 +1,5 @@
 class SlotsController < ApplicationController
+  before_filter :logged_in?
   # GET /slots
   # GET /slots.json
   def index

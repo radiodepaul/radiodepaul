@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120112012130) do
+ActiveRecord::Schema.define(:version => 20120113201402) do
 
   create_table "hostings", :force => true do |t|
     t.integer  "show_id"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(:version => 20120112012130) do
     t.boolean  "sunday"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end

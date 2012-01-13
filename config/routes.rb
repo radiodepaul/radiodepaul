@@ -1,4 +1,12 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  get "pages/welcome"
+
+  get "pages/home"
+
+  get "sessions/new"
+
+  get "users/new"
+
   resources :slots
 
   resources :managers
@@ -7,9 +15,16 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   resources :people
 
-  get "welcome/index"
-
   resources :shows
+  
+  get "home" => "pages#home", :as => "home"
+  
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "sign_up" => "users#new", :as => "sign_up"
+  
+  resources :users
+  resources :sessions
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -61,7 +76,7 @@ RadioDePaulWebsite2::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'welcome#index'
+  root :to => 'pages#welcome'
 
   # See how all your routes lay out with "rake routes"
 

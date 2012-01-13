@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  before_filter :logged_in?
   # GET /shows
   # GET /shows.json
   

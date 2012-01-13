@@ -11,8 +11,8 @@
 
 <% @hostings.each do |hosting| %>
   <tr class="<%= cycle("even", "odd") %>">
-    <td><%= hosting.show.title %></td>
-    <td><%= hosting.person.first_last_name %></td>
+    <td><%= link_to hosting.show.title, hosting.show %></td>
+    <td><%= link_to hosting.person.first_last_name, hosting.person %></td>
     <td><%= link_to 'Show', hosting, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_hosting_path(hosting), :class => "action" %></td>
     <td><%= link_to 'Delete', hosting, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>

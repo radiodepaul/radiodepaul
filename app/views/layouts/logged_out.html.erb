@@ -10,29 +10,16 @@
 </head>
 <body>
 	<p id="head"><%= link_to 'Radio DePaul', root_url %></p>
-	<div id="user_nav">
-	  <% if current_user %>
+	<% if current_user %>
 	    Logged in as <%= current_user.email %>.
 	    <%= link_to "Log out", log_out_path %>
 	  <% else %>
 	    <%= link_to "Sign up", sign_up_path %> or
 	    <%= link_to "log in", log_in_path %>
 	  <% end %>
+	<div class="bar">
+	<h2>Welcome</h2>
 	</div>
-
-	<% flash.each do |name, msg| %>
-	  <%= content_tag :div, msg, :id => "flash_#{name}" %>
-	<% end %>
-<nav>
-	<ul>
-		<li><%= link_to "Shows", shows_path %></li>
-		<li><%= link_to "Hostings", hostings_path %></li>
-		<li><%= link_to "People", people_path %></li>
-		<li><%= link_to "Managers", managers_path %></li>
-		<li><%= link_to "Schedule Shows", slots_path %></li>
-		<li><%= link_to "Users", users_path %></li>
-	</ul>
-</nav>
 <%= yield %>
 
 </body>

@@ -13,7 +13,7 @@
 
 <% @managers.each do |manager| %>
   <tr class="<%= cycle("even", "odd") %>">
-		<td><%= manager.person.first_last_name %></td>
+		<td><%= link_to manager.person.first_last_name, manager.person %></td>
     <td><%= manager.position %></td>
     <td><%= manager.email %></td>
     <td><%= manager.phone_number %></td>

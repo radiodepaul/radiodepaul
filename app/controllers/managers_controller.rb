@@ -1,4 +1,5 @@
 class ManagersController < ApplicationController
+  before_filter :logged_in?
   # GET /managers
   # GET /managers.json
   def index
