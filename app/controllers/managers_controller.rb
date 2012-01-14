@@ -1,13 +1,20 @@
 class ManagersController < ApplicationController
-  before_filter :logged_in?
   # GET /managers
   # GET /managers.json
+  
+  respond_to :html, :xml, :json, :js
+  
   def index
     @managers = Manager.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @managers.to_json(:include=>[:person]) }
+      format.html {
+        if logged_in?
+          render :html => @managers
+        end
+      } # show.html.erb
+      format.json { render json: @managers, :callback => params[:callback] }
+      format.js { render json: @managers, :callback => params[:callback] }
     end
   end
 
@@ -17,8 +24,13 @@ class ManagersController < ApplicationController
     @manager = Manager.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @manager.to_json(:include=>[:person]) }
+      format.html {
+        if logged_in?
+          render :html => @manager
+        end
+      } # show.html.erb
+      format.json { render json: @manager, :callback => params[:callback] }
+      format.js { render json: @manager, :callback => params[:callback] }
     end
   end
 
@@ -29,7 +41,7 @@ class ManagersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @manager }
+      #format.json { render json: @manager }
     end
   end
 
@@ -46,10 +58,10 @@ class ManagersController < ApplicationController
     respond_to do |format|
       if @manager.save
         format.html { redirect_to @manager, notice: 'Manager was successfully created.' }
-        format.json { render json: @manager, status: :created, location: @manager }
+        #format.json { render json: @manager, status: :created, location: @manager }
       else
         format.html { render action: "new" }
-        format.json { render json: @manager.errors, status: :unprocessable_entity }
+        #format.json { render json: @manager.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,10 +74,10 @@ class ManagersController < ApplicationController
     respond_to do |format|
       if @manager.update_attributes(params[:manager])
         format.html { redirect_to @manager, notice: 'Manager was successfully updated.' }
-        format.json { head :ok }
+        #format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @manager.errors, status: :unprocessable_entity }
+        #format.json { render json: @manager.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,7 +90,7 @@ class ManagersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to managers_url }
-      format.json { head :ok }
+      #format.json { head :ok }
     end
   end
 end

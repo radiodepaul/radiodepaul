@@ -12,6 +12,7 @@ body {
   	line-height: 18px;
 	width:1000px;
 	margin:0 auto;
+	padding-bottom:40px;
 }
 #user_nav {
 	float:right;
@@ -71,8 +72,7 @@ h2 {
 	font-color:#000;
 }
 nav {
-	top:80px;
-	left:300px;
+	float:right;
 }
 nav ul {
 	line-height:50px;
@@ -84,7 +84,7 @@ nav ul li {
 nav ul a, nav ul a:link, nav ul a:visited {
 	color:#fff;
 	background-color:#ce4c31;
-	padding:10px 40px;
+	padding:10px 20px;
 }
 input.form_submit:hover, nav ul a:hover {
 	background-color:#c03d21;

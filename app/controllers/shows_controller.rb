@@ -13,7 +13,7 @@ class ShowsController < ApplicationController
           render :html => @shows
         end
       } # show.html.erb
-      format.js  { render :json => @shows.to_json(:include=>[:people]), :callback => params[:callback] }
+      format.js  { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
       format.xml  { render :xml => @shows }
     end
@@ -45,7 +45,7 @@ class ShowsController < ApplicationController
       @show = Show.new
 
       respond_with(@show) do |format|
-        format.js  { render :json => @show.to_json(:include=>[:people]), :callback => params[:callback] }
+        #format.js  { render :json => @show.to_json(:include=>[:people]), :callback => params[:callback] }
       end
     end
   end
@@ -67,10 +67,10 @@ class ShowsController < ApplicationController
       respond_to do |format|
         if @show.save
           format.html { redirect_to @show, notice: 'Show was successfully created.' }
-          format.json { render json: @show, status: :created, location: @show }
+          #format.json { render json: @show, status: :created, location: @show }
         else
           format.html { render action: "new" }
-          format.json { render json: @show.errors, status: :unprocessable_entity }
+          #format.json { render json: @show.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -85,10 +85,10 @@ class ShowsController < ApplicationController
       respond_to do |format|
         if @show.update_attributes(params[:show])
           format.html { redirect_to @show, notice: 'Show was successfully updated.' }
-          format.json { head :ok }
+          #format.json { head :ok }
         else
           format.html { render action: "edit" }
-          format.json { render json: @show.errors, status: :unprocessable_entity }
+          #format.json { render json: @show.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -103,7 +103,7 @@ class ShowsController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to shows_url }
-        format.json { head :ok }
+        #format.json { head :ok }
       end
     end
   end

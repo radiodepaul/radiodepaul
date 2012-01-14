@@ -1,13 +1,16 @@
 class HostingsController < ApplicationController
-  before_filter :logged_in?
   # GET /hostings
   # GET /hostings.json
   def index
     @hostings = Hosting.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @hostings }
+      format.html {
+        if logged_in?
+          render :html => @hostings
+        end
+      } # show.html.erb
+      #format.json { render json: @hostings }
     end
   end
 
@@ -17,8 +20,12 @@ class HostingsController < ApplicationController
     @hosting = Hosting.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @hosting }
+      format.html {
+        if logged_in?
+          render :html => @hosting
+        end
+      } # show.html.erb
+      #format.json { render json: @hosting }
     end
   end
 
@@ -29,7 +36,7 @@ class HostingsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @hosting }
+      #format.json { render json: @hosting }
     end
   end
 
@@ -46,10 +53,10 @@ class HostingsController < ApplicationController
     respond_to do |format|
       if @hosting.save
         format.html { redirect_to @hosting, notice: 'Hosting was successfully created.' }
-        format.json { render json: @hosting, status: :created, location: @hosting }
+        #format.json { render json: @hosting, status: :created, location: @hosting }
       else
         format.html { render action: "new" }
-        format.json { render json: @hosting.errors, status: :unprocessable_entity }
+        #format.json { render json: @hosting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,10 +69,10 @@ class HostingsController < ApplicationController
     respond_to do |format|
       if @hosting.update_attributes(params[:hosting])
         format.html { redirect_to @hosting, notice: 'Hosting was successfully updated.' }
-        format.json { head :ok }
+        #format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @hosting.errors, status: :unprocessable_entity }
+        #format.json { render json: @hosting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,7 +85,7 @@ class HostingsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to hostings_url }
-      format.json { head :ok }
+      #format.json { head :ok }
     end
   end
 end

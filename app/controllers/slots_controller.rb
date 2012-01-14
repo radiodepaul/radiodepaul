@@ -9,9 +9,13 @@ class SlotsController < ApplicationController
     @slots = Slot.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @slots.to_json(:include=>[:shows]) }
-      format.js  { render :json => @slots }
+      format.html {
+        if logged_in?
+          render :html => @slots
+        end
+      } # show.html.erb
+      format.json { render json: @slots, :callback => params[:callback] }
+      format.js  { render :json => @slots, :callback => params[:callback] }
     end
   end
 
@@ -21,9 +25,13 @@ class SlotsController < ApplicationController
     @slot = Slot.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @slot.to_json(:include=>[:show]) }
-      format.js  { render :json => @slot.to_json(:include=>[:show]) }
+      format.html {
+        if logged_in?
+          render :html => @slot
+        end
+      } # show.html.erb
+      format.json { render json: @slot, :callback => params[:callback] }
+      format.js  { render :json => @slot, :callback => params[:callback] }
     end
   end
 
@@ -34,7 +42,7 @@ class SlotsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @slot }
+      #format.json { render json: @slot }
     end
   end
 
@@ -51,10 +59,10 @@ class SlotsController < ApplicationController
     respond_to do |format|
       if @slot.save
         format.html { redirect_to @slot, notice: 'Slot was successfully created.' }
-        format.json { render json: @slot, status: :created, location: @slot }
+        #format.json { render json: @slot, status: :created, location: @slot }
       else
         format.html { render action: "new" }
-        format.json { render json: @slot.errors, status: :unprocessable_entity }
+        #format.json { render json: @slot.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,10 +75,10 @@ class SlotsController < ApplicationController
     respond_to do |format|
       if @slot.update_attributes(params[:slot])
         format.html { redirect_to @slot, notice: 'Slot was successfully updated.' }
-        format.json { head :ok }
+        #format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @slot.errors, status: :unprocessable_entity }
+        #format.json { render json: @slot.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -83,7 +91,7 @@ class SlotsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to slots_url }
-      format.json { head :ok }
+      #format.json { head :ok }
     end
   end
 end

@@ -1,12 +1,20 @@
 class SchedulingsController < ApplicationController
   # GET /schedulings
   # GET /schedulings.json
+  
+  respond_to :html, :xml, :json, :js
+  
   def index
     @schedulings = Scheduling.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @schedulings }
+      format.html {
+        if logged_in?
+          render :html => @schedulings
+        end
+      } # show.html.erb
+      #format.json { render json: @schedulings }
+      #format.js  { render :json => @schedulings }
     end
   end
 
@@ -16,8 +24,12 @@ class SchedulingsController < ApplicationController
     @scheduling = Scheduling.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @scheduling }
+      format.html {
+        if logged_in?
+          render :html => @scheduling
+        end
+      } # show.html.erb
+      #format.json { render json: @scheduling }
     end
   end
 
@@ -28,7 +40,7 @@ class SchedulingsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @scheduling }
+      #format.json { render json: @scheduling }
     end
   end
 
@@ -45,10 +57,10 @@ class SchedulingsController < ApplicationController
     respond_to do |format|
       if @scheduling.save
         format.html { redirect_to @scheduling, notice: 'Scheduling was successfully created.' }
-        format.json { render json: @scheduling, status: :created, location: @scheduling }
+        #format.json { render json: @scheduling, status: :created, location: @scheduling }
       else
         format.html { render action: "new" }
-        format.json { render json: @scheduling.errors, status: :unprocessable_entity }
+        #format.json { render json: @scheduling.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,10 +73,10 @@ class SchedulingsController < ApplicationController
     respond_to do |format|
       if @scheduling.update_attributes(params[:scheduling])
         format.html { redirect_to @scheduling, notice: 'Scheduling was successfully updated.' }
-        format.json { head :ok }
+        #format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @scheduling.errors, status: :unprocessable_entity }
+        #format.json { render json: @scheduling.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -77,7 +89,7 @@ class SchedulingsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to schedulings_url }
-      format.json { head :ok }
+      #format.json { head :ok }
     end
   end
 end

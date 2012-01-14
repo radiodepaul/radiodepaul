@@ -1,13 +1,20 @@
 class PeopleController < ApplicationController
-  before_filter :logged_in?
   # GET /people
   # GET /people.json
+  
+  respond_to :html, :xml, :json, :js
+  
   def index
     @people = Person.all
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @people.to_json(:include=>[:shows]) }
+      format.html {
+        if logged_in?
+          render :html => @people
+        end
+      } # show.html.erb
+      format.json { render json: @people, :callback => params[:callback] }
+      format.js { render json: @people, :callback => params[:callback] }
     end
   end
 
@@ -17,8 +24,13 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @person.to_json(:include=>[:shows]) }
+      format.html {
+        if logged_in?
+          render :html => @person
+        end
+      } # show.html.erb
+      format.json { render json: @person, :callback => params[:callback] }
+      format.js { render json: @person, :callback => params[:callback] }
     end
   end
 
@@ -29,7 +41,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @person }
+      #format.json { render json: @person }
     end
   end
 
@@ -46,10 +58,10 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.save
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
-        format.json { render json: @person, status: :created, location: @person }
+        #format.json { render json: @person, status: :created, location: @person }
       else
         format.html { render action: "new" }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
+        #format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,10 +74,10 @@ class PeopleController < ApplicationController
     respond_to do |format|
       if @person.update_attributes(params[:person])
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
-        format.json { head :ok }
+        #format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
+        #format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,7 +90,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to people_url }
-      format.json { head :ok }
+      #format.json { head :ok }
     end
   end
 end
