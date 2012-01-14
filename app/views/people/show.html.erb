@@ -1,9 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @person.first_last_name %>
-</p>
+  <h2><%= @person.first_last_name %></h2>
 
 <p>
   <b>Nickname:</b>
@@ -29,27 +26,27 @@
 
 <p>
   <b>Facebook username:</b>
-  <%= @person.facebook_username %>
+  <%= link_to @person.facebook_username, "http://facebook.com/" + @person.facebook_username %>
 </p>
 
 <p>
   <b>Linkedin username:</b>
-  <%= @person.linkedin_username %>
+  <%= link_to @person.linkedin_username, "http://linkedin.com/in/" + @person.linkedin_username %>
 </p>
 
 <p>
   <b>Twitter username:</b>
-  <%= @person.twitter_username %>
+  <%= link_to @person.twitter_username, "http://twitter.com/" + @person.twitter_username %>
 </p>
 
 <p>
   <b>Website url:</b>
-  <%= @person.website_url %>
+  <%= link_to @person.website_url, "http://" + @person.website_url %>
 </p>
 
 <p>
   <b>Email:</b>
-  <%= @person.email %>
+  <%= link_to @person.email, "mailto:" + @person.email %>
 </p>
 
 <p>

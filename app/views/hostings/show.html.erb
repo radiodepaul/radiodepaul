@@ -2,12 +2,12 @@
 
 <p>
   <b>Show:</b>
-  <%= @hosting.show.title %>
+  <%= link_to @hosting.show.title, @hosting.show %>
 </p>
 
 <p>
-  <b>Person:</b>
-  <%= @hosting.person.first_last_name %>
+  <b>Host:</b>
+  <%= link_to @hosting.person.first_last_name, @hosting.person %>
 </p>
 
 

@@ -1,7 +1,10 @@
-<h1>Listing users</h1>
-
+<h1>Users</h1>
+<br />
+<%= link_to 'New User', new_user_path, :class => "action" %>
+<br /><br />
 <table>
   <tr>
+		<th>Name</th>
     <th>Email</th>
     <th></th>
     <th></th>
@@ -10,9 +13,10 @@
 
 <% @users.each do |user| %>
   <tr>
+		<td><%= user.first_last_name %></td>
 		<td><%= user.email %></td>
 		<% if user.id != session[:user_id] %>
-    <td><%= link_to 'Delete', user, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Delete', user, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
   	<% end %>
 	</tr>
 <% end %>
@@ -20,4 +24,4 @@
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'New User', new_user_path, :class => "action" %>

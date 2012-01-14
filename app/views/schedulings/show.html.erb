@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Show:</b>
+  <%= @scheduling.show_id %>
+</p>
+
+<p>
+  <b>Slot:</b>
+  <%= @scheduling.slot_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_scheduling_path(@scheduling) %> |
+<%= link_to 'Back', schedulings_path %>

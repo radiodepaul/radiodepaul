@@ -1,13 +1,17 @@
 class SlotsController < ApplicationController
-  before_filter :logged_in?
+  before_filter :set_timezone
   # GET /slots
   # GET /slots.json
+  
+  respond_to :html, :xml, :json, :js
+  
   def index
     @slots = Slot.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @slots.to_json(:include=>[:show]) }
+      format.json { render json: @slots.to_json(:include=>[:shows]) }
+      format.js  { render :json => @slots }
     end
   end
 
@@ -19,6 +23,7 @@ class SlotsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @slot.to_json(:include=>[:show]) }
+      format.js  { render :json => @slot.to_json(:include=>[:show]) }
     end
   end
 

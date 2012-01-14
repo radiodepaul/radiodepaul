@@ -1,15 +1,12 @@
 <h1>People</h1>
-
+<br />
+<%= link_to 'Add a New Person', new_person_path, :class => "action" %>
+<br /><br />
 <table>
   <tr>
     <th>Name</th>
     <th>Nickname</th>
-    <th>Facebook</th>
-    <th>Linkedin</th>
-    <th>Twitter</th>
-    <th>Website</th>
     <th>Email</th>
-    <th>Hometown</th>
 		<th># Shows</th>
     <th></th>
     <th></th>
@@ -18,14 +15,9 @@
 
 <% Person.find(:all, :order => 'last_name').each do |person| %>
   <tr class="<%= cycle("even", "odd") %>">
-    <td><%= person.last_first_name %></td>
+    <td><%= link_to person.last_first_name, person %></td>
     <td><%= person.nickname %></td>
-    <td><%= person.facebook_username %></td>
-    <td><%= person.linkedin_username %></td>
-    <td><%= person.twitter_username %></td>
-    <td><%= person.website_url %></td>
-    <td><%= person.email %></td>
-    <td><%= person.hometown %></td>
+    <td><%= link_to person.email, "mailto:" + person.email %></td>
 		<td><%= person.shows.count %></td>
     <td><%= link_to 'Show', person, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => "action" %></td>

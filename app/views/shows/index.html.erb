@@ -1,16 +1,14 @@
 <h1>Shows</h1>
-
+<br />
+<%= link_to 'Add a New Show', new_show_path, :class => "action" %>
+<br /><br />
 <table>
   <tr>
     <th>Title</th>
     <th>Genre</th>
-    <th>Short description</th>
-    <!--<th>Long description</th>-->
-    <th>Facebook page username</th>
     <th>Email</th>
-    <th>Twitter username</th>
-    <th>Website url</th>
 		<th># Hosts</th>
+		<th># Slots</th>
     <th></th>
     <th></th>
     <th></th>
@@ -20,13 +18,9 @@
   <tr class="<%= cycle("even", "odd") %>">
     <td><%= link_to show.title, show %></td>
     <td><%= show.genre %></td>
-    <td><%= show.short_description %></td>
-    <!--<td><%= show.long_description %></td>-->
-    <td><%= show.facebook_page_username %></td>
     <td><%= show.email %></td>
-    <td><%= show.twitter_username %></td>
-    <td><%= show.website_url %></td>
 		<td><%= show.people.count %></td>
+		<td><%= show.slots.count %></td>
     <td><%= link_to 'Show', show, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_show_path(show), :class => "action" %></td>
     <td><%= link_to 'Delete', show, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>

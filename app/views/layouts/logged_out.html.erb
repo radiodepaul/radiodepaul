@@ -9,14 +9,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<p id="head"><%= link_to 'Radio DePaul', root_url %></p>
+	<div id="user_nav">
 	<% if current_user %>
 	    Logged in as <%= current_user.email %>.
-	    <%= link_to "Log out", log_out_path %>
+	    <%= link_to "Log out", log_out_path, :class => "action" %>
 	  <% else %>
-	    <%= link_to "Sign up", sign_up_path %> or
-	    <%= link_to "log in", log_in_path %>
+	    <%= link_to "Log In", log_in_path, :class => "action" %>
 	  <% end %>
+	</div>
+	<p id="head"><%= link_to 'Radio DePaul', root_url %></p>
+	<% flash.each do |name, msg| %>
+	  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+	<% end %>
 	<div class="bar">
 	<h2>Welcome</h2>
 	</div>

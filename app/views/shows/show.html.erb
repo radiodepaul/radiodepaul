@@ -1,16 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @show.title %>
-</p>
-
+  <h2><%= @show.title %></h2>
 <p>
   <b>Host(s):</b>
   <% @show.people.find(:all, :order => 'last_name').each do |person| %>
 		<li><%= link_to person.last_first_name, :controller => "people", :action => "show", :id => person.id %></li>
 	<% end %>
 </p>
+
+<p>
+  <b>Time Slots(s):</b>
+  <% @show.slots.find(:all, :order => 'quarter').each do |slot| %>
+		<li><%= link_to slot.quarter_start_time_end_time, :controller => "slots", :action => "show", :id => slot.id %></li>
+	<% end %>
+</p>
+
 
 <p>
   <b>Genre:</b>
@@ -29,22 +33,22 @@
 
 <p>
   <b>Facebook page username:</b>
-  <%= @show.facebook_page_username %>
+  <%= link_to @show.facebook_page_username, "http://facebook.com/" + @show.facebook_page_username %>
 </p>
 
 <p>
   <b>Email:</b>
-  <%= @show.email %>
+  <%= link_to @show.email, "mailto:" + @show.email %>
 </p>
 
 <p>
   <b>Twitter username:</b>
-  <%= @show.twitter_username %>
+  <%= link_to @show.twitter_username, "http://twitter.com/" + @show.twitter_username %>
 </p>
 
 <p>
   <b>Website url:</b>
-  <%= @show.website_url %>
+  <%= link_to @show.website_url, "http://" + @show.website_url %>
 </p>
 
 

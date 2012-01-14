@@ -1,9 +1,5 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @manager.person.first_last_name %>
-</p>
+<h2><%= link_to @manager.person.first_last_name, @manager.person %></h2>
 
 <p>
   <b>Position:</b>

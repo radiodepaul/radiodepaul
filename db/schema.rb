@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120113201402) do
+ActiveRecord::Schema.define(:version => 20120114015535) do
 
   create_table "hostings", :force => true do |t|
     t.integer  "show_id"
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(:version => 20120113201402) do
     t.datetime "updated_at"
   end
 
+  create_table "schedulings", :force => true do |t|
+    t.integer  "show_id"
+    t.integer  "slot_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shows", :force => true do |t|
     t.string   "title"
     t.string   "genre"
@@ -62,7 +69,6 @@ ActiveRecord::Schema.define(:version => 20120113201402) do
   end
 
   create_table "slots", :force => true do |t|
-    t.integer  "show_id"
     t.string   "quarter"
     t.time     "start_time"
     t.time     "end_time"

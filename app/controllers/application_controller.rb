@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+  before_filter :set_timezone
   helper_method :current_user
 
   private
@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
       else
         return true
       end
+    end
+
+    def set_timezone
+      Time.zone = 'Central Time (US & Canada)'
     end
   
 end

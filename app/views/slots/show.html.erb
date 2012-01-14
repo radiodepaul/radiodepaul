@@ -1,23 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Show:</b>
-  <%= @slot.show.title %>
-</p>
-
-<p>
   <b>Quarter:</b>
   <%= @slot.quarter %>
 </p>
 
 <p>
   <b>Start time:</b>
-  <%= @slot.start_time %>
+  <%= @slot.start_time.strftime("%I:%M%p %Z") %>
 </p>
 
 <p>
   <b>End time:</b>
-  <%= @slot.end_time %>
+  <%= @slot.end_time.strftime("%I:%M%p %Z") %>
 </p>
 
 <p>

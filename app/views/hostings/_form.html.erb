@@ -14,6 +14,6 @@
 <p>The show <%= collection_select(:hosting, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %> is hosted by <%= collection_select(:hosting, :person_id, Person.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>.</p>
 
   <div class="actions">
-    <%= submit_tag 'Create Hosting', :class => "form_submit" %>
+    <%= submit_tag 'Assign Host', :class => "form_submit" %>
   </div>
 <% end %>
