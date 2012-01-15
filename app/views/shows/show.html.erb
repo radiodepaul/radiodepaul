@@ -51,6 +51,14 @@
   <%= link_to @show.website_url, "http://" + @show.website_url %>
 </p>
 
+<ul>
+  <% for attachment in @show.attachments %>
+    <li>
+    <%= attachment.description %> - <%= link_to("Download", attachment.file_url) %>
+    </li>
+  <% end %>
+</ul>
+
 
 <%= link_to 'Edit', edit_show_path(@show), :class => "action" %> |
 <%= link_to 'Back', shows_path, :class => "action" %>

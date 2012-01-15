@@ -1,4 +1,8 @@
 class Show < ActiveRecord::Base
+  mount_uploader :avatar, AvatarUploader
+  
+  attr_accessible :title, :genre, :short_description, :long_description, :facebook_page_username,
+                  :twitter_username, :email, :website_url, :attachments_attributes
   
   has_many :hostings
   has_many :people, :through => :hostings
@@ -6,7 +10,9 @@ class Show < ActiveRecord::Base
   has_many :schedulings
   has_many :slots, :through => :schedulings
   
-  mount_uploader :avatar, AvatarUploader
+  
+  has_many :attachments, :as => :attachable
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
   
   validates :title, :presence => true
 
@@ -16,6 +22,13 @@ class Show < ActiveRecord::Base
       hosts.push person.first_last_name
     end
     return hosts
+  end
+  def get_podcasts 
+    attachments = Array.new
+    self.attachments.each do |attachment|
+      attachments.push attachment.file.url
+    end
+    return attachments
   end
 
   def get_scheduled_slots
@@ -36,7 +49,8 @@ class Show < ActiveRecord::Base
         :facebook => self.facebook_page_username,
         :twitter => self.twitter_username,
         :email => self.email,
-        :website => self.website_url }
+        :website => self.website_url,
+        :podcasts => get_podcasts }
    end
 
 end

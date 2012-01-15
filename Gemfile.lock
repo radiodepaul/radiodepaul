@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/ryanb/nested_form.git
+  revision: 54da3123d9f1b14b37df608794508adccd6ac5ba
+  specs:
+    nested_form (0.1.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -147,6 +153,7 @@ DEPENDENCIES
   jquery-rails
   json
   mime-types
+  nested_form!
   pg
   rabl
   rails (= 3.1.3)
