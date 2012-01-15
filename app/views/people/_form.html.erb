@@ -1,4 +1,4 @@
-<%= form_for(@person) do |f| %>
+<%= form_for(@person, :html => {:multipart => true}) do |f| %>
   <% if @person.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
@@ -63,6 +63,16 @@
     <%= f.label :hometown %><br />
     <%= f.text_field :hometown %>
   </div>
+	<div class="field">
+    <%= f.label :avatar %><br />
+		<% if @person.avatar? %>
+			<%= image_tag(@person.avatar.thumb.url) %><br />
+			Remove Avatar<%= f.check_box :remove_avatar %><br/>
+		<% end%>
+			Upload File: <%= f.file_field :avatar %><br />
+			<%= f.hidden_field :avatar_cache %>
+			Import from Web: <%= f.text_field :remote_avatar_url %>
+	</div>
   <div class="actions">
     <%= submit_tag 'Add Person', :class => "form_submit" %>
   </div>

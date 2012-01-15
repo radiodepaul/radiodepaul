@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120114015535) do
+ActiveRecord::Schema.define(:version => 20120115170833) do
 
   create_table "hostings", :force => true do |t|
     t.integer  "show_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120114015535) do
     t.string   "hometown"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar"
   end
 
   create_table "schedulings", :force => true do |t|
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20120114015535) do
     t.string   "website_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar"
   end
 
   create_table "slots", :force => true do |t|

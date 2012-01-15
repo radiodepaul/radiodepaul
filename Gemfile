@@ -15,7 +15,11 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'rabl'
 gem 'json'
 gem 'thin'
-gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+#gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'carrierwave'
+gem 'rmagick'
+gem 'fog'
+gem 'mime-types'
 
 # Gems used only for assets and not required
 # in production environments by default.

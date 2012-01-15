@@ -2,6 +2,7 @@ class Person < ActiveRecord::Base
 has_many :hostings
 has_many :shows, :through => :hostings
 belongs_to :manager
+mount_uploader :avatar, AvatarUploader
 
 def first_last_name
   return self.first_name + ' ' + self.last_name
@@ -35,7 +36,11 @@ def as_json(options={})
       :facebook => self.facebook_username,
       :twitter => self.twitter_username,
       :linkedin => self.linkedin_username,
-      :website => self.website_url }
+      :website => self.website_url,
+      :photo_thumb => self.avatar.thumb.url,
+      :photo_small => self.avatar.small.url,
+      :photo_medium => self.avatar.medium.url,
+      :photo_large => self.avatar.large.url, }
 end
 
 end
