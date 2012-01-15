@@ -12,20 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :show_id %><br />
-    <%= collection_select(:slot, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %>
-  </div>
-  <div class="field">
     <%= f.label :quarter %><br />
-		<%= select( :slot, :quarter, [ "", "AQ2011", "WQ2012", "SQ2012", "SS2012", "AQ2012", "WQ2013" ]) %>
+		<%= select( :slot, :quarter, [ "", "AQ2011", "WQ2012", "SQ2012", "SS2012", "AQ2012", "WQ2013" ], :selected => "WQ2012") %>
   </div>
   <div class="field">
     <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, {:ampm => true, :minute_step => 30} %>
+    <%= f.time_select :start_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
   </div>
   <div class="field">
     <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, {:ampm => true, :minute_step => 30} %>
+    <%= f.time_select :end_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
   </div>
   <div class="field">
     <%= f.label :monday %>
@@ -56,6 +52,6 @@
     <%= f.check_box :sunday %>
   </div>
   <div class="actions">
-    <%= submit_tag 'Assign Slot', :class => "form_submit" %>
+    <%= submit_tag 'Save', :class => "form_submit" %>
   </div>
 <% end %>

@@ -7,13 +7,8 @@
     <th>Quarter</th>
     <th>Start time</th>
     <th>End time</th>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
-    <th>Sunday</th>
+    <th>Days</th>
+		<th>Scheduled Show</th>
     <th></th>
     <th></th>
     <th></th>
@@ -24,13 +19,8 @@
     <td><%= slot.quarter %></td>
     <td><%= slot.start_time.strftime("%I:%M%p %Z") %></td>
     <td><%= slot.end_time.strftime("%I:%M%p %Z") %></td>
-    <td><%= slot.monday %></td>
-    <td><%= slot.tuesday %></td>
-    <td><%= slot.wednesday %></td>
-    <td><%= slot.thursday %></td>
-    <td><%= slot.friday %></td>
-    <td><%= slot.saturday %></td>
-    <td><%= slot.sunday %></td>
+    <td><%= slot.get_days_airing_s %></td>
+		<td><%= slot.show.title unless slot.show.nil? %></td>
     <td><%= link_to 'Show', slot, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_slot_path(slot), :class => "action" %></td>
     <td><%= link_to 'Delete', slot, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>

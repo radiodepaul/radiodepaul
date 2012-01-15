@@ -3,7 +3,7 @@ class Slot < ActiveRecord::Base
   has_one :show, :through => :scheduling
   
   def quarter_start_time_end_time
-    return self.quarter + ' between ' + self.start_time.strftime("%I:%M%p %Z") + ' and ' + self.end_time.strftime("%I:%M%p %Z")
+    return self.quarter + ' between ' + self.start_time.strftime("%I:%M%p %Z") + ' and ' + self.end_time.strftime("%I:%M%p %Z") + " on " + get_days_airing_s
   end
   
   def get_days_airing
@@ -30,6 +30,40 @@ class Slot < ActiveRecord::Base
         days_airing.push "sunday"
       end
     return days_airing
+  end
+  
+  def get_days_airing_s
+    days_airing = Array.new
+      if self.monday == true
+        days_airing.push "Mon"
+      end
+      if self.tuesday == true
+        days_airing.push "Tue"
+      end
+      if self.wednesday == true
+        days_airing.push "Wed"
+      end
+      if self.thursday == true
+        days_airing.push "Thu"
+      end
+      if self.friday == true
+        days_airing.push "Fri"
+      end
+      if self.saturday == true
+        days_airing.push "Sat"
+      end
+      if self.sunday == true
+        days_airing.push "Sun"
+      end
+      days_airing_s = ""
+      days_airing.each do |d|
+        unless d == days_airing.last then
+          days_airing_s += d + ", "
+        else
+          days_airing_s += d
+        end
+      end
+    return days_airing_s
   end
   
   def get_hosts 

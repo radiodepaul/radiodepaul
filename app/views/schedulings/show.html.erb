@@ -2,14 +2,14 @@
 
 <p>
   <b>Show:</b>
-  <%= @scheduling.show_id %>
+  <%= @scheduling.show.title %>
 </p>
 
 <p>
   <b>Slot:</b>
-  <%= @scheduling.slot_id %>
+  <%= @scheduling.slot.quarter_start_time_end_time %>
 </p>
 
 
-<%= link_to 'Edit', edit_scheduling_path(@scheduling) %> |
-<%= link_to 'Back', schedulings_path %>
+<%= link_to 'Edit', edit_scheduling_path(@scheduling), :class => "action" %> |
+<%= link_to 'Back', schedulings_path, :class => "action" %>

@@ -15,6 +15,6 @@
 <p>The show <%= collection_select(:scheduling, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %> to be schedule on <%= collection_select(:scheduling, :slot_id, Slot.find(:all, :order => 'quarter'), :id, :quarter_start_time_end_time, :prompt => true) %>.</p>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag 'Save', :class => "form_submit" %>
   </div>
 <% end %>
