@@ -37,7 +37,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
    end
    
    def default_url
-       "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+       "https://radiodepaul.s3.amazonaws.com/images/fallback/" + [version_name,"default.png"].compact.join('_')
    end
   #
   # def scale(width, height)
@@ -49,7 +49,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [600, 600]
   end
   version :medium do
-    process :resize_to_fill => [300, 200]
+    process :resize_to_fill => [300, 300]
   end
   version :small do
     process :resize_to_fill => [100, 100]

@@ -14,7 +14,7 @@ class SchedulingsController < ApplicationController
         end
       } # show.html.erb
       #format.json { render json: @schedulings }
-      #format.js  { render :json => @schedulings }
+      format.js  { render :json => @schedulings }
     end
   end
 

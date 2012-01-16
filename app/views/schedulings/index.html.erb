@@ -14,7 +14,7 @@
 
 <% @schedulings.each do |scheduling| %>
   <tr>
-    <td><%= scheduling.show.title %></td>
+    <td><%= scheduling.show.title unless scheduling.show.nil? %></td>
     <td><%= scheduling.slot.quarter_start_time_end_time %></td>
     <td><%= link_to 'Show', scheduling, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_scheduling_path(scheduling), :class => "action" %></td>

@@ -40,7 +40,7 @@ def as_json(options={})
       :photo_thumb => self.avatar.thumb.url,
       :photo_small => self.avatar.small.url,
       :photo_medium => self.avatar.medium.url,
-      :photo_large => self.avatar.large.url, }
+      :photo_large => self.avatar.large.url }
 end
 
 end

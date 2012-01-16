@@ -1,4 +1,4 @@
-<h1>Editing <%= @slot.show.title %> in <%= @slot.quarter %></h1>
+<h1>Editing <%= @slot.show.title unless @slot.show.nil? %> in <%= @slot.quarter %></h1>
 
 <%= render 'form' %>
 
