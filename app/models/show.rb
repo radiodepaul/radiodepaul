@@ -1,18 +1,13 @@
 class Show < ActiveRecord::Base
-  mount_uploader :avatar, AvatarUploader
-  
   attr_accessible :title, :genre, :short_description, :long_description, :facebook_page_username,
                   :twitter_username, :email, :website_url, :attachments_attributes
-  
-  has_many :hostings
+  has_many :hostings, :dependent => :destroy
   has_many :people, :through => :hostings
-
-  has_many :schedulings
+  has_many :schedulings, :dependent => :destroy
   has_many :slots, :through => :schedulings
-  
-  
-  has_many :attachments, :as => :attachable
+  has_many :attachments, :as => :attachable, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
+  mount_uploader :avatar, AvatarUploader
   
   validates :title, :presence => true
 

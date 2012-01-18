@@ -18,6 +18,7 @@
 	    <%= link_to "log in", log_in_path, :class => "action" %>
 	  <% end %>
 	</div>
+	<p>It is now <%= Time.now.strftime("%I:%M%p %Z") %></p>
 	<p id="head"><%= link_to 'Radio DePaul', home_path %></p>
 	<% flash.each do |name, msg| %>
 	  <%= content_tag :div, msg, :id => "flash_#{name}" %>

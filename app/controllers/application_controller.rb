@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_filter :set_timezone
   helper_method :current_user
 
+  def set_timezone
+    Time.zone = 'Central Time (US & Canada)'
+  end
+
   private
 
   def current_user
@@ -20,9 +24,4 @@ class ApplicationController < ActionController::Base
         return true
       end
     end
-
-    def set_timezone
-      Time.zone = 'Central Time (US & Canada)'
-    end
-  
 end
