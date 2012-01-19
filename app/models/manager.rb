@@ -19,6 +19,7 @@ class Manager < ActiveRecord::Base
         :facebook => self.person.facebook_username,
         :twitter => self.person.twitter_username,
         :linkedin => self.person.linkedin_username,
-        :website => self.person.website_url }
+        :website => self.person.website_url,
+        :photo => self.person.avatar.thumb.url }
   end
 end
