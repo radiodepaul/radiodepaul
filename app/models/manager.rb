@@ -10,7 +10,8 @@ class Manager < ActiveRecord::Base
   end
   
   def as_json(options={})
-      { :name => self.person.first_last_name,
+      { :id => self.person.id,
+        :name => self.person.first_last_name,
         :position => self.position,
         :office_hours => self.office_hours,
         :email => self.email,
