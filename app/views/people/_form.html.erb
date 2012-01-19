@@ -68,7 +68,7 @@
 		<% if @person.avatar? %>
 			<%= image_tag(@person.avatar.thumb.url) %><br />
 			Remove Avatar<%= f.check_box :remove_avatar %><br/>
-		<% end%>
+		<% end %>
 			Upload File: <%= f.file_field :avatar %><br />
 			<%= f.hidden_field :avatar_cache %>
 			Import from Web: <%= f.text_field :remote_avatar_url %>

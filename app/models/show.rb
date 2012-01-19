@@ -1,6 +1,6 @@
 class Show < ActiveRecord::Base
   attr_accessible :title, :genre, :short_description, :long_description, :facebook_page_username,
-                  :twitter_username, :email, :website_url, :attachments_attributes
+                  :twitter_username, :email, :website_url, :attachments_attributes, :avatar, :remove_avatar, :avatar_cache, :remote_avatar_url
   has_many :hostings, :dependent => :destroy
   has_many :people, :through => :hostings
   has_many :schedulings, :dependent => :destroy
