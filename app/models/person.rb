@@ -24,7 +24,8 @@ class Person < ActiveRecord::Base
   end
 
   def as_json(options={})
-      { :name => self.first_last_name,
+      { :id => self.id,
+        :name => self.first_last_name,
         :nickname => nickname,
         :bio => self.bio,
         :influences => self.influences,
