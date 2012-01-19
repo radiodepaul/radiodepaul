@@ -14,7 +14,7 @@ class Show < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.people.each do |person|
-      hosts.push [person.first_last_name, person.id.to_s]
+      hosts.push [person.first_last_name, person.id.to_s, person.avatar.thumb.url]
     end
     return hosts
   end
