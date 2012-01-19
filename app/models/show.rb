@@ -14,7 +14,7 @@ class Show < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.people.each do |person|
-      hosts.push person.first_last_name
+      hosts.push [person.first_last_name, person.id.to_s]
     end
     return hosts
   end
@@ -35,7 +35,8 @@ class Show < ActiveRecord::Base
   end
 
   def as_json(options={})
-       {:title => self.title,
+       {:id => self.id,
+        :title => self.title,
         :hosts => get_hosts,
         :genre => self.genre,
         :scheduled_slots => get_scheduled_slots,
