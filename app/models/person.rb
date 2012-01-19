@@ -18,7 +18,7 @@ class Person < ActiveRecord::Base
   def get_shows
     shows = Array.new
     self.shows.each do |show|
-      shows.push  + show.title
+      shows.push [show.title, show.id, show.avatar.thumb.url]
     end
     return shows
   end
