@@ -15,7 +15,7 @@ class Show < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.people.each do |person|
-      hosts.push [person.first_last_name, person.id.to_s, person.avatar.thumb.url]
+      hosts.push :name => person.first_last_name,:id => person.id.to_s, :photo_thumb => person.avatar.thumb.url
     end
     return hosts
   end
@@ -30,7 +30,7 @@ class Show < ActiveRecord::Base
   def get_scheduled_slots
     scheduled_slots = Array.new
     self.slots.each do |slot|
-      scheduled_slots.push slot.quarter_start_time_end_time
+      scheduled_slots.push :slot => slot.quarter_start_time_end_time
     end
     return scheduled_slots
   end
@@ -48,8 +48,8 @@ class Show < ActiveRecord::Base
   def as_json(options={})
        {:id => self.id,
         :title => self.title,
-        :hosts => get_hosts,
         :genre => self.genre,
+        :hosts => get_hosts,
         :scheduled_slots => get_scheduled_slots,
         :short_description => self.short_description,
         :long_description => self.long_description,

@@ -26,29 +26,27 @@
 
 <p>
   <b>Facebook:</b>
-  <%= link_to "facebook.com/" + @person.facebook_username, "http://facebook.com/" + @person.facebook_username %>
+  <%= link_to "facebook.com/" + @person.facebook_username, "http://facebook.com/" + @person.facebook_username unless @person.facebook_username.nil? %>
 </p>
 
 <p>
   <b>Linkedin username:</b>
-  <%= link_to @person.linkedin_username, "http://linkedin.com/in/" + @person.linkedin_username %>
+  <%= link_to @person.linkedin_username, "http://linkedin.com/in/" + @person.linkedin_username unless @person.linkedin_username.nil? %>
 </p>
 
 <p>
   <b>Twitter:</b>
-	<% if @person.twitter_username.empty? %>
-  	<%= link_to "twitter.com/" + @person.twitter_username, "http://twitter.com/" + @person.twitter_username %>
-	<% end %>
+  	<%= link_to "twitter.com/" + @person.twitter_username, "http://twitter.com/" + @person.twitter_username unless @person.twitter_username.nil? %>
 </p>
 
 <p>
   <b>Website url:</b>
-  <%= link_to @person.website_url, "http://" + @person.website_url %>
+  <%= link_to @person.website_url, "http://" + @person.website_url unless @person.website_url.nil? %>
 </p>
 
 <p>
   <b>Email:</b>
-  <%= link_to @person.email, "mailto:" + @person.email %>
+  <%= link_to @person.email, "mailto:" + @person.email unless @person.email.nil? %>
 </p>
 
 <p>

@@ -3,14 +3,6 @@ class Manager < ActiveRecord::Base
   before_save :blanks_to_nils
   validate :position, :presence => true
   
-  def get_shows
-    shows = Array.new
-    self.person.shows.each do |show|
-      shows.push show.title
-    end
-    return shows
-  end
-  
   def blanks_to_nils
      self.office_hours = nil if self.office_hours.blank?
      self.email = nil if self.email.blank?
@@ -24,7 +16,6 @@ class Manager < ActiveRecord::Base
         :office_hours => self.office_hours,
         :email => self.email,
         :phone => self.phone_number,
-        :shows => get_shows,
         :facebook => self.person.facebook_username,
         :twitter => self.person.twitter_username,
         :linkedin => self.person.linkedin_username,

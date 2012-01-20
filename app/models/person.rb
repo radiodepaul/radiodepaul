@@ -18,7 +18,7 @@ class Person < ActiveRecord::Base
   def get_shows
     shows = Array.new
     self.shows.each do |show|
-      shows.push [show.title, show.id.to_s, show.avatar.thumb.url]
+      shows.push :show_title => show.title, :show_id => show.id.to_s, :show_photo_thumb => show.avatar.thumb.url
     end
     return shows
   end
@@ -41,13 +41,13 @@ class Person < ActiveRecord::Base
       { :id => self.id,
         :name => self.first_last_name,
         :nickname => nickname,
+        :shows => get_shows,
         :bio => self.bio,
         :influences => self.influences,
         :major => self.major,
         :hometown => self.hometown,
         :class_year => self.class_year,
         :email => self.email,
-        :shows => get_shows,
         :facebook => self.facebook_username,
         :twitter => self.twitter_username,
         :linkedin => self.linkedin_username,

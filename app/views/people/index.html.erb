@@ -17,7 +17,7 @@
   <tr class="<%= cycle("even", "odd") %>">
     <td><%= link_to person.last_first_name, person %></td>
     <td><%= person.nickname %></td>
-    <td><%= link_to person.email, "mailto:" + person.email %></td>
+    <td><%= link_to person.email, "mailto:" + person.email unless person.email.nil? %></td>
 		<td><%= person.shows.count %></td>
     <td><%= link_to 'Show', person, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_person_path(person), :class => "action" %></td>
