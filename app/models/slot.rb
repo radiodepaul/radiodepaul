@@ -7,7 +7,7 @@ class Slot < ActiveRecord::Base
   end
   
   def time_days
-    return self.start_time.strftime("%I:%M%p %Z") + ' - ' + self.end_time.strftime("%I:%M%p %Z") + ' ' + get_days_airing_s
+    return get_days_airing_s + ' ' + self.start_time.strftime("%I:%M%p %Z") + ' - ' + self.end_time.strftime("%I:%M%p %Z")
   end
   
   validates :quarter, :presence => true 
