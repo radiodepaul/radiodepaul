@@ -63,6 +63,10 @@
 	    <%= attachment_form.label :description %><br />
 	    <%= attachment_form.text_area :description %>
 	    </p>
+			<p>
+	    <%= attachment_form.label :contributors %><br />
+	    <%= attachment_form.text_field :contributors %>
+	    </p>
 	    <p>
 	    <%= attachment_form.label :file %><br />
 			<%= link_to attachment_form.object.file.url if attachment_form.object.file?  %><br /><br />

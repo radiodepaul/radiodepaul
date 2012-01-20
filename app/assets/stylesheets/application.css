@@ -17,6 +17,9 @@ body {
 header {
 	height:120px;
 }
+div#content {
+	margin-top:60px;
+}
 #user_nav {
 	float:right;
 }

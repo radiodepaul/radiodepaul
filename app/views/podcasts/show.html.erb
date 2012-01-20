@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @podcast.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @podcast.description %>
+</p>
+
+<p>
+  <b>Contributors:</b>
+  <%= @podcast.contributors %>
+</p>
+
+<p>
+  <b>File:</b>
+	<% if @podcast.file? %>
+  	<%= link_to @podcast.file.url %>
+	<% else %>
+		No file attached
+	<% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_podcast_path(@podcast) %> |
+<%= link_to 'Back', podcasts_path %>
