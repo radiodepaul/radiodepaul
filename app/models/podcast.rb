@@ -8,4 +8,12 @@ class Podcast < ActiveRecord::Base
      self.contributors = nil if self.contributors.blank?
   end
   
+  def as_json(options={})
+       {:id => self.id,
+        :type => self.podcast_type,
+        :title => self.title,
+        :description => self.description,
+        :contributors => self.contributors,
+        :file_url => self.file.url}
+   end
 end

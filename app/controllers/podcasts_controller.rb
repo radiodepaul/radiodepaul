@@ -1,12 +1,16 @@
 class PodcastsController < ApplicationController
   # GET /podcasts
   # GET /podcasts.json
+  
+  respond_to :html, :xml, :json, :js
+  
   def index
     @podcasts = Podcast.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @podcasts }
+      format.js  { render :json => @podcasts, :callback => params[:callback] }
     end
   end
 
