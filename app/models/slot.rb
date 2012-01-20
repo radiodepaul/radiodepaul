@@ -6,6 +6,8 @@ class Slot < ActiveRecord::Base
     return self.quarter + ' between ' + self.start_time.strftime("%I:%M%p %Z") + ' and ' + self.end_time.strftime("%I:%M%p %Z") + " on " + get_days_airing_s
   end
   
+  validates :quarter, :presence => true 
+  
   def get_days_airing
     days_airing = Array.new
       if self.monday == true

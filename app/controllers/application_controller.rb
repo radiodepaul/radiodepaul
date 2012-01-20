@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def set_timezone
     Time.zone = 'Central Time (US & Canada)'
   end
-
+  
   private
 
   def current_user

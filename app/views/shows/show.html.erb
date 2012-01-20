@@ -18,37 +18,37 @@
 
 <p>
   <b>Genre:</b>
-  <%= @show.genre %>
+  <%= @show.genre unless @show.genre.nil? %>
 </p>
 
 <p>
   <b>Short description:</b>
-  <%= @show.short_description %>
+  <%= @show.short_description unless @show.short_description.nil? %>
 </p>
 
 <p>
   <b>Long description:</b>
-  <%= @show.long_description %>
+  <%= @show.long_description unless @show.long_description.nil? %>
 </p>
 
 <p>
   <b>Facebook page username:</b>
-  <%= link_to @show.facebook_page_username, "http://facebook.com/" + @show.facebook_page_username %>
+  <%= link_to @show.facebook_page_username, "http://facebook.com/" + @show.facebook_page_username unless @show.facebook_page_username.nil? %>
 </p>
 
 <p>
   <b>Email:</b>
-  <%= link_to @show.email, "mailto:" + @show.email %>
+  <%= link_to @show.email, "mailto:" + @show.email unless @show.email.nil? %>
 </p>
 
 <p>
   <b>Twitter username:</b>
-  <%= link_to @show.twitter_username, "http://twitter.com/" + @show.twitter_username %>
+  <%= link_to @show.twitter_username, "http://twitter.com/" + @show.twitter_username unless @show.twitter_username.nil? %>
 </p>
 
 <p>
   <b>Website url:</b>
-  <%= link_to @show.website_url, "http://" + @show.website_url %>
+  <%= link_to @show.website_url, "http://" + @show.website_url unless @show.website_url.nil? %>
 </p>
 
 <ul>

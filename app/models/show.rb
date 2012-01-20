@@ -7,9 +7,10 @@ class Show < ActiveRecord::Base
   has_many :slots, :through => :schedulings
   has_many :attachments, :as => :attachable, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
+  before_save :blanks_to_nils  
   mount_uploader :avatar, AvatarUploader
   
-  validates :title, :presence => true
+  validates :title, :presence => true, :uniqueness => true
 
   def get_hosts 
     hosts = Array.new
@@ -33,7 +34,17 @@ class Show < ActiveRecord::Base
     end
     return scheduled_slots
   end
-
+  
+  def blanks_to_nils
+     self.genre = nil if self.genre.blank?
+     self.short_description = nil if self.short_description.blank?
+     self.long_description = nil if self.long_description.blank?
+     self.facebook_page_username = nil if self.facebook_page_username.blank?
+     self.twitter_username = nil if self.twitter_username.blank?
+     self.email = nil if self.email.blank?
+     self.website_url = nil if self.website_url.blank?
+  end
+  
   def as_json(options={})
        {:id => self.id,
         :title => self.title,
@@ -52,5 +63,4 @@ class Show < ActiveRecord::Base
         :photo_medium => self.avatar.medium.url,
         :photo_large => self.avatar.large.url }
    end
-
 end

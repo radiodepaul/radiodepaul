@@ -1,5 +1,7 @@
 class Manager < ActiveRecord::Base
   belongs_to :person
+  before_save :blanks_to_nils
+  validate :position, :presence => true
   
   def get_shows
     shows = Array.new
@@ -7,6 +9,12 @@ class Manager < ActiveRecord::Base
       shows.push show.title
     end
     return shows
+  end
+  
+  def blanks_to_nils
+     self.office_hours = nil if self.office_hours.blank?
+     self.email = nil if self.email.blank?
+     self.phone_number = nil if self.phone_number.blank?
   end
   
   def as_json(options={})

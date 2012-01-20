@@ -1,7 +1,7 @@
 class Person < ActiveRecord::Base
   has_many :hostings, :dependent => :destroy
   has_many :shows, :through => :hostings
-  belongs_to :manager, :dependent => :destroy
+  before_save :blanks_to_nils
   mount_uploader :avatar, AvatarUploader
 
   def first_last_name
@@ -21,6 +21,20 @@ class Person < ActiveRecord::Base
       shows.push [show.title, show.id.to_s, show.avatar.thumb.url]
     end
     return shows
+  end
+  
+  def blanks_to_nils
+     self.nickname = nil if self.nickname.blank?
+     self.bio = nil if self.bio.blank?
+     self.influences = nil if self.influences.blank?
+     self.major = nil if self.major.blank?
+     self.hometown = nil if self.hometown.blank?
+     self.class_year = nil if self.class_year.blank?
+     self.email = nil if self.email.blank?
+     self.facebook_username = nil if self.facebook_username.blank?
+     self.twitter_username = nil if self.twitter_username.blank?
+     self.linkedin_username = nil if self.linkedin_username.blank?
+     self.website_url = nil if self.website_url.blank?
   end
 
   def as_json(options={})
