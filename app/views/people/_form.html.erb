@@ -12,59 +12,63 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :first_name %><br />
+    <b><%= f.label :first_name %></b><br />
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
+    <b><%= f.label :last_name %></b><br />
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :nickname %><br />
+    <b><%= f.label :nickname %></b><br />
     <%= f.text_field :nickname %>
   </div>
+	<div class="field">
+    <b>DePaul ID:</b><br />
+    <%= f.text_field :depaul_id %>
+  </div>
   <div class="field">
-    <%= f.label :bio %><br />
+    <b><%= f.label :bio %></b><br />
     <%= f.text_area :bio %>
   </div>
   <div class="field">
-    <%= f.label :influences %><br />
+    <b><%= f.label :influences %></b><br />
     <%= f.text_area :influences %>
   </div>
   <div class="field">
-    <%= f.label :facebook_username %><br />
+    <b><%= f.label :facebook_username %></b><br />
     <%= f.text_field :facebook_username %>
   </div>
   <div class="field">
-    <%= f.label :linkedin_username %><br />
+    <b><%= f.label :linkedin_username %></b><br />
     <%= f.text_field :linkedin_username %>
   </div>
   <div class="field">
-    <%= f.label :twitter_username %><br />
+    <b><%= f.label :twitter_username %></b><br />
     <%= f.text_field :twitter_username %>
   </div>
   <div class="field">
-    <%= f.label :website_url %><br />
+    <b><%= f.label :website_url %></b><br />
     <%= f.text_field :website_url %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <b><%= f.label :email %></b><br />
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :major %><br />
+    <b><%= f.label :major %></b><br />
     <%= f.text_field :major %>
   </div>
   <div class="field">
-    <%= f.label :class_year %><br />
+    <b><%= f.label :class_year %></b><br />
     <%= f.text_field :class_year %>
   </div>
   <div class="field">
-    <%= f.label :hometown %><br />
+    <b><%= f.label :hometown %></b><br />
     <%= f.text_field :hometown %>
   </div>
 	<div class="field">
-    <%= f.label :avatar %><br />
+    <b><%= f.label :avatar %></b><br />
 		<% if @person.avatar? %>
 			<%= image_tag(@person.avatar.thumb.url) %><br />
 			Remove Avatar<%= f.check_box :remove_avatar %><br/>

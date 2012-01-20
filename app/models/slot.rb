@@ -75,9 +75,15 @@ class Slot < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.show.people.each do |person|
-      hosts.push person.first_last_name
+      hosts.push :name => person.first_last_name, :id => person.id
     end
     return hosts
+  end
+  
+  def get_show
+    show = Array.new
+      show.push :title => self.show.title, :id => self.show.id
+    return show
   end
   
   
@@ -86,7 +92,7 @@ class Slot < ActiveRecord::Base
        :days  => get_days_airing,
        :start_time => self.start_time,
        :end_time => self.end_time,
-       :show => self.show.title,
+       :show => get_show,
        :hosts => get_hosts,
        :genre => self.show.genre,
        :short_description => self.show.short_description }

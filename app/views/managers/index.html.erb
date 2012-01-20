@@ -17,7 +17,7 @@
   <tr class="<%= cycle("even", "odd") %>">
 		<td><%= link_to manager.person.first_last_name, manager %></td>
     <td><%= manager.position %></td>
-    <td><%= link_to manager.email, "mailto:" + manager.email %></td>
+    <td><%= link_to manager.email, "mailto:" + manager.email unless manager.email.nil? %></td>
     <td><%= manager.phone_number %></td>
     <td><%= link_to 'Show', manager, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_manager_path(manager), :class => "action" %></td>

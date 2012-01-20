@@ -35,6 +35,7 @@ class Person < ActiveRecord::Base
      self.twitter_username = nil if self.twitter_username.blank?
      self.linkedin_username = nil if self.linkedin_username.blank?
      self.website_url = nil if self.website_url.blank?
+     self.depaul_id = nil if self.depaul_id.blank?
   end
 
   def as_json(options={})
