@@ -6,6 +6,10 @@ class Slot < ActiveRecord::Base
     return self.quarter + ' between ' + self.start_time.strftime("%I:%M%p %Z") + ' and ' + self.end_time.strftime("%I:%M%p %Z") + " on " + get_days_airing_s
   end
   
+  def time_days
+    return self.start_time.strftime("%I:%M%p %Z") + ' - ' + self.end_time.strftime("%I:%M%p %Z") + ' ' + get_days_airing_s
+  end
+  
   validates :quarter, :presence => true 
   
   def get_days_airing
@@ -37,25 +41,25 @@ class Slot < ActiveRecord::Base
   def get_days_airing_s
     days_airing = Array.new
       if self.monday == true
-        days_airing.push "Mon"
+        days_airing.push "Mondays"
       end
       if self.tuesday == true
-        days_airing.push "Tue"
+        days_airing.push "Tuesdays"
       end
       if self.wednesday == true
-        days_airing.push "Wed"
+        days_airing.push "Wednesdays"
       end
       if self.thursday == true
-        days_airing.push "Thu"
+        days_airing.push "Thursdays"
       end
       if self.friday == true
-        days_airing.push "Fri"
+        days_airing.push "Fridays"
       end
       if self.saturday == true
-        days_airing.push "Sat"
+        days_airing.push "Saturdays"
       end
       if self.sunday == true
-        days_airing.push "Sun"
+        days_airing.push "Sundays"
       end
       days_airing_s = ""
       days_airing.each do |d|
