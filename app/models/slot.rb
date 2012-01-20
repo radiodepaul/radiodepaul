@@ -1,6 +1,5 @@
 class Slot < ActiveRecord::Base
-  has_one :scheduling
-  has_one :show, :through => :scheduling
+  belongs_to :show
   
   def quarter_start_time_end_time
     return self.quarter + ' between ' + self.start_time.strftime("%I:%M%p %Z") + ' and ' + self.end_time.strftime("%I:%M%p %Z") + " on " + get_days_airing_s
@@ -11,6 +10,7 @@ class Slot < ActiveRecord::Base
   end
   
   validates :quarter, :presence => true 
+  validates :show_id, :presence => true
   
   def get_days_airing
     days_airing = Array.new
@@ -82,7 +82,7 @@ class Slot < ActiveRecord::Base
   
   def get_show
     show = Array.new
-      show.push :title => self.show.title, :id => self.show.id
+        show.push :title => self.show.title, :id => self.show.id
     return show
   end
   

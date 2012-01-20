@@ -3,8 +3,7 @@ class Show < ActiveRecord::Base
                   :twitter_username, :email, :website_url, :attachments_attributes, :avatar, :remove_avatar, :avatar_cache, :remote_avatar_url
   has_many :hostings, :dependent => :destroy
   has_many :people, :through => :hostings
-  has_many :schedulings, :dependent => :destroy
-  has_many :slots, :through => :schedulings
+  has_many :slots
   has_many :attachments, :as => :attachable, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
   before_save :blanks_to_nils  

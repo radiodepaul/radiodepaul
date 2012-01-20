@@ -10,11 +10,14 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :quarter %><br />
 		<%= select( :slot, :quarter, [ "", "AQ2011", "WQ2012", "SQ2012", "SS2012", "AQ2012", "WQ2013" ], :selected => "WQ2012") %>
   </div>
+	<div class="field">
+    <%= f.label :show_id %>
+		<%= collection_select(:slot, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %>
+	</div>
   <div class="field">
     <%= f.label :start_time %><br />
     <%= f.time_select :start_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>

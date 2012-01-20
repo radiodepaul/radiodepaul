@@ -1,8 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
   resources :podcasts
 
-  resources :schedulings
-
   get "pages/welcome"
 
   get "pages/home"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120120045041) do
+ActiveRecord::Schema.define(:version => 20120120154843) do
 
   create_table "attachments", :force => true do |t|
     t.string   "title"
@@ -62,13 +62,6 @@ ActiveRecord::Schema.define(:version => 20120120045041) do
     t.string   "depaul_id"
   end
 
-  create_table "schedulings", :force => true do |t|
-    t.integer  "show_id"
-    t.integer  "slot_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "shows", :force => true do |t|
     t.string   "title"
     t.string   "genre"
@@ -96,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20120120045041) do
     t.boolean  "sunday"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "show_id"
   end
 
   create_table "users", :force => true do |t|

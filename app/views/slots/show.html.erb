@@ -4,13 +4,10 @@
   <b>Quarter:</b>
   <%= @slot.quarter %>
 </p>
-
 <p>
   <b>Scheduled Show:</b>
   <%= @slot.show.title unless @slot.show.nil? %>
 </p>
-
-
 <p>
   <b>Start time:</b>
   <%= @slot.start_time.strftime("%I:%M%p %Z") %>
@@ -55,7 +52,6 @@
   <b>Sunday:</b>
   <%= @slot.sunday %>
 </p>
-
 
 <%= link_to 'Edit', edit_slot_path(@slot), :class => "action" %> |
 <%= link_to 'Back', slots_path, :class => "action" %>

@@ -1,4 +1,4 @@
-<h1>Time Slots</h1>
+<h1>Scheduled Shows</h1>
 <br />
 <%= link_to 'Add a New Time Slot', new_slot_path, :class => "action" %>
 <br /><br />
@@ -20,7 +20,7 @@
     <td><%= slot.start_time.strftime("%I:%M%p %Z") %></td>
     <td><%= slot.end_time.strftime("%I:%M%p %Z") %></td>
     <td><%= slot.get_days_airing_s %></td>
-		<td><%= slot.show.title unless slot.show.nil? %></td>
+		<td><%= slot.show.title %></td>
     <td><%= link_to 'Show', slot, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_slot_path(slot), :class => "action" %></td>
     <td><%= link_to 'Delete', slot, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
@@ -30,4 +30,4 @@
 
 <br />
 
-<%= link_to 'Add a New Time Slot', new_slot_path, :class => "action" %>
+<%= link_to 'Schedule a Show', new_slot_path, :class => "action" %>
