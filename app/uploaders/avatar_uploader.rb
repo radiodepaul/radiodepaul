@@ -22,11 +22,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def cache_dir
       "uploads/cache/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-  
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
 
   # Process files as they are uploaded:
    process :resize_to_fit => [800, 800]
@@ -34,8 +29,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   
    def filename
      super.chomp(File.extname(super)) + '.png' unless super.nil?
+     @name ||= "#{secure_token}.#{file.extension}" if original_filename.present?
    end
    
+  # Provide a default URL as a default if there hasn't been a file uploaded:
    def default_url
        "https://radiodepaul.s3.amazonaws.com/images/fallback/" + [version_name,"default.png"].compact.join('_')
    end
@@ -45,17 +42,20 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :large do
-    process :resize_to_fill => [600, 600]
-  end
-  version :medium do
-    process :resize_to_fill => [300, 300]
-  end
-  version :small do
-    process :resize_to_fill => [100, 100]
-  end
-  version :thumb do
-    process :resize_to_fill => [50, 50]
+  
+  version :square do
+    version :large do
+      process :resize_to_fit => [600, 600]
+    end
+    version :medium do
+      process :resize_to_fit => [300, 300]
+    end
+    version :small do
+      process :resize_to_fit => [150, 150]
+    end
+    version :thumb do
+      process :resize_to_fit => [50, 50]
+    end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -69,5 +69,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
+  protected
+  
+    def secure_token
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+    end
 end

@@ -70,7 +70,7 @@
 <p>
   <b>Photo:</b>
 	<% if @person.avatar? %>
-		<%= image_tag(@person.avatar.thumb.url) %><br />
+		<%= image_tag(@person.avatar.square.thumb.url) %><br />
 	<% else %>
 		No Photo Uploaded
 	<% end %>

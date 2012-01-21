@@ -70,7 +70,7 @@
 	<div class="field">
     <b><%= f.label :avatar %></b><br />
 		<% if @person.avatar? %>
-			<%= image_tag(@person.avatar.thumb.url) %><br />
+			<%= image_tag(@person.avatar.square.thumb.url) %><br />
 			Replace File: <%= f.file_field :avatar %><br />
 			<%= f.hidden_field :avatar_cache %>
 			Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
