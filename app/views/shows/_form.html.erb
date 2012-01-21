@@ -44,14 +44,19 @@
     <%= f.text_field :website_url %>
   </div>
 	<div class="field">
-    <%= f.label :avatar %><br />
+    <b>Photo:</b>
 		<% if @show.avatar? %>
 			<%= image_tag(@show.avatar.thumb.url) %><br />
-			Remove Avatar<%= f.check_box :remove_avatar %><br/>
-		<% end%>
-			Upload File: <%= f.file_field :avatar %><br />
+			Replace Photo: <%= f.file_field :avatar %><br />
 			<%= f.hidden_field :avatar_cache %>
-			Import from Web: <%= f.text_field :remote_avatar_url %>
+			Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
+			Remove Photo<%= f.check_box :remove_avatar %><br/>
+		<% else %>
+			Upload Photo: <%= f.file_field :avatar %><br />
+			<%= f.hidden_field :avatar_cache %>
+			Upload from URL: <%= f.text_field :remote_avatar_url %>
+		<% end %>
+			
 	</div>
 	<div class="field">
 	<%= f.fields_for :attachments do |attachment_form|  %>

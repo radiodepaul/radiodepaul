@@ -67,7 +67,14 @@
   <b>Hometown:</b>
   <%= @person.hometown %>
 </p>
-
+<p>
+  <b>Photo:</b>
+	<% if @person.avatar? %>
+		<%= image_tag(@person.avatar.thumb.url) %><br />
+	<% else %>
+		No Photo Uploaded
+	<% end %>
+</p>
 
 <%= link_to 'Edit', edit_person_path(@person), :class => "action" %> |
 <%= link_to 'Back', people_path, :class => "action" %>

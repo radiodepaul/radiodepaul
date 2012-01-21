@@ -50,6 +50,14 @@
   <b>Website url:</b>
   <%= link_to @show.website_url, "http://" + @show.website_url unless @show.website_url.nil? %>
 </p>
+<p>
+  <b>Photo:</b>
+	<% if @show.avatar? %>
+		<%= image_tag(@show.avatar.thumb.url) %><br />
+	<% else %>
+		No Photo Uploaded
+	<% end %>
+</p>
 
 <ul>
   <% for attachment in @show.attachments %>
