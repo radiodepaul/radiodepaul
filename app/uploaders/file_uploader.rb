@@ -19,7 +19,15 @@ class FileUploader < CarrierWave::Uploader::Base
   end
   
   def cache_dir
-      "#{Rails.root}/tmp/uploads"
+      "uploads/cache/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+  
+  def move_to_cache
+      true
+  end
+  
+  def move_to_store
+      true
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
