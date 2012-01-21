@@ -16,6 +16,11 @@
 </p>
 
 <p>
+  <b>Priority:</b>
+  <% if @podcast.priority? %>Yes<% else %>No<% end %>
+</p>
+
+<p>
   <b>File:</b>
 	<% if @podcast.file? %>
   	<%= link_to @podcast.file.url %>
@@ -25,5 +30,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_podcast_path(@podcast) %> |
-<%= link_to 'Back', podcasts_path %>
+<%= link_to 'Edit', edit_podcast_path(@podcast), :class => "action" %> |
+<%= link_to 'Back', podcasts_path, :class => "action" %>

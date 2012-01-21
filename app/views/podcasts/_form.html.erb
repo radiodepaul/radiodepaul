@@ -26,15 +26,23 @@
     <%= f.label :contributors %><br />
     <%= f.text_field :contributors %>
   </div>
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.check_box :priority %>
+  </div>
 	<div class="field">
     <b><%= f.label :file %></b><br />
 		<% if @podcast.file? %>
 				<%= link_to @podcast.file.url %><br />
-			Remove File<%= f.check_box :remove_file %><br/>
-		<% end %>
-			Upload File: <%= f.file_field :file %><br />
-			<%= f.hidden_field :file_cache %>
-			Import from Web: <%= f.text_field :remote_file_url %>
+				Replace From File: <%= f.file_field :file %><br />
+				<%= f.hidden_field :file_cache %>
+				Replace From URL: <%= f.text_field :remote_file_url %>
+				Remove File<%= f.check_box :remove_file %><br/>
+			<% else %>
+				Upload File: <%= f.file_field :file %><br />
+				<%= f.hidden_field :file_cache %>
+				Replace From URL: <%= f.text_field :remote_file_url %>
+			<% end %>
 	</div>
   <div class="actions">
     <%= submit_tag 'Save', :class => "form_submit" %>

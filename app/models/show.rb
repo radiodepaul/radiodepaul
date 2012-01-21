@@ -21,7 +21,8 @@ class Show < ActiveRecord::Base
   def get_podcasts 
     attachments = Array.new
     self.attachments.each do |attachment|
-      attachments.push attachment.file.url
+      x = {:title => attachment.title, :description => attachment.description, :contributors => attachment.description, :file_url => attachment.file.url}
+      attachments.push x
     end
     return attachments
   end

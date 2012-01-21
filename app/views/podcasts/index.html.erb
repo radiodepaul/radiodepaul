@@ -1,36 +1,36 @@
-<h1>Listing podcasts</h1>
-
+<h1>Podcasts</h1><br />
+<%= link_to 'New Podcast', new_podcast_path, :class => "action" %><br /><br />
 <table>
   <tr>
 		<th>Type</th>
     <th>Title</th>
-    <th>Description</th>
     <th>Contributors</th>
+		<th>Priority?</th>
     <th>File</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @podcasts.each do |podcast| %>
-  <tr>
+<% Podcast.find(:all, :order => 'created_at').each do |podcast| %>
+  <tr class="<%= cycle("even", "odd") %>">
     <td><%= podcast.podcast_type %></td>
 		<td><%= podcast.title %></td>
-    <td><%= podcast.description %></td>
     <td><%= podcast.contributors %></td>
+		<td><% if podcast.priority? %>Yes<% else %>No<% end %></td>
 		<% if podcast.file? %>
-	  	<td><%= link_to podcast.file.url %>
+	  	<td><%= link_to "Download File", podcast.file.url  %>
 		<% else %>
 			<td>No file attached</td>
 		<% end %>
     
-    <td><%= link_to 'Show', podcast %></td>
-    <td><%= link_to 'Edit', edit_podcast_path(podcast) %></td>
-    <td><%= link_to 'Destroy', podcast, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', podcast, :class => "action" %></td>
+    <td><%= link_to 'Edit', edit_podcast_path(podcast), :class => "action" %></td>
+    <td><%= link_to 'Destroy', podcast, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Podcast', new_podcast_path %>
+<%= link_to 'New Podcast', new_podcast_path, :class => "action" %>
