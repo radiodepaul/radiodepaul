@@ -53,7 +53,7 @@
 <p>
   <b>Photo:</b>
 	<% if @show.avatar? %>
-		<%= image_tag(@show.avatar.thumb.url) %><br />
+		<%= image_tag(@show.avatar.square.thumb.url) %><br />
 	<% else %>
 		No Photo Uploaded
 	<% end %>
