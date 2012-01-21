@@ -25,10 +25,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
    process :resize_to_fit => [800, 800]
-   process :convert => 'png'
+   process :convert => 'jpg'
   
    def filename
-     super.chomp(File.extname(super)) + '.png' unless super.nil?
+     super.chomp(File.extname(super)) + '.jpg' unless super.nil?
      @name ||= "#{secure_token}.#{file.extension}" if original_filename.present?
    end
    
