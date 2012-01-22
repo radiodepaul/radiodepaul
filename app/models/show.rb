@@ -14,7 +14,7 @@ class Show < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.people.each do |person|
-      hosts.push :name => person.first_last_name,:id => person.id.to_s, :photo_thumb => person.avatar.thumb.url
+      hosts.push :name => person.first_last_name,:id => person.id.to_s, :photo_thumb => person.avatar.squarethumb.url
     end
     return hosts
   end
@@ -58,9 +58,9 @@ class Show < ActiveRecord::Base
         :email => self.email,
         :website => self.website_url,
         :podcasts => get_podcasts,
-        :photo_thumb => self.avatar.thumb.url,
-        :photo_small => self.avatar.small.url,
-        :photo_medium => self.avatar.medium.url,
-        :photo_large => self.avatar.large.url }
+        :photo_thumb => self.avatar.squarethumb.url,
+        :photo_small => self.avatar.squaresmall.url,
+        :photo_medium => self.avatar.squaremedium.url,
+        :photo_large => self.avatar.squarelarge.url }
    end
 end

@@ -53,10 +53,10 @@ class Person < ActiveRecord::Base
         :twitter => self.twitter_username,
         :linkedin => self.linkedin_username,
         :website => self.website_url,
-        :photo_thumb => self.avatar.thumb.url,
-        :photo_small => self.avatar.small.url,
-        :photo_medium => self.avatar.medium.url,
-        :photo_large => self.avatar.large.url }
+        :photo_thumb => self.avatar.square.thumb.url,
+        :photo_small => self.avatar.square.small.url,
+        :photo_medium => self.avatar.square.medium.url,
+        :photo_large => self.avatar.square.large.url }
   end
 
 end
