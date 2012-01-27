@@ -96,7 +96,7 @@ class SlotsController < ApplicationController
   end
   
   def current
-    @slots = Slot.find(:all, :conditions => ["quarter=?", "WQ2012"])
+    @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
 
     respond_to do |format|
       format.json { render json: @slots, :callback => params[:callback] }
