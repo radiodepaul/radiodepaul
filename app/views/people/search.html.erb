@@ -1,9 +1,9 @@
 <h1>Search Staff</h1>
 <%= form_tag search_people_path, :method => 'get' do %>
-    <p> 
+    <div id ="search"> 
 		<%= text_field_tag :search_text %>
 		<%= submit_tag 'Search', :class => "form_submit" %>
-     </p>
+     </div>
 <% end %>
 <% if @people %>
 	<% if @people.length > 0 %>

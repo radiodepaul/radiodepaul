@@ -1,9 +1,9 @@
 <h1>Search Shows</h1>
 <%= form_tag search_shows_path, :method => 'get' do %>
-    <p> 
+    <div id ="search"> 
 		<%= text_field_tag :search_text %>
 		<%= submit_tag 'Search', :class => "form_submit" %>
-     </p>
+     </div>
 <% end %>
 <% if @shows %>
 	<% if @shows.length > 0 %>
