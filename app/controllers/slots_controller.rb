@@ -104,4 +104,19 @@ class SlotsController < ApplicationController
     end
   end
   
+  def now_playing
+    current_day = Time.now.strftime("%A").downcase!
+      @slot = Slot.find(:all, :conditions => ["start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Time.now, Time.now])
+    
+    respond_to do |format|
+      format.html {
+          render :html => @slot
+      } # show.html.erb
+      format.js { render :json => @slot, :callback => params[:callback] }
+      format.json  { render :json => @slot }
+      format.xml  { render :xml => @slot }
+    end
+    
+  end
+  
 end

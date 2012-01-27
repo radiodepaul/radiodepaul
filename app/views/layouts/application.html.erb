@@ -20,6 +20,9 @@
 	  <% end %>
 	</div>
 	<p>It is now <%= Time.now.strftime("%I:%M%p %Z") %></p>
+	<% flash.each do |name, msg| %>
+	  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+	<% end %>
 	<nav>
 		<ul>
 			<li><%= link_to "Shows", shows_path %></li>
@@ -32,9 +35,6 @@
 		</ul>
 	</nav>
 	<p id="head"><%= link_to 'Radio DePaul', home_path %></p>
-	<% flash.each do |name, msg| %>
-	  <%= content_tag :div, msg, :id => "flash_#{name}" %>
-	<% end %>
 </header>
 <div id="content">
 <%= yield %>

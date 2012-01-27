@@ -12,6 +12,7 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :slots do
     collection do
       get 'current'
+      get 'now_playing'
     end
   end
 

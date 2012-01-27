@@ -2,6 +2,9 @@ class PagesController < ApplicationController
   layout :resolve_layout
   
   def welcome
+    if logged_in?
+      redirect_to home_path
+    end
   end
 
   def home

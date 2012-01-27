@@ -19,7 +19,6 @@
     <th></th>
     <th></th>
   </tr>
-
 <% Person.find(:all, :order => 'last_name').each do |person| %>
   <tr class="<%= cycle("even", "odd") %>">
 		<td><%= image_tag(person.avatar.square.thumb.url) if person.avatar? %></td>
@@ -33,7 +32,5 @@
   </tr>
 <% end %>
 </table>
-
 <br />
-
 <%= link_to 'Add a New Person', new_person_path, :class => "action" %>
