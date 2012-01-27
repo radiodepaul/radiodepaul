@@ -14,10 +14,20 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :managers
 
   resources :hostings
+  
+  resources :people do
+    collection do
+      get 'random'
+      get 'search'
+    end
+  end
 
-  resources :people
-
-  resources :shows
+  resources :shows do
+    collection do
+      get 'random'
+      get 'search'
+    end
+  end
   
   get "home" => "pages#home", :as => "home"
   

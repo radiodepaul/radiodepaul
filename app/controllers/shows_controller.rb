@@ -107,4 +107,26 @@ class ShowsController < ApplicationController
       end
     end
   end
+  
+  def random
+      show_ids = Show.find( :all, :select => 'id' ).map( &:id )
+      @shows = Show.find( (1..5).map { show_ids.delete_at( show_ids.size * rand ) } )
+
+      respond_to do |format|
+        format.html {
+            render :html => @shows
+        } # show.html.erb
+        format.js { render :json => @shows, :callback => params[:callback] }
+        format.json  { render :json => @shows }
+        format.xml  { render :xml => @shows }
+      end
+  end
+  
+  def search
+    if params[:search_text] && params[:search_text] != ""
+      match_term =  "%" + params[:search_text] + "%"
+      @shows = Show.find(:all, :conditions => ["title like ?", match_term])
+    end
+  end
+  
 end

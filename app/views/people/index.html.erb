@@ -1,3 +1,9 @@
+<%= form_tag search_people_path, :method => 'get' do %>
+    <div id ="search"> 
+		<%= text_field_tag :search_text %>
+		<%= submit_tag 'Search', :class => "form_submit" %>
+     </div>
+<% end %>
 <h1>People</h1>
 <br />
 <%= link_to 'Add a New Person', new_person_path, :class => "action" %>

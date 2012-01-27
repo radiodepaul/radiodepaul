@@ -86,7 +86,6 @@ class Slot < ActiveRecord::Base
     return show
   end
   
-  
   def as_json(options={})
       {:quarter => self.quarter,
        :days  => get_days_airing,

@@ -17,6 +17,9 @@ body {
 header {
 	height:120px;
 }
+#search {
+	float:right;
+}
 #user_nav {
 	float:right;
 }

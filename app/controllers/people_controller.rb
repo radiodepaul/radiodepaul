@@ -93,4 +93,27 @@ class PeopleController < ApplicationController
       #format.json { head :ok }
     end
   end
+  
+  def random
+      person_ids = Person.find( :all, :select => 'id' ).map( &:id )
+      @people = Person.find( (1..5).map { person_ids.delete_at( person_ids.size * rand ) } )
+
+      respond_to do |format|
+        format.html {
+            render :html => @people
+        } # show.html.erb
+        format.js { render :json => @people, :callback => params[:callback] }
+        format.json  { render :json => @people }
+        format.xml  { render :xml => @people }
+      end
+  end
+  
+  def search
+    if params[:search_text] && params[:search_text] != ""
+      match_term =  "%" + params[:search_text] + "%"
+      @people = Person.find(:all, :conditions => ["first_name like ?", match_term]) + Person.find(:all, :conditions => ["last_name like ?", match_term])
+    end
+  end
+  
+  
 end

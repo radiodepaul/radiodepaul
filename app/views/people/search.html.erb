@@ -1,0 +1,43 @@
+<h1>Search Staff</h1>
+<%= form_tag search_people_path, :method => 'get' do %>
+    <p> 
+		<%= text_field_tag :search_text %>
+		<%= submit_tag 'Search', :class => "form_submit" %>
+     </p>
+<% end %>
+<% if @people %>
+	<% if @people.length > 0 %>
+		<% if @people.length == 1 %>
+			<h1>Found <%= @people.length %> Match for "<%= params[:search_text]%>"</h1>
+		<% else %>
+			<h1>Found <%= @shows.length %> Matches for "<%= params[:search_text]%>"</h1>
+		<% end %>
+		<table>
+		  <tr>
+				<th></th>
+		    <th>Name</th>
+		    <th>Nickname</th>
+		    <th>Email</th>
+				<th># Shows</th>
+		    <th></th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+
+		<% @people.each do |person| %>
+		  <tr class="<%= cycle("even", "odd") %>">
+				<td><%= image_tag(person.avatar.square.thumb.url) if person.avatar? %></td>
+		    <td><%= link_to person.last_first_name, person %></td>
+		    <td><%= person.nickname %></td>
+		    <td><%= link_to person.email, "mailto:" + person.email unless person.email.nil? %></td>
+				<td><%= person.shows.count %></td>
+		    <td><%= link_to 'Show', person, :class => "action" %></td>
+		    <td><%= link_to 'Edit', edit_person_path(person), :class => "action" %></td>
+		    <td><%= link_to 'Delete', person, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
+		  </tr>
+		<% end %>
+		</table>
+	<% else %>
+		<p>Your search returned no results.</p>
+	<% end %>
+<% end %>

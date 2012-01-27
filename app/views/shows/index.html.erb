@@ -1,3 +1,9 @@
+<%= form_tag search_shows_path, :method => 'get' do %>
+    <div id ="search"> 
+		<%= text_field_tag :search_text %>
+		<%= submit_tag 'Search', :class => "form_submit" %>
+     </div>
+<% end %>
 <h1>Shows</h1>
 <br />
 <%= link_to 'Add a New Show', new_show_path, :class => "action" %>

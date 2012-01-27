@@ -1,0 +1,45 @@
+<h1>Search Shows</h1>
+<%= form_tag search_shows_path, :method => 'get' do %>
+    <p> 
+		<%= text_field_tag :search_text %>
+		<%= submit_tag 'Search', :class => "form_submit" %>
+     </p>
+<% end %>
+<% if @shows %>
+	<% if @shows.length > 0 %>
+		<% if @shows.length == 1 %>
+			<h1>Found <%= @shows.length %> Match for "<%= params[:search_text]%>"</h1>
+		<% else %>
+			<h1>Found <%= @shows.length %> Matches for "<%= params[:search_text]%>"</h1>
+		<% end %>
+		<table>
+		  <tr>
+				<th></th>
+		    <th>Title</th>
+		    <th>Genre</th>
+		    <th>Email</th>
+				<th># Hosts</th>
+				<th># Slots</th>
+		    <th></th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+
+		<% @shows.each do |show| %>
+		  <tr class="<%= cycle("even", "odd") %>">
+				<td><%= image_tag(show.avatar.square.thumb.url) if show.avatar? %></td>
+		    <td><%= link_to show.title, show %></td>
+		    <td><%= show.genre %></td>
+		    <td><%= show.email %></td>
+				<td><%= show.people.count %></td>
+				<td><%= show.slots.count %></td>
+		    <td><%= link_to 'Show', show, :class => "action" %></td>
+		    <td><%= link_to 'Edit', edit_show_path(show), :class => "action" %></td>
+		    <td><%= link_to 'Delete', show, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
+		  </tr>
+		<% end %>
+		</table>
+	<% else %>
+		<p>Your search returned no results.</p>
+	<% end %>
+<% end %>
