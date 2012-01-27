@@ -96,6 +96,7 @@ class SlotsController < ApplicationController
   end
   
   def current
+    @slot = Slot.find(params[:id])
     @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
 
     respond_to do |format|
@@ -107,6 +108,10 @@ class SlotsController < ApplicationController
   def now_playing
     current_day = Time.now.strftime("%A").downcase!
       @slot = Slot.find(:all, :conditions => ["start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Time.now, Time.now])
+      if @slot.length < 0
+        @slot = [{:show => { :title => "HAL 2012", :id => "10", :hosts => [{:name => "HAL 2012",:id =>"10"}], :genre => "Indie, College, Hip Hop", :short_description => "Hal 2011 is our automated system that plays when we don't have live shows. Hal is loaded with the newest and best tunes. Enjoy!", :photo => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_small_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg" }
+        }]
+      end
     
     respond_to do |format|
       format.html {
