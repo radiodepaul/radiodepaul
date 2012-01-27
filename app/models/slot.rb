@@ -83,8 +83,8 @@ class Slot < ActiveRecord::Base
   def as_json(options={})
       {:quarter => self.quarter,
        :days  => get_days_airing,
-       :start_time => self.start_time,
-       :end_time => self.end_time,
+       :start_time => self.start_time.strftime("%I:%M%p %Z"),
+       :end_time => self.end_time.strftime("%I:%M%p %Z"),
        :show => { :title => self.show.title, :id => self.show.id, :hosts => get_hosts, :genre => self.show.genre, :short_description => self.show.short_description }
       }
   end
