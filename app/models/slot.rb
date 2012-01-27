@@ -80,18 +80,12 @@ class Slot < ActiveRecord::Base
     return hosts
   end
   
-  def get_show
-    show = Array.new
-        show.push :title => self.show.title, :id => self.show.id
-    return show
-  end
-  
   def as_json(options={})
       {:quarter => self.quarter,
        :days  => get_days_airing,
        :start_time => self.start_time,
        :end_time => self.end_time,
-       :show => get_show,
+       :show => {:title => self.show.title, :id => self.show.id},
        :hosts => get_hosts,
        :genre => self.show.genre,
        :short_description => self.show.short_description }
