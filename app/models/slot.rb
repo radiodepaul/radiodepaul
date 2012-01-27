@@ -85,10 +85,8 @@ class Slot < ActiveRecord::Base
        :days  => get_days_airing,
        :start_time => self.start_time,
        :end_time => self.end_time,
-       :show => {:title => self.show.title, :id => self.show.id},
-       :hosts => get_hosts,
-       :genre => self.show.genre,
-       :short_description => self.show.short_description }
+       :show => { :title => self.show.title, :id => self.show.id, :hosts => get_hosts, :genre => self.show.genre, :short_description => self.show.short_description }
+      }
   end
   
 end
