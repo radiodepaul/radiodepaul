@@ -9,7 +9,11 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "users/new"
 
-  resources :slots
+  resources :slots do
+    collection do
+      get 'current'
+    end
+  end
 
   resources :managers
 

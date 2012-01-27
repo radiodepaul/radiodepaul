@@ -6,7 +6,7 @@ class SlotsController < ApplicationController
   respond_to :html, :xml, :json, :js
   
   def index
-    @slots = Slot.all
+    @slots = Slot.find(:all, :order => 'start_time')
 
     respond_to do |format|
       format.html {
@@ -15,7 +15,7 @@ class SlotsController < ApplicationController
         end
       } # show.html.erb
       format.json { render json: @slots, :callback => params[:callback] }
-      format.js  { render :json => @slots, :callback => params[:callback] }
+      format.js  { render json: @slots, :callback => params[:callback] }
     end
   end
 
@@ -94,4 +94,14 @@ class SlotsController < ApplicationController
       #format.json { head :ok }
     end
   end
+  
+  def current
+    @slots = Slot.find(:all, :conditions => ["quarter=?", "WQ2012"])
+
+    respond_to do |format|
+      format.json { render json: @slots, :callback => params[:callback] }
+      format.js  { render json: @slots, :callback => params[:callback] }
+    end
+  end
+  
 end
