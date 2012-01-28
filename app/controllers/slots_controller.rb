@@ -96,7 +96,6 @@ class SlotsController < ApplicationController
   end
   
   def current
-    @slot = Slot.find(params[:id])
     @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
 
     respond_to do |format|
