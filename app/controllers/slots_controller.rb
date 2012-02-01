@@ -101,6 +101,7 @@ class SlotsController < ApplicationController
     respond_to do |format|
       format.json { render json: @slots, :callback => params[:callback] }
       format.js  { render json: @slots, :callback => params[:callback] }
+      format.xml  { render :xml => @slot }
     end
   end
   
@@ -113,9 +114,6 @@ class SlotsController < ApplicationController
       end
     
     respond_to do |format|
-      format.html {
-          render :html => @slot
-      } # show.html.erb
       format.js { render :json => @slot, :callback => params[:callback] }
       format.json  { render :json => @slot }
       format.xml  { render :xml => @slot }

@@ -9,6 +9,14 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
   
+  def first_last_name
+    return self.first_name + ' ' + self.last_name
+  end
+
+  def last_first_name
+    return self.last_name + ', ' + self.first_name
+  end
+  
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
@@ -18,6 +26,8 @@ class User < ActiveRecord::Base
     end
   end
   
+  private
+  
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
@@ -25,12 +35,4 @@ class User < ActiveRecord::Base
     end
   end
   
-  def first_last_name
-    return self.first_name + ' ' + self.last_name
-  end
-
-  def last_first_name
-    return self.last_name + ', ' + self.first_name
-  end
-
 end
