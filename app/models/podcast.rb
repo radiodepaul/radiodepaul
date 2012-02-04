@@ -17,7 +17,7 @@ class Podcast < ActiveRecord::Base
        {:id => self.id,
         :type => self.podcast_type,
         :title => self.title,
-        :description => convert_markdown(self.description) unless self.description.nil?,
+        :description => self.description,
         :contributors => self.contributors,
         :file_url => self.file.url}
    end

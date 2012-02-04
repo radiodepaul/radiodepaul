@@ -57,7 +57,7 @@ class Show < ActiveRecord::Base
         :hosts => get_hosts,
         :scheduled_slots => get_scheduled_slots,
         :short_description => self.short_description,
-        :long_description => convert_markdown(self.long_description) unless self.long_description.nil?,
+        :long_description => self.long_description,
         :facebook => self.facebook_page_username,
         :twitter => self.twitter_username,
         :email => self.email,
