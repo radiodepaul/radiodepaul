@@ -48,7 +48,7 @@ class Person < ActiveRecord::Base
         :name => self.first_last_name,
         :nickname => nickname,
         :shows => get_shows,
-        :bio => convert_markdown(self.bio),
+        :bio => convert_markdown(self.bio) unless self.bio.nil?,
         :influences => self.influences,
         :major => self.major,
         :hometown => self.hometown,
