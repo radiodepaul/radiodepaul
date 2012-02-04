@@ -11,6 +11,11 @@ class Show < ActiveRecord::Base
   
   validates :title, :presence => true, :uniqueness => true
 
+  def convert_markdown(input)
+    markdown = RDiscount.new(input)
+    return markdown.to_html
+  end
+
   def get_hosts 
     hosts = Array.new
     self.people.each do |person|
@@ -51,7 +56,7 @@ class Show < ActiveRecord::Base
         :genre => self.genre,
         :hosts => get_hosts,
         :scheduled_slots => get_scheduled_slots,
-        :short_description => self.short_description,
+        :short_description => convert_markdown(self.short_description),
         :long_description => self.long_description,
         :facebook => self.facebook_page_username,
         :twitter => self.twitter_username,

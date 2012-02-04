@@ -11,6 +11,11 @@ class Person < ActiveRecord::Base
   def last_first_name
     return self.last_name + ', ' + self.first_name
   end
+  
+  def convert_markdown(input)
+    markdown = RDiscount.new(input)
+    return markdown.to_html
+  end
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -43,7 +48,7 @@ class Person < ActiveRecord::Base
         :name => self.first_last_name,
         :nickname => nickname,
         :shows => get_shows,
-        :bio => self.bio,
+        :bio => convert_markdown(self.bio),
         :influences => self.influences,
         :major => self.major,
         :hometown => self.hometown,

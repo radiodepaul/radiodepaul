@@ -8,11 +8,16 @@ class Podcast < ActiveRecord::Base
      self.contributors = nil if self.contributors.blank?
   end
   
+  def convert_markdown(input)
+    markdown = RDiscount.new(input)
+    return markdown.to_html
+  end
+  
   def as_json(options={})
        {:id => self.id,
         :type => self.podcast_type,
         :title => self.title,
-        :description => self.description,
+        :description => convert_markdown(self.description),
         :contributors => self.contributors,
         :file_url => self.file.url}
    end

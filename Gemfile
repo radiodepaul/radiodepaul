@@ -11,11 +11,11 @@ end
 group :development, :test do
   gem 'sqlite3'
 end
+gem 'rdiscount', :require => 'rdiscount'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'rabl'
 gem 'json'
 gem 'thin'
-#gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'carrierwave'
 gem 'rmagick'
 gem 'fog'
