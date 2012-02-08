@@ -34,7 +34,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
    
   # Provide a default URL as a default if there hasn't been a file uploaded:
    def default_url
-       "https://radiodepaul.s3.amazonaws.com/images/fallback/" + [version_name,"default.jpg"].compact.join('_')
+       "https://radiodepaul.s3.amazonaws.com/img/fallback/" + [version_name,"default.jpg"].compact.join('_')
    end
   #
   # def scale(width, height)
