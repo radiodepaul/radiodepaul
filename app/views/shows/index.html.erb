@@ -21,7 +21,7 @@
     <th></th>
   </tr>
 
-<% Show.find(:all, :order => 'title').each do |show| %>
+<% @shows.each do |show| %>
   <tr class="<%= cycle("even", "odd") %>">
 		<td><%= image_tag(show.avatar.square.thumb.url) if show.avatar? %></td>
     <td><%= link_to show.title, show %></td>

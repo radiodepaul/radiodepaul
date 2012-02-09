@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
   respond_to :html, :xml, :json, :js
   
   def index
-    @shows = Show.all
+    @shows = Show.find(:all, :order => 'title')
 
     respond_to do |format|
       format.html {

@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   respond_to :html, :xml, :json, :js
   
   def index
-    @people = Person.all
+    @people = Person.find(:all, :order => 'first_name')
 
     respond_to do |format|
       format.html {
@@ -13,8 +13,9 @@ class PeopleController < ApplicationController
           render :html => @people
         end
       } # show.html.erb
-      format.json { render json: @people, :callback => params[:callback] }
       format.js { render json: @people, :callback => params[:callback] }
+      format.json { render json: @people, :callback => params[:callback] }
+      format.xml  { render :xml => @people }
     end
   end
 
