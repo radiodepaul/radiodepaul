@@ -83,8 +83,7 @@ class ManagersController < ApplicationController
   end
   
   def random
-      manager_ids = Manager.find( :all, :select => 'id' ).map( &:id )
-      @managers = Manager.find( (1..5).map { manager_ids.delete_at( manager_ids.size * rand ) } )
+      @managers = Manager.find(:all, :order => 'random()')
 
       respond_to do |format|
         format.html {
