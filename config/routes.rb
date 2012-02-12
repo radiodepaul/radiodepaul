@@ -16,7 +16,11 @@ RadioDePaulWebsite2::Application.routes.draw do
     end
   end
 
-  resources :managers
+  resources :managers do
+    collection do
+      get 'random'
+    end
+  end
 
   resources :hostings
   

@@ -81,7 +81,21 @@ class ManagersController < ApplicationController
       end
     end
   end
+  
+  def random
+      manager_ids = Manager.find( :all, :select => 'id' ).map( &:id )
+      @managers = Manager.find( (1..5).map { manager_ids.delete_at( manager_ids.size * rand ) } )
 
+      respond_to do |format|
+        format.html {
+            render :html => @managers
+        } # show.html.erb
+        format.js { render :json => @managers, :callback => params[:callback] }
+        format.json  { render :json => @managers }
+        format.xml  { render :xml => @managers }
+      end
+  end
+  
   # DELETE /managers/1
   # DELETE /managers/1.json
   def destroy
