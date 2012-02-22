@@ -18,7 +18,7 @@ class Podcast < ActiveRecord::Base
         :type => self.podcast_type,
         :title => self.title,
         :description => self.description,
-        :contributors => self.contributors,
+        :contributors => self.contributors + " // " + self.description,
         :file_url => self.file.url}
    end
 end
