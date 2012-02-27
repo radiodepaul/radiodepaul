@@ -21,7 +21,7 @@
   </tr>
 <% @people.each do |person| %>
   <tr class="<%= cycle("even", "odd") %>">
-		<td><%= image_tag(person.avatar.square.thumb.url) if person.avatar? %></td>
+		<td><%= image_tag(person.avatar.square.thumb.url) %></td>
     <td><%= link_to person.last_first_name, person %></td>
     <td><%= person.nickname %></td>
     <td><%= link_to person.email, "mailto:" + person.email unless person.email.nil? %></td>

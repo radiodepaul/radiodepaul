@@ -15,7 +15,7 @@
   </tr>
 <% @managers.each do |manager| %>
   <tr class="<%= cycle("even", "odd") %>">
-		<td><%= image_tag(manager.person.avatar.square.thumb.url) if manager.person.avatar? %></td>
+		<td><%= image_tag(manager.person.avatar.square.thumb.url) %></td>
 		<td><%= link_to manager.person.first_last_name, manager %></td>
     <td><%= manager.position %></td>
     <td><%= link_to manager.email, "mailto:" + manager.email unless manager.email.nil? %></td>
