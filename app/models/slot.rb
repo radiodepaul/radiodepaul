@@ -75,7 +75,7 @@ class Slot < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.show.people.each do |person|
-      hosts.push :name => person.first_last_name, :id => person.id
+      hosts.push :name => person.first_last_name, :id => person.id, :photo_thumb => person.avatar.square.thumb.url
     end
     return hosts
   end
