@@ -115,6 +115,37 @@ class PeopleController < ApplicationController
       @people = Person.find(:all, :conditions => ["first_name like ?", match_term]) + Person.find(:all, :conditions => ["last_name like ?", match_term])
     end
   end
-  
+
+  def getList
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      @people = Person.find(:all, :order => 'first_name')
+      format.js { render json: @people, :callback => params[:callback] }
+      format.json { render json: @people, :callback => params[:callback] }
+      format.xml  { render :xml => @people }
+    end
+  end
+
+  # GET /people/1
+  # GET /people/1.json
+  def getPerson
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      @person = Person.find(params[:id])
+      format.json { render json: @person, :callback => params[:callback] }
+      format.js { render json: @person, :callback => params[:callback] }
+    end
+  end
+
+  def getRandom
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      person_ids = Person.find( :all, :select => 'id' ).map( &:id )
+      @people = Person.find( (1..5).map { person_ids.delete_at( person_ids.size * rand ) } )
+      format.js { render :json => @people, :callback => params[:callback] }
+      format.json  { render :json => @people }
+      format.xml  { render :xml => @people }
+    end
+  end
   
 end

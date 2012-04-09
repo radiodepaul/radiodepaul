@@ -15,7 +15,6 @@ class ShowsController < ApplicationController
       } # show.html.erb
       format.js  { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
-      format.xml  { render :xml => @shows }
     end
 
   end
@@ -33,7 +32,6 @@ class ShowsController < ApplicationController
       } # show.html.erb
       format.js  { render :json => @show, :callback => params[:callback] }
       format.json  { render :json => @show }
-      format.xml  { render :xml => @show }
     end
     
   end
@@ -62,6 +60,7 @@ class ShowsController < ApplicationController
   # POST /shows.json
   def create
     if logged_in?
+      @show.people = People.find(@params[:show_ids]) if @params[:show_ids]
       @show = Show.new(params[:show])
 
       respond_to do |format|
@@ -80,6 +79,7 @@ class ShowsController < ApplicationController
   # PUT /shows/1.json
   def update
     if logged_in?
+      @show.people = People.find(@params[:show_ids]) if @params[:show_ids]
       @show = Show.find(params[:id])
 
       respond_to do |format|
@@ -115,10 +115,9 @@ class ShowsController < ApplicationController
       respond_to do |format|
         format.html {
             render :html => @shows
-        } # show.html.erb
+        }
         format.js { render :json => @shows, :callback => params[:callback] }
         format.json  { render :json => @shows }
-        format.xml  { render :xml => @shows }
       end
   end
   
@@ -126,6 +125,34 @@ class ShowsController < ApplicationController
     if params[:search_text] && params[:search_text] != ""
       match_term =  "%" + params[:search_text] + "%"
       @shows = Show.find(:all, :conditions => ["title like ?", match_term])
+    end
+  end
+
+  def getShow
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      @show = Show.find(params[:id])
+      format.js  { render :json => @show, :callback => params[:callback] }
+      format.json  { render :json => @show }
+    end
+  end
+
+  def getList
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      @shows = Show.find(:all, :order => 'title')
+      format.js  { render :json => @shows, :callback => params[:callback] }
+      format.json  { render :json => @shows }
+    end
+  end
+
+  def getRandom
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      show_ids = Show.find( :all, :select => 'id' ).map( &:id )
+      @shows = Show.find( (1..5).map { show_ids.delete_at( show_ids.size * rand ) } )
+      format.js { render :json => @shows, :callback => params[:callback] }
+      format.json  { render :json => @shows }
     end
   end
   

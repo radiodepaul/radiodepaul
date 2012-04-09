@@ -84,4 +84,14 @@ class PodcastsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def getPodcasts
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      @podcasts = Podcast.all
+      format.json { render json: @podcasts, :callback => params[:callback] }
+      format.js  { render :json => @podcasts, :callback => params[:callback] }
+    end
+  end
+
 end

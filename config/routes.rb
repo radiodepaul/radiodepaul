@@ -5,6 +5,8 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "pages/home"
 
+  get "pages/api"
+
   get "sessions/new"
 
   get "users/new"
@@ -15,6 +17,17 @@ RadioDePaulWebsite2::Application.routes.draw do
       get 'now_playing'
     end
   end
+
+  get "api/getSchedule" => "slots#getSchedule", :as => "getSchedule"
+  get "api/getOnAir" => "slots#getOnAir", :as => "getOnAir"
+  get "api/shows/getShow" => "shows#getShow", :as => "getShow"
+  get "api/shows/getList" => "shows#getList", :as => "getList"
+  get "api/shows/getRandom" => "shows#getRandom", :as => "getRandom"
+  get "api/people/getPerson" => "people#getPerson", :as => "getPerson"
+  get "api/people/getList" => "people#getList", :as => "getList"
+  get "api/people/getRandom" => "people#getRandom", :as => "getRandom"
+  get "api/people/getManagers" => "managers#getManagers", :as => "getManagers"
+  get "api/getPodcasts" => "podcasts#getPodcasts", :as => "getPodcasts"
 
   resources :managers do
     collection do

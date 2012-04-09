@@ -106,4 +106,18 @@ class ManagersController < ApplicationController
       #format.json { head :ok }
     end
   end
+
+def getManagers
+    respond_to do |format|
+      format.html { redirect_to pages_api_path}
+      if params[:id] == "normal"
+        @managers = Manager.all
+      else
+        @managers = Manager.find(:all, :order => 'random()')
+      end
+      format.json { render json: @managers, :callback => params[:callback] }
+      format.js { render json: @managers, :callback => params[:callback] }
+    end
+  end
+
 end

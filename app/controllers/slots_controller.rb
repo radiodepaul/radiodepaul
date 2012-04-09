@@ -99,11 +99,14 @@ class SlotsController < ApplicationController
     @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
 
     respond_to do |format|
+      format.html { render json: @slots }
       format.json { render json: @slots, :callback => params[:callback] }
       format.js  { render json: @slots, :callback => params[:callback] }
       format.xml  { render :xml => @slot }
     end
   end
+
+  
   
   def now_playing
     current_day = Time.now.strftime("%A").downcase!
@@ -120,5 +123,30 @@ class SlotsController < ApplicationController
     end
     
   end
-  
+
+  # API
+
+  def getSchedule
+    respond_to do |format|
+      format.html { redirect_to pages_api_path }
+      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
+      format.json { render json: @slots, :callback => params[:callback] }
+      format.js  { render json: @slots, :callback => params[:callback] }
+    end
+  end
+
+  def getOnAir
+    respond_to do |format|
+      format.html { redirect_to pages_api_path }
+      current_day = Time.now.strftime("%A").downcase!
+      @slot = Slot.find(:all, :conditions => ["start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Time.now, Time.now])
+      unless @slot.length > 0 then
+        @slot = [{:show => { :title => "HAL 2012", :id => "10", :hosts => [{:name => "HAL 2012",:id => "58", :photo_thumb => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_thumb_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg"}], :genre => "Indie, College, Hip Hop", :short_description => "Hal 2011 is our automated system that plays when we don't have live shows. Hal is loaded with the newest and best tunes. Enjoy!", :photo => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_small_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg" }
+        }]
+      end
+      format.js { render :json => @slot, :callback => params[:callback] }
+      format.json  { render :json => @slot }
+    end
+  end
+
 end
