@@ -129,7 +129,7 @@ class SlotsController < ApplicationController
   def getSchedule
     respond_to do |format|
       format.html { redirect_to pages_api_path }
-      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
+      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "SQ2012"])
       format.json { render json: @slots, :callback => params[:callback] }
       format.js  { render json: @slots, :callback => params[:callback] }
     end
