@@ -15,10 +15,6 @@
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </div>
-	<div class="field">
-    <%= f.label :people %><br />
-		<%= select_tag("person_ids[]", options_for_select(People.find(:all).collect { |person| [person.first_last_name, person.id] }, @show.people.collect { |person| person.id}), {:multiple=>true, :size=>6})%>
-	</div>
   <div class="field">
     <%= f.label :genre %><br />
     <%= f.text_field :genre %>
