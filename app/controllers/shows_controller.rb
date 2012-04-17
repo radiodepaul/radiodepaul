@@ -79,7 +79,6 @@ class ShowsController < ApplicationController
   # PUT /shows/1.json
   def update
     if logged_in?
-      @show.people = People.find(@params[:show_ids]) if @params[:show_ids]
       @show = Show.find(params[:id])
 
       respond_to do |format|
