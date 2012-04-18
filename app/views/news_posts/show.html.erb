@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Headline:</b>
+  <%= @news_post.headline %>
+</p>
+
+<p>
+  <b>Datetime published:</b>
+  <%= @news_post.datetime_published %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @markdown_content %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @news_post.user.first_last_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_news_post_path(@news_post), :class => "action" %> |
+<%= link_to 'Back', news_posts_path, :class => "action" %>

@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  resources :news_posts
+
   resources :podcasts
 
   get "pages/welcome"
@@ -28,6 +30,8 @@ RadioDePaulWebsite2::Application.routes.draw do
   get "api/people/getRandom" => "people#getRandom", :as => "getRandom"
   get "api/people/getManagers" => "managers#getManagers", :as => "getManagers"
   get "api/getPodcasts" => "podcasts#getPodcasts", :as => "getPodcasts"
+  get "api/news_posts/getList" => "news_posts#getList", :as => "getList"
+  get "api/news_posts/getPost" => "news_posts#getPost", :as => "getPost"
 
   resources :managers do
     collection do

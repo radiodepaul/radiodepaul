@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120121000505) do
+ActiveRecord::Schema.define(:version => 20120417233432) do
 
   create_table "attachments", :force => true do |t|
     t.string    "title"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(:version => 20120121000505) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "person_id"
+  end
+
+  create_table "news_posts", :force => true do |t|
+    t.string   "headline"
+    t.datetime "datetime_published"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_id"
   end
 
   create_table "people", :force => true do |t|

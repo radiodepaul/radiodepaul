@@ -1,0 +1,29 @@
+<h1>News Posts</h1>
+
+<table>
+  <tr>
+    <th>Headline</th>
+    <th>Datetime published</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @news_posts.each do |news_post| %>
+  <tr>
+    <td><%= news_post.headline %></td>
+    <td><%= news_post.datetime_published.to_date.to_formatted_s(:long_ordinal) %></td>
+    <td><%= snippet(RDiscount.new(news_post.content, :smart, :filter_html).to_html.html_safe , 10) %></td>
+    <td><%= news_post.user.first_last_name %></td>
+    <td><%= link_to 'Show', news_post, :class => "action" %></td>
+    <td><%= link_to 'Edit', edit_news_post_path(news_post), :class => "action" %></td>
+    <td><%= link_to 'Destroy', news_post, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New News Post', new_news_post_path, :class => "action" %>
