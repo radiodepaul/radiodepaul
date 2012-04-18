@@ -35,7 +35,9 @@ class Show < ActiveRecord::Base
   def get_scheduled_slots
     scheduled_slots = Array.new
     self.slots.each do |slot|
-      scheduled_slots.push :slot => slot.time_days
+      if slot.quarter === 'SQ2012'
+        scheduled_slots.push :slot => slot.time_days
+      end
     end
     return scheduled_slots
   end
