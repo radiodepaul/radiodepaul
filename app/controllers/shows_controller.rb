@@ -60,7 +60,6 @@ class ShowsController < ApplicationController
   # POST /shows.json
   def create
     if logged_in?
-      @show.people = People.find(@params[:show_ids]) if @params[:show_ids]
       @show = Show.new(params[:show])
 
       respond_to do |format|
