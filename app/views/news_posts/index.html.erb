@@ -22,7 +22,7 @@
         <td><%= link_to news_post.headline, news_post_path(news_post) %></td>
         <td><%= news_post.datetime_published.to_date.to_formatted_s(:long_ordinal) %></td>
         <td><%= news_post.user.first_last_name %></td>
-        <td><%=l news_post.created_at %></td>
+        <td><%=l news_post.created_at unless news_post.created_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_news_post_path(news_post), :class => 'btn btn-mini' %>

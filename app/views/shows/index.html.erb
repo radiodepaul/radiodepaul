@@ -33,7 +33,7 @@
         <td><%= show.genre %></td>
         <td><%= show.people.count %></td>
         <td><%= show.slots.count %></td>
-        <td><%= show.updated_at.strftime("%I:%M%p %Z") %></td>
+        <td><%= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil? %></td>
         
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

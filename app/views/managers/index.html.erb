@@ -24,7 +24,7 @@
         <td><%= link_to manager.person.first_last_name, manager_path(manager) %></td>
         <td><%= manager.position %></td>
         <td><%= manager.email %></td>
-        <td><%=l manager.created_at %></td>
+        <td><%=l manager.created_at unless manager.created_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_manager_path(manager), :class => 'btn btn-mini' %>
