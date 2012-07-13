@@ -1,6 +1,6 @@
-<h1>Editing <%= @slot.show.title unless @slot.show.nil? %> in <%= @slot.quarter %></h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @slot, :class => "action" %> |
-<%= link_to 'Back', slots_path, :class => "action" %>
+<%- model_class = @slot.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+                                   :default => "Edit #{model_class.model_name.human}") %></h1>
+</div>
+<%= render :partial => 'form' %>

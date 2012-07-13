@@ -8,6 +8,7 @@ class SlotsController < ApplicationController
   def index
     @slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", "SU2012"])
 
+
     respond_to do |format|
       format.html {
         if logged_in?

@@ -1,89 +1,100 @@
-<%= nested_form_for(@show, :html => {:multipart => true}) do |f| %>
-  <% if @show.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@show.errors.count, "error") %> prohibited this show from being saved:</h2>
-
-      <ul>
-      <% @show.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= nested_form_for @show, :html => { :class => 'form-horizontal' }, :html => {:multipart => true} do |f| %>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :genre, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :genre, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :short_description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :short_description, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :long_description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :long_description, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :facebook_page_username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :facebook_page_username, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :twitter_username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :twitter_username, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :website_url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :website_url, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.label :avatar, :class => 'control-label' %>
+      <% if @show.avatar? %>
+        <%= image_tag(@show.avatar.square.thumb.url) %><br />
+        Replace Photo: <%= f.file_field :avatar %><br />
+        <%= f.hidden_field :avatar_cache %>
+        Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
+        Remove Photo<%= f.check_box :remove_avatar %><br/>
+      <% else %>
+        Upload Photo: <%= f.file_field :avatar %><br />
+        <%= f.hidden_field :avatar_cache %>
+        Upload from URL: <%= f.text_field :remote_avatar_url %>
+      <% end %>
+    </div>
+  </div>
+<div class="control-group">
+  <div class="controls">
+  <%= f.fields_for :attachments do |attachment_form|  %>
+      <p>
+      <%= attachment_form.label :title %><br />
+      <%= attachment_form.text_field :title %>
+      </p>
+      <p>
+      <%= attachment_form.label :description %><br />
+      <%= attachment_form.text_area :description %>
+      </p>
+      <p>
+      <%= attachment_form.label :contributors %><br />
+      <%= attachment_form.text_field :contributors %>
+      </p>
+      <p>
+      <%= attachment_form.label :file %><br />
+      <%= link_to attachment_form.object.file.url if attachment_form.object.file?  %><br /><br />
+      <%= attachment_form.file_field :file %>
+      <%= attachment_form.hidden_field :file_cache %>
+      </p>
+      <%= attachment_form.link_to_remove "Remove this attachment", :class => "action" %><br /><br />
+    <% end %>
+  </div>
+</div>
+<%= f.link_to_add "Add attachment", :attachments, :class => "action" %><br /><br />
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :genre %><br />
-    <%= f.text_field :genre %>
-  </div>
-  <div class="field">
-    <%= f.label :short_description %><br />
-    <%= f.text_field :short_description %>
-  </div>
-  <div class="field">
-    <%= f.label :long_description %><br />
-    <%= f.text_area :long_description %>
-  </div>
-  <div class="field">
-    <%= f.label :facebook_page_username %><br />
-    <%= f.text_field :facebook_page_username %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :twitter_username %><br />
-    <%= f.text_field :twitter_username %>
-  </div>
-  <div class="field">
-    <%= f.label :website_url %><br />
-    <%= f.text_field :website_url %>
-  </div>
-	<div class="field">
-    <b>Photo:</b>
-		<% if @show.avatar? %>
-			<%= image_tag(@show.avatar.square.thumb.url) %><br />
-			Replace Photo: <%= f.file_field :avatar %><br />
-			<%= f.hidden_field :avatar_cache %>
-			Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
-			Remove Photo<%= f.check_box :remove_avatar %><br/>
-		<% else %>
-			Upload Photo: <%= f.file_field :avatar %><br />
-			<%= f.hidden_field :avatar_cache %>
-			Upload from URL: <%= f.text_field :remote_avatar_url %>
-		<% end %>
-			
-	</div>
-	<div class="field">
-	<%= f.fields_for :attachments do |attachment_form|  %>
-			<p>
-	    <%= attachment_form.label :title %><br />
-	    <%= attachment_form.text_field :title %>
-	    </p>
-			<p>
-	    <%= attachment_form.label :description %><br />
-	    <%= attachment_form.text_area :description %>
-	    </p>
-			<p>
-	    <%= attachment_form.label :contributors %><br />
-	    <%= attachment_form.text_field :contributors %>
-	    </p>
-	    <p>
-	    <%= attachment_form.label :file %><br />
-			<%= link_to attachment_form.object.file.url if attachment_form.object.file?  %><br /><br />
-	    <%= attachment_form.file_field :file %>
-			<%= attachment_form.hidden_field :file_cache %>
-	    </p>
-	    <%= attachment_form.link_to_remove "Remove this attachment", :class => "action" %><br /><br />
-	  <% end %>
-	</div>
-	  <%= f.link_to_add "Add attachment", :attachments, :class => "action" %><br /><br />
-	
-  <div class="actions">
-    <%= submit_tag 'Save Show', :class => "form_submit" %>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                shows_path, :class => 'btn' %>
   </div>
 <% end %>

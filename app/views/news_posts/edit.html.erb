@@ -1,6 +1,6 @@
-<h1>Editing News post</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @news_post, :class => "action" %> |
-<%= link_to 'Back', news_posts_path, :class => "action" %>
+<%- model_class = @news_post.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+                                   :default => "Edit #{model_class.model_name.human}") %></h1>
+</div>
+<%= render :partial => 'form' %>

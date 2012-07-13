@@ -1,30 +1,45 @@
-<h1>Managers</h1>
-<br />
-<%= link_to 'Assign a New Manager', new_manager_path, :class => "action" %>
-<br /><br />
-<table>
-  <tr>
-		<th></th>
-		<th>Name</th>
-    <th>Position</th>
-    <th>Email</th>
-    <th>Phone number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @managers.each do |manager| %>
-  <tr class="<%= cycle("even", "odd") %>">
-		<td><%= image_tag(manager.person.avatar.square.thumb.url) %></td>
-		<td><%= link_to manager.person.first_last_name, manager %></td>
-    <td><%= manager.position %></td>
-    <td><%= link_to manager.email, "mailto:" + manager.email unless manager.email.nil? %></td>
-    <td><%= manager.phone_number %></td>
-    <td><%= link_to 'Show', manager, :class => "action" %></td>
-    <td><%= link_to 'Edit', edit_manager_path(manager), :class => "action" %></td>
-    <td><%= link_to 'Delete', manager, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
-  </tr>
-<% end %>
+<%- model_class = Manager.new.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_manager_path,
+            :class => 'btn btn-primary' %>
+<br><br>
+<table class="datatable table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:avatar) %></th>
+      <th><%= model_class.human_attribute_name(:person_id) %></th>
+      <th><%= model_class.human_attribute_name(:position) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @managers.each do |manager| %>
+      <tr>
+        <td><%= image_tag(manager.person.avatar.square.thumb.url) %></td>
+        <td><%= link_to manager.person.first_last_name, manager_path(manager) %></td>
+        <td><%= manager.position %></td>
+        <td><%= manager.email %></td>
+        <td><%=l manager.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_manager_path(manager), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      manager_path(manager),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
-<br />
-<%= link_to 'Assign a New Manager', new_manager_path, :class => "action" %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_manager_path,
+            :class => 'btn btn-primary' %>
+<br><br>

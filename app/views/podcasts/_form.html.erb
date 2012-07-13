@@ -1,50 +1,44 @@
-<%= form_for(@podcast, :html => {:multipart => true}) do |f| %>
-  <% if @podcast.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@podcast.errors.count, "error") %> prohibited this podcast from being saved:</h2>
-
-      <ul>
-      <% @podcast.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @podcast, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
     </div>
-  <% end %>
-	<div class="field">
-    <%= f.label :podcast_type %><br />
-		<%= select( :podcast, :podcast_type, ["station","sports" ], :selected => "station") %>
   </div>
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :description, :class => 'text_area' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="control-group">
+    <%= f.label :podcast_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :podcast_type, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :contributors %><br />
-    <%= f.text_field :contributors %>
+  <div class="control-group">
+    <%= f.label :contributors, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :contributors, :class => 'text_field' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :priority %><br />
-    <%= f.check_box :priority %>
+  <div class="control-group">
+    <%= f.label :file, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :file, :class => 'text_field' %>
+    </div>
   </div>
-	<div class="field">
-    <b><%= f.label :file %></b><br />
-		<% if @podcast.file? %>
-				<%= link_to @podcast.file.url %><br />
-				Replace From File: <%= f.file_field :file %><br />
-				<%= f.hidden_field :file_cache %>
-				Replace From URL: <%= f.text_field :remote_file_url %>
-				Remove File<%= f.check_box :remove_file %><br/>
-			<% else %>
-				Upload File: <%= f.file_field :file %><br />
-				<%= f.hidden_field :file_cache %>
-				Replace From URL: <%= f.text_field :remote_file_url %>
-			<% end %>
-	</div>
-  <div class="actions">
-    <%= submit_tag 'Save', :class => "form_submit" %>
+  <div class="control-group">
+    <%= f.label :priority, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :priority, :class => 'check_box' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                podcasts_path, :class => 'btn' %>
   </div>
 <% end %>

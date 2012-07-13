@@ -1,80 +1,55 @@
-<p id="notice"><%= notice %></p>
-  <h2><%= @person.first_last_name %></h2>
+<%- model_class = @person.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>DePaul ID:</b>
-  <%= @person.depaul_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
+  <dd><%= @person.first_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
+  <dd><%= @person.last_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:nickname) %>:</strong></dt>
+  <dd><%= @person.nickname %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bio) %>:</strong></dt>
+  <dd><%= @person.bio %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:influences) %>:</strong></dt>
+  <dd><%= @person.influences %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:facebook_username) %>:</strong></dt>
+  <dd><%= @person.facebook_username %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:linkedin_username) %>:</strong></dt>
+  <dd><%= @person.linkedin_username %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:twitter_username) %>:</strong></dt>
+  <dd><%= @person.twitter_username %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:website_url) %>:</strong></dt>
+  <dd><%= @person.website_url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @person.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:major) %>:</strong></dt>
+  <dd><%= @person.major %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:class_year) %>:</strong></dt>
+  <dd><%= @person.class_year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:hometown) %>:</strong></dt>
+  <dd><%= @person.hometown %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:avatar) %>:</strong></dt>
+  <dd>
+    <% if @person.avatar? %>
+      <%= image_tag(@person.avatar.square.thumb.url) %><br />
+    <% else %>
+      No Photo Uploaded
+   <% end %>
+  </dd>
+  <dt><strong><%= model_class.human_attribute_name(:depaul_id) %>:</strong></dt>
+  <dd><%= @person.depaul_id %></dd>
+</dl>
 
-<p>
-  <b>Nickname:</b>
-  <%= @person.nickname %>
-</p>
-
-  <p><b>Shows Hosted:</b></p>
-	<ul>
-<% @person.shows.find(:all, :order => 'title').each do |show| %>
-	<li><%= link_to show.title, :controller => "shows", :action => "show", :id => show.id %></li>
-<% end %>
-</ul>
-
-<p>
-  <b>Bio:</b>
-  <%= @person.bio %>
-</p>
-
-<p>
-  <b>Influences:</b>
-  <%= @person.influences %>
-</p>
-
-<p>
-  <b>Facebook:</b>
-  <%= link_to "facebook.com/" + @person.facebook_username, "http://facebook.com/" + @person.facebook_username unless @person.facebook_username.nil? %>
-</p>
-
-<p>
-  <b>Linkedin username:</b>
-  <%= link_to @person.linkedin_username, "http://linkedin.com/in/" + @person.linkedin_username unless @person.linkedin_username.nil? %>
-</p>
-
-<p>
-  <b>Twitter:</b>
-  	<%= link_to "twitter.com/" + @person.twitter_username, "http://twitter.com/" + @person.twitter_username unless @person.twitter_username.nil? %>
-</p>
-
-<p>
-  <b>Website url:</b>
-  <%= link_to @person.website_url, "http://" + @person.website_url unless @person.website_url.nil? %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= link_to @person.email, "mailto:" + @person.email unless @person.email.nil? %>
-</p>
-
-<p>
-  <b>Major:</b>
-  <%= @person.major %>
-</p>
-
-<p>
-  <b>Class year:</b>
-  <%= @person.class_year %>
-</p>
-
-<p>
-  <b>Hometown:</b>
-  <%= @person.hometown %>
-</p>
-<p>
-  <b>Photo:</b>
-	<% if @person.avatar? %>
-		<%= image_tag(@person.avatar.square.thumb.url) %><br />
-	<% else %>
-		No Photo Uploaded
-	<% end %>
-</p>
-
-<%= link_to 'Edit', edit_person_path(@person), :class => "action" %> |
-<%= link_to 'Back', people_path, :class => "action" %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              people_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_person_path(@person), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              person_path(@person),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

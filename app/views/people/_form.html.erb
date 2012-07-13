@@ -1,87 +1,108 @@
-<%= form_for(@person, :html => {:multipart => true}) do |f| %>
-  <% if @person.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
-
-      <ul>
-      <% @person.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @person, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
+  <div class="control-group">
+    <%= f.label :first_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :first_name, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :last_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :last_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :nickname, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nickname, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :bio, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :bio, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :influences, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :influences, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :facebook_username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :facebook_username, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :linkedin_username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :linkedin_username, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :twitter_username, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :twitter_username, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :website_url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :website_url, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :major, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :major, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :class_year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :class_year, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :hometown, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :hometown, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :avatar, :class => 'control-label' %>
+    <div class="controls">
+      <% if @person.avatar? %>
+      <%= image_tag(@person.avatar.square.thumb.url) %><br />
+      Replace File: <%= f.file_field :avatar %><br />
+      <%= f.hidden_field :avatar_cache %>
+      Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
+      Remove Photo<%= f.check_box :remove_avatar %><br/>
+    <% else %>
+      Upload File: <%= f.file_field :avatar %><br />
+      <%= f.hidden_field :avatar_cache %>
+      Upload from URL: <%= f.text_field :remote_avatar_url %>
+    <% end %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :depaul_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :depaul_id, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <b><%= f.label :first_name %></b><br />
-    <%= f.text_field :first_name %>
-  </div>
-  <div class="field">
-    <b><%= f.label :last_name %></b><br />
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <b><%= f.label :nickname %></b><br />
-    <%= f.text_field :nickname %>
-  </div>
-	<div class="field">
-    <b>DePaul ID:</b><br />
-    <%= f.text_field :depaul_id %>
-  </div>
-  <div class="field">
-    <b><%= f.label :bio %></b><br />
-    <%= f.text_area :bio %>
-  </div>
-  <div class="field">
-    <b><%= f.label :influences %></b><br />
-    <%= f.text_area :influences %>
-  </div>
-  <div class="field">
-    <b><%= f.label :facebook_username %></b><br />
-    <%= f.text_field :facebook_username %>
-  </div>
-  <div class="field">
-    <b><%= f.label :linkedin_username %></b><br />
-    <%= f.text_field :linkedin_username %>
-  </div>
-  <div class="field">
-    <b><%= f.label :twitter_username %></b><br />
-    <%= f.text_field :twitter_username %>
-  </div>
-  <div class="field">
-    <b><%= f.label :website_url %></b><br />
-    <%= f.text_field :website_url %>
-  </div>
-  <div class="field">
-    <b><%= f.label :email %></b><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <b><%= f.label :major %></b><br />
-    <%= f.text_field :major %>
-  </div>
-  <div class="field">
-    <b><%= f.label :class_year %></b><br />
-    <%= f.text_field :class_year %>
-  </div>
-  <div class="field">
-    <b><%= f.label :hometown %></b><br />
-    <%= f.text_field :hometown %>
-  </div>
-	<div class="field">
-    <b><%= f.label :avatar %></b><br />
-		<% if @person.avatar? %>
-			<%= image_tag(@person.avatar.square.thumb.url) %><br />
-			Replace File: <%= f.file_field :avatar %><br />
-			<%= f.hidden_field :avatar_cache %>
-			Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
-			Remove Photo<%= f.check_box :remove_avatar %><br/>
-		<% else %>
-			Upload File: <%= f.file_field :avatar %><br />
-			<%= f.hidden_field :avatar_cache %>
-			Upload from URL: <%= f.text_field :remote_avatar_url %>
-		<% end %>
-	</div>
-  <div class="actions">
-    <%= submit_tag 'Save', :class => "form_submit" %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                people_path, :class => 'btn' %>
   </div>
 <% end %>

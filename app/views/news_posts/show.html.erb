@@ -1,25 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = @news_post.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Headline:</b>
-  <%= @news_post.headline %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:headline) %>:</strong></dt>
+  <dd><%= @news_post.headline %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:datetime_published) %>:</strong></dt>
+  <dd><%= @news_post.datetime_published %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
+  <dd><%= @news_post.content %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
+  <dd><%= @news_post.user_id %></dd>
+</dl>
 
-<p>
-  <b>Datetime published:</b>
-  <%= @news_post.datetime_published %>
-</p>
-
-<p>
-  <b>Content:</b>
-  <%= @markdown_content %>
-</p>
-
-<p>
-  <b>Author:</b>
-  <%= @news_post.user.first_last_name %>
-</p>
-
-
-<%= link_to 'Edit', edit_news_post_path(@news_post), :class => "action" %> |
-<%= link_to 'Back', news_posts_path, :class => "action" %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              news_posts_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_news_post_path(@news_post), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              news_post_path(@news_post),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

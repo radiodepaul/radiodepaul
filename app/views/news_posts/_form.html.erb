@@ -1,33 +1,32 @@
-<%= form_for(@news_post) do |f| %>
-  <% if @news_post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@news_post.errors.count, "error") %> prohibited this news_post from being saved:</h2>
-
-      <ul>
-      <% @news_post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @news_post, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :headline, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :headline, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :datetime_published, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :datetime_published, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :content, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :content, :class => 'text_area' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= collection_select(:news_post, :user_id, User.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :headline %><br />
-    <%= f.text_field :headline %>
-  </div>
-  <div class="field">
-    <%= f.label :datetime_published %><br />
-    <%= f.datetime_select :datetime_published %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= collection_select(:news_post, :user_id, User.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>
-  </div>
-  <div class="actions">
-    <%= submit_tag 'Save', :class => "form_submit" %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                news_posts_path, :class => 'btn' %>
   </div>
 <% end %>

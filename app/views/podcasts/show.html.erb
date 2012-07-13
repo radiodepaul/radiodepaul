@@ -1,34 +1,31 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = @podcast.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Title:</b>
-  <%= @podcast.title %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @podcast.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @podcast.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:podcast_type) %>:</strong></dt>
+  <dd><%= @podcast.podcast_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:contributors) %>:</strong></dt>
+  <dd><%= @podcast.contributors %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:file) %>:</strong></dt>
+  <dd><%= @podcast.file %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:priority) %>:</strong></dt>
+  <dd><%= @podcast.priority %></dd>
+</dl>
 
-<p>
-  <b>Description:</b>
-  <%= @podcast.description %>
-</p>
-
-<p>
-  <b>Contributors:</b>
-  <%= @podcast.contributors %>
-</p>
-
-<p>
-  <b>Priority:</b>
-  <% if @podcast.priority? %>Yes<% else %>No<% end %>
-</p>
-
-<p>
-  <b>File:</b>
-	<% if @podcast.file? %>
-  	<%= link_to @podcast.file.url %>
-	<% else %>
-		No file attached
-	<% end %>
-</p>
-
-
-<%= link_to 'Edit', edit_podcast_path(@podcast), :class => "action" %> |
-<%= link_to 'Back', podcasts_path, :class => "action" %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              podcasts_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_podcast_path(@podcast), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              podcast_path(@podcast),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

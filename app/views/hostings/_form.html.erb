@@ -1,19 +1,11 @@
-<%= form_for(@hosting) do |f| %>
-  <% if @hosting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@hosting.errors.count, "error") %> prohibited this hosting from being saved:</h2>
+<%= form_for @hosting, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <p>The show <%= collection_select(:hosting, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %> is hosted by <%= collection_select(:hosting, :person_id, Person.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>.</p>
+  </div>
 
-      <ul>
-      <% @hosting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-<p>The show <%= collection_select(:hosting, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %> is hosted by <%= collection_select(:hosting, :person_id, Person.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>.</p>
-
-  <div class="actions">
-    <%= submit_tag 'Assign Host', :class => "form_submit" %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                hostings_path, :class => 'btn' %>
   </div>
 <% end %>

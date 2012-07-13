@@ -1,60 +1,74 @@
-<%= form_for(@slot) do |f| %>
-  <% if @slot.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@slot.errors.count, "error") %> prohibited this slot from being saved:</h2>
-
-      <ul>
-      <% @slot.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @slot, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :quarter, :class => 'control-label' %>
+    <div class="controls">
+      <%= select( :slot, :quarter, [ "", "AQ2011", "WQ2012", "SQ2012", "SU2012", "AQ2013", "WQ2013" ] ) %>
     </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :quarter %><br />
-		<%= select( :slot, :quarter, [ "", "AQ2011", "WQ2012", "SQ2012", "SS2012", "AQ2012", "WQ2013" ], :selected => "WQ2012") %>
   </div>
-	<div class="field">
-    <%= f.label :show_id %>
-		<%= collection_select(:slot, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %>
-	</div>
-  <div class="field">
-    <%= f.label :start_time %><br />
-    <%= f.time_select :start_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
+  <div class="control-group">
+    <%= f.label :start_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.time_select :start_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :end_time %><br />
-    <%= f.time_select :end_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
+  <div class="control-group">
+    <%= f.label :end_time, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.time_select :start_time, {:default => { :hour => 8, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :monday %>
-    <%= f.check_box :monday %>
+  <div class="control-group">
+    <%= f.label :monday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :monday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :tuesday %>
-    <%= f.check_box :tuesday %>
+  <div class="control-group">
+    <%= f.label :tuesday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :tuesday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :wednesday %>
-    <%= f.check_box :wednesday %>
+  <div class="control-group">
+    <%= f.label :wednesday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :wednesday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :thursday %>
-    <%= f.check_box :thursday %>
+  <div class="control-group">
+    <%= f.label :thursday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :thursday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :friday %>
-    <%= f.check_box :friday %>
+  <div class="control-group">
+    <%= f.label :friday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :friday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :saturday %>
-    <%= f.check_box :saturday %>
+  <div class="control-group">
+    <%= f.label :saturday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :saturday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :sunday %>
-    <%= f.check_box :sunday %>
+  <div class="control-group">
+    <%= f.label :sunday, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :sunday, :class => 'check_box' %>
+    </div>
   </div>
-  <div class="actions">
-    <%= submit_tag 'Save', :class => "form_submit" %>
+  <div class="control-group">
+    <%= f.label :show_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= collection_select(:slot, :show_id, Show.find(:all, :order => 'title'), :id, :title, :prompt => true) %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                slots_path, :class => 'btn' %>
   </div>
 <% end %>

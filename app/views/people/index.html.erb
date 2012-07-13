@@ -1,36 +1,47 @@
-<%= form_tag search_people_path, :method => 'get' do %>
-    <div id ="search"> 
-		<%= text_field_tag :search_text %>
-		<%= submit_tag 'Search', :class => "form_submit" %>
-     </div>
-<% end %>
-<h1>People</h1>
-<br />
-<%= link_to 'Add a New Person', new_person_path, :class => "action" %>
-<br /><br />
-<table>
-  <tr>
-		<th></th>
-    <th>Name</th>
-    <th>Nickname</th>
-    <th>Email</th>
-		<th># Shows</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @people.each do |person| %>
-  <tr class="<%= cycle("even", "odd") %>">
-		<td><%= image_tag(person.avatar.square.thumb.url) %></td>
-    <td><%= link_to person.last_first_name, person %></td>
-    <td><%= person.nickname %></td>
-    <td><%= link_to person.email, "mailto:" + person.email unless person.email.nil? %></td>
-		<td><%= person.shows.count %></td>
-    <td><%= link_to 'Show', person, :class => "action" %></td>
-    <td><%= link_to 'Edit', edit_person_path(person), :class => "action" %></td>
-    <td><%= link_to 'Delete', person, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
-  </tr>
-<% end %>
+<%- model_class = Person.new.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_person_path,
+            :class => 'btn btn-primary' %>
+<br><br>
+<table class="datatable table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:avatar) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:nickname) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th># Shows:</th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @people.each do |person| %>
+      <tr>
+        <td><%= image_tag(person.avatar.square.thumb.url) %></td>
+        <td><%= link_to person.last_first_name, person %></td>
+        <td><%= person.nickname %></td>
+        <td><%= link_to person.email, "mailto:" + person.email unless person.email.nil? %></td>
+        <td><%= person.shows.count %></td>
+        <td><%= person.updated_at.strftime("%I:%M%p %Z") %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_person_path(person), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      person_path(person),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
-<br />
-<%= link_to 'Add a New Person', new_person_path, :class => "action" %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_person_path,
+            :class => 'btn btn-primary' %>
+<br><br>
