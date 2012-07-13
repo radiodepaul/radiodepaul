@@ -6,7 +6,7 @@ class SlotsController < ApplicationController
   respond_to :html, :xml, :json, :js
   
   def index
-    @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "SU2012"])
+    @slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", "SU2012"])
 
     respond_to do |format|
       format.html {
@@ -110,7 +110,7 @@ class SlotsController < ApplicationController
   
   def now_playing
     current_day = Time.now.strftime("%A").downcase!
-      @slot = Slot.find(:all, :conditions => ["start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Time.now, Time.now])
+      @slot = Slot.find(:all, :conditions => ["start_time <= ? AND end_time >=  ? AND " + current_day + " = 't' AND quarter == ?", Time.now, Time.now, "SU2012"])
       unless @slot.length > 0 then
         @slot = [{:show => { :title => "HAL 2012", :id => "10", :hosts => [{:name => "HAL 2012",:id => "58", :photo_thumb => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_thumb_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg"}], :genre => "Indie, College, Hip Hop", :short_description => "Hal 2011 is our automated system that plays when we don't have live shows. Hal is loaded with the newest and best tunes. Enjoy!", :photo => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_small_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg" }
         }]
@@ -129,7 +129,7 @@ class SlotsController < ApplicationController
   def getSchedule
     respond_to do |format|
       format.html { redirect_to pages_api_path }
-      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter = ?", "SQ2012"])
+      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter = ?", "SU2012"])
       format.json { render json: @slots, :callback => params[:callback] }
       format.js  { render json: @slots, :callback => params[:callback] }
     end
@@ -139,7 +139,7 @@ class SlotsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to pages_api_path }
       current_day = Time.now.strftime("%A").downcase!
-      @slot = Slot.find(:all, :conditions => ["quarter = ? AND start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", "SQ2012", Time.now, Time.now])
+      @slot = Slot.find(:all, :conditions => ["quarter = ? AND start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", "SU2012", Time.now, Time.now])
       unless @slot.length > 0 then
         @slot = [{:show => { :title => "HAL 2012", :id => "10", :hosts => [{:name => "HAL 2012",:id => "58", :photo_thumb => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_thumb_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg"}], :genre => "Indie, College, Hip Hop", :short_description => "Hal 2011 is our automated system that plays when we don't have live shows. Hal is loaded with the newest and best tunes. Enjoy!", :photo => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_small_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg" }
         }]
