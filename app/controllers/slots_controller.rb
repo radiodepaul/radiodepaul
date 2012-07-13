@@ -6,7 +6,7 @@ class SlotsController < ApplicationController
   respond_to :html, :xml, :json, :js
   
   def index
-    @slots = Slot.find(:all, :order => 'start_time')
+    @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "SU2012"])
 
     respond_to do |format|
       format.html {
@@ -96,7 +96,7 @@ class SlotsController < ApplicationController
   end
   
   def current
-    @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "WQ2012"])
+    @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter=?", "SU2012"])
 
     respond_to do |format|
       format.html { render json: @slots }
