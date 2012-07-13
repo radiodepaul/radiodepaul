@@ -20,7 +20,7 @@
     <td><%= slot.start_time.strftime("%I:%M%p %Z") %></td>
     <td><%= slot.end_time.strftime("%I:%M%p %Z") %></td>
     <td><%= slot.get_days_airing_s %></td>
-		<td><%= slot.show.title unless slot.show.title.nil? %></td>
+		<td><%= slot.show.title unless slot.show.nil? %></td>
     <td><%= link_to 'Show', slot, :class => "action" %></td>
     <td><%= link_to 'Edit', edit_slot_path(slot), :class => "action" %></td>
     <td><%= link_to 'Delete', slot, confirm: 'Are you sure?', method: :delete, :class => "action" %></td>
