@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def markdown
     RDiscount.new(self).to_html
   end
-  
+
   protected
 
     def logged_in?
