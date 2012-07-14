@@ -28,7 +28,7 @@
         <td><%= slot.get_days_airing_s %></td>
         <td><%= slot.start_time.strftime("%I:%M%p %Z") %></td>
         <td><%= slot.end_time.strftime("%I:%M%p %Z") %></td>
-        <td><%=l slot.created_at unless slot.created_at.nil? %></td>
+        <td><%=l slot.created_at.strftime("%I:%M%p %Z") unless slot.created_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_slot_path(slot), :class => 'btn btn-mini' %>

@@ -32,7 +32,7 @@
           <% end %>
         </td>
         <td><%= podcast.priority %></td>
-        <td><%=l podcast.created_at unless podcast.created_at.nil? %></td>
+        <td><%=l podcast.created_at.strftime("%I:%M%p %Z") unless podcast.created_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_podcast_path(podcast), :class => 'btn btn-mini' %>
