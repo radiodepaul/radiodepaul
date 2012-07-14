@@ -65,7 +65,13 @@
               <div class="well sidebar-nav">
                 <h3>Stats</h3>
                 <ul id="on-air" class="nav nav-list">
-                  <li class="nav-header">On Air Now</li>
+                  <li>Shows: <%= Show.count%></li>
+                  <li>Staff: <%= Person.count%></li>
+                  <li>Managers: <%= Manager.count%></li>
+                  <li>Podcasts: <%= Podcast.count%></li>
+                  <li>News Posts: <%= NewsPost.count%></li>
+                  <li>Users: <%= User.count%></li>
+
                 </ul>
               </div><!--.well -->
             </div><!--/span-->
@@ -91,8 +97,12 @@
           contentType: "application/json",
           success: function(data) {   
             console.log(data);
-            var html = '';
-            html += "<li>" + data[0].show.title + "</li>"
+            var html = '<li class="nav-header">On Air Now</li>';
+            html += "<li>" + data[0].show.title + "</li><li>with</li>"
+            jQuery.each(data[0].show.hosts, function() {
+              console.log($(this));
+              html += "<li>" + $(this)[0].name + "</li>";
+           });
             
             $('#on-air').append(html);
           }
