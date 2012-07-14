@@ -20,7 +20,7 @@
       <tr>
         <td><%= link_to hosting.show.title, hosting.show %></td>
         <td><%= link_to hosting.person.first_last_name, hosting.person %></td>
-        <td><%= hosting.updated_at.strftime("%I:%M%p %Z") if hosting.updated_at == !null %></td>
+        <td><%= hosting.updated_at.strftime("%I:%M%p %Z") unless hosting.updated_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_hosting_path(hosting), :class => 'btn btn-mini' %>

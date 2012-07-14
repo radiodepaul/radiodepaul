@@ -26,7 +26,7 @@
         <td><%= person.nickname %></td>
         <td><%= link_to person.email, "mailto:" + person.email unless person.email.nil? %></td>
         <td><%= person.shows.count %></td>
-        <td><%= person.updated_at.strftime("%I:%M%p %Z") %></td>
+        <td><%= person.updated_at.strftime("%I:%M%p %Z") unless person.updated_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_person_path(person), :class => 'btn btn-mini' %>
