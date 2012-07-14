@@ -7,9 +7,9 @@
   <dt><strong><%= model_class.human_attribute_name(:quarter) %>:</strong></dt>
   <dd><%= @slot.quarter %></dd>
   <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
-  <dd><%= @slot.start_time.strftime("%I:%M%p %Z") unless slot.start_time.nil? %></dd>
+  <dd><%= @slot.start_time.strftime("%I:%M%p %Z") unless @slot.start_time.nil? %></dd>
   <dt><strong><%= model_class.human_attribute_name(:end_time)  %>:</strong></dt>
-  <dd><%= @slot.end_time.strftime("%I:%M%p %Z") unless slot.end_time.nil? %></dd>
+  <dd><%= @slot.end_time.strftime("%I:%M%p %Z") unless @slot.end_time.nil? %></dd>
   <dt><strong><%= model_class.human_attribute_name(:monday) %>:</strong></dt>
   <dd><%= @slot.monday %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tuesday) %>:</strong></dt>
