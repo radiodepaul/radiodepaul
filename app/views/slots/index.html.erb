@@ -26,8 +26,8 @@
         <td><%= link_to slot.show.title, slot_path(slot) %></td>
         <td><%= slot.quarter %></td>
         <td><%= slot.get_days_airing_s %></td>
-        <td><%= slot.start_time.strftime("%I:%M%p %Z") %></td>
-        <td><%= slot.end_time.strftime("%I:%M%p %Z") %></td>
+        <td><%= slot.start_time.strftime("%I:%M%p %Z") unless slot.start_time.nil? %></td>
+        <td><%= slot.end_time.strftime("%I:%M%p %Z") unless slot.end_time.nil? %></td>
         <td><%= slot.created_at.strftime("%I:%M%p %Z") unless slot.created_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
