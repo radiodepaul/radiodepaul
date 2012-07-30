@@ -126,10 +126,10 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :show_genres, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :show_genres, :class => 'text_area', :rows => 2, :style => "width:400px;" %>
-    </div>
+      <%= f.label :genres, :class => 'control-label' %>
+        <div class="controls">
+              <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ', ' %> 
+        </div>
   </div>
   <div class="control-group">
     <%= f.label "Talk Show Type", :class => 'control-label' %>

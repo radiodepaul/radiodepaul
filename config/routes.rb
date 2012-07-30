@@ -1,5 +1,7 @@
 RadioDePaulWebsite2::Application.routes.draw do
-  resources :applications
+  resources :applications do
+    get :autocomplete_genre_name, :on => :collection   
+  end
 
   resources :news_posts
 
@@ -54,6 +56,7 @@ RadioDePaulWebsite2::Application.routes.draw do
     collection do
       get 'random'
       get 'search'
+      get :autocomplete_genre_name
     end
   end
   

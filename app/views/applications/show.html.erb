@@ -60,8 +60,15 @@
   <dd><%= @application.famous_person %></dd>
   <dt><strong><%= model_class.human_attribute_name(:anything_else) %>:</strong></dt>
   <dd><%= @application.anything_else %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:avatar) %>:</strong></dt>
+  <dd>
+    <% if @application.avatar? %>
+      <%= image_tag(@application.avatar.square.thumb.url) %><br />
+    <% else %>
+      No Photo Uploaded
+   <% end %>
+  </dd>
 </dl>
-
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               applications_path, :class => 'btn'  %>

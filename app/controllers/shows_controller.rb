@@ -2,6 +2,8 @@ class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
   
+  autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
+  
   respond_to :html, :xml, :json, :js
   
   def index

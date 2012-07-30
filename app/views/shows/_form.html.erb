@@ -12,6 +12,12 @@
     </div>
   </div>
   <div class="control-group">
+      <%= f.label :genres, :class => 'control-label' %>
+        <div class="controls">
+              <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ', ' %> 
+        </div>
+  </div>
+  <div class="control-group">
     <%= f.label :short_description, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :short_description, :class => 'text_field' %>
@@ -20,7 +26,7 @@
   <div class="control-group">
     <%= f.label :long_description, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :long_description, :class => 'text_area' %>
+      <%= f.text_area :long_description, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
     </div>
   </div>
   <div class="control-group">

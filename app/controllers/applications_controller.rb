@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
+  autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
   def index
     @applications = Application.all
 
