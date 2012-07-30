@@ -21,13 +21,60 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   </head>
   <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Radio DePaul</a>
+          <div class="container nav-collapse">
+            <ul class="nav">
+              <li><%= link_to "Shows", shows_path %></li>
+			<li><%= link_to "People", people_path %></li>
+			<li><%= link_to "Managers", managers_path %></li>
+			<li><%= link_to "Schedule A Show", slots_path %></li>
+			<li><%= link_to "Podcasts", podcasts_path %></li>
+			<li><%= link_to "News Posts", news_posts_path %></li>
+			<li><%= link_to "Applications", applications_path %></li>
+			<li><%= link_to "Users", users_path %></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
     <div class="container">
+    	<div id="user_nav">
+	  <% if current_user %>
+	    Logged in as <%= current_user.first_last_name %>.
+	    <%= link_to "Log out", log_out_path, :class => "action" %>
+	  <% else %>
+	    <%= link_to "log in", log_in_path, :class => "action" %>
+	  <% end %>
+	</div>
       <div class="content">
         <div class="row">
            <div class="span9">
               <%= yield %>
             </div>
             <div class="span3">
+              <div class="well sidebar-nav">
+                <h3>Stats</h3>
+                <ul id="on-air" class="nav nav-list">
+                  <li>Active Schedule: <%= Settings.active_schedule %></li>
+                  <li>Shows: <%= Show.count%></li>
+                  <li>Staff: <%= Person.count%></li>
+                  <li>Managers: <%= Manager.count%></li>
+                  <li>Podcasts: <%= Podcast.count%></li>
+                  <li>News Posts: <%= NewsPost.count%></li>
+                  <li>Users: <%= User.count%></li>
+
+                </ul>
+              </div><!--.well -->
             </div><!--/span-->
         </div><!--/row-->
       </div><!--/content-->
