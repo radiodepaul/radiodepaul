@@ -1,0 +1,75 @@
+<%- model_class = @application.class -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
+  <dd><%= @application.first_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
+  <dd><%= @application.last_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:depaul_id) %>:</strong></dt>
+  <dd><%= @application.depaul_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:gpa) %>:</strong></dt>
+  <dd><%= @application.gpa %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @application.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:major) %>:</strong></dt>
+  <dd><%= @application.major %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= @application.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
+  <dd><%= @application.phone %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:home_city) %>:</strong></dt>
+  <dd><%= @application.home_city %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:home_state) %>:</strong></dt>
+  <dd><%= @application.home_state %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:why_depaul) %>:</strong></dt>
+  <dd><%= @application.why_depaul %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:influences) %>:</strong></dt>
+  <dd><%= @application.influences %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bio) %>:</strong></dt>
+  <dd><%= @application.bio %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:position) %>:</strong></dt>
+  <dd><%= @application.position %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:experience) %>:</strong></dt>
+  <dd><%= @application.experience %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:campus_involvement) %>:</strong></dt>
+  <dd><%= @application.campus_involvement %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:host_type) %>:</strong></dt>
+  <dd><%= @application.host_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:co_hosts) %>:</strong></dt>
+  <dd><%= @application.co_hosts %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:show_name) %>:</strong></dt>
+  <dd><%= @application.show_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:show_description) %>:</strong></dt>
+  <dd><%= @application.show_description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:show_genres) %>:</strong></dt>
+  <dd><%= @application.show_genres %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:show_type) %>:</strong></dt>
+  <dd><%= @application.show_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:podcast_topic) %>:</strong></dt>
+  <dd><%= @application.podcast_topic %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:favorite_artists) %>:</strong></dt>
+  <dd><%= @application.favorite_artists %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:favorite_tv_shows) %>:</strong></dt>
+  <dd><%= @application.favorite_tv_shows %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:favorite_films) %>:</strong></dt>
+  <dd><%= @application.favorite_films %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:famous_person) %>:</strong></dt>
+  <dd><%= @application.famous_person %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:anything_else) %>:</strong></dt>
+  <dd><%= @application.anything_else %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              applications_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_application_path(@application), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              application_path(@application),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

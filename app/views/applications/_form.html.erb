@@ -1,0 +1,196 @@
+<%= form_for @application, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
+  <div class="control-group">
+      <label class="control-label" for="first_name">First Name</label>
+    <div class="controls">
+      <%= f.text_field :first_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+      <label class="control-label" for="last_name">Last Name</label>
+    <div class="controls">
+      <%= f.text_field :last_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+      <label class="control-label" for="depaul_id">DePaul ID#</label>
+    <div class="controls">
+      <%= f.number_field :depaul_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+      <label class="control-label" for="gpa">GPA</label>
+    <div class="controls">
+      <%= f.text_field :gpa, :class => 'text_field' %>
+      <span class="help-inline">If you do not have a GPA yet, submit your final H.S. GPA</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= select( :application, :year, [ "freshman", "sophomore", "junior", "senior" ], :prompt => true) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :major, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :major, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :phone, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :phone, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Home City", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :home_city, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Home State", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :home_state, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Why did you choose DePaul?", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :why_depaul, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Personal Influences", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :influences, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+      <span class="help-inline">Musical or otherwise?</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :bio, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :bio, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+      <span class="help-inline">Nothing too personal, just tell us about yourself</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Position for which you are applying" , :class => 'control-label' %>
+    <div class="controls">
+      <%= select( :application, :position, [ "host", "newscaster", "sportscaster", "other" ], :prompt => true) %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Do you have any broadcasting/journalism experience?  If so, tell us about your experiences.", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :experience, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Are you involved with any other campus groups/organizations?  If so, tell us about them.", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :campus_involvement, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :host_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= select( :application, :host_type, [ "music", "talk", "off-air podcast" ], :prompt => true) %>
+      <span class="help-inline">Music, Talk, or Off-Air Podcast Host?</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Co-Hosts Name? (If you plan on having one)", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :co_hosts, :class => 'text_field' %>
+      <span class="help-inline">Note: Co-Hosts must also apply</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Proposed Show Name?", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :show_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Brief Description of Your Proposed Show", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :show_description, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+      <span class="help-inline">Think of this as an enticing headline for your show- 20 words maximum</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :show_genres, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :show_genres, :class => 'text_area', :rows => 2, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Talk Show Type", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :show_type, :class => 'text_field' %>
+      <span class="help-inline">sports, politics...</span>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :podcast_topic, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :podcast_topic, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :favorite_artists, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :favorite_artists, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :favorite_tv_shows, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :favorite_tv_shows, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :favorite_films, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :favorite_films, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :famous_person, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :famous_person, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :anything_else, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :anything_else, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :avatar, :class => 'control-label' %>
+    <div class="controls">
+      <% if @application.avatar? %>
+      <%= image_tag(@application.avatar.square.thumb.url) %><br />
+      Replace File: <%= f.file_field :avatar %><br />
+      <%= f.hidden_field :avatar_cache %>
+      Replace from URL: <%= f.text_field :remote_avatar_url %><br/>
+      Remove Photo<%= f.check_box :remove_avatar %><br/>
+    <% else %>
+      Upload File: <%= f.file_field :avatar %><br />
+      <%= f.hidden_field :avatar_cache %>
+      Upload from URL: <%= f.text_field :remote_avatar_url %>
+    <% end %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit "Send Application", :class => 'btn btn-primary' %>
+  </div>
+<% end %>

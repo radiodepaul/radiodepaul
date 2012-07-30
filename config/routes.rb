@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  resources :applications
+
   resources :news_posts
 
   resources :podcasts

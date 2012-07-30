@@ -1,0 +1,61 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  depaul_id: 1
+  gpa: 1.5
+  year: MyString
+  major: MyString
+  email: MyString
+  phone: MyString
+  home_city: MyString
+  home_state: MyString
+  why_depaul: MyText
+  influences: MyText
+  bio: MyText
+  position: MyString
+  experience: MyText
+  campus_involvement: MyText
+  host_type: MyText
+  co_hosts: MyString
+  show_name: MyString
+  show_description: MyText
+  show_genres: MyString
+  show_type: MyString
+  podcast_topic: MyString
+  favorite_artists: MyText
+  favorite_tv_shows: MyText
+  favorite_films: MyText
+  famous_person: MyText
+  anything_else: MyText
+
+two:
+  first_name: MyString
+  last_name: MyString
+  depaul_id: 1
+  gpa: 1.5
+  year: MyString
+  major: MyString
+  email: MyString
+  phone: MyString
+  home_city: MyString
+  home_state: MyString
+  why_depaul: MyText
+  influences: MyText
+  bio: MyText
+  position: MyString
+  experience: MyText
+  campus_involvement: MyText
+  host_type: MyText
+  co_hosts: MyString
+  show_name: MyString
+  show_description: MyText
+  show_genres: MyString
+  show_type: MyString
+  podcast_topic: MyString
+  favorite_artists: MyText
+  favorite_tv_shows: MyText
+  favorite_films: MyText
+  famous_person: MyText
+  anything_else: MyText
