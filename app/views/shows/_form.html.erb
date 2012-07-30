@@ -96,7 +96,10 @@
 </div>
 <%= f.link_to_add "Add attachment", :attachments, :class => "action" %><br /><br />
 
-
+<div class="control-group">
+  <%= f.fields_for :hostings %>
+  <%= f.link_to_add "Add Host", :hostings, :class => "action" %><br /><br />
+</div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

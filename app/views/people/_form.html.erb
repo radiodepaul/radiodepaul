@@ -1,4 +1,4 @@
-<%= form_for @person, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
+<%= nested_form_for @person, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
   <div class="control-group">
     <%= f.label :first_name, :class => 'control-label' %>
     <div class="controls">
@@ -9,6 +9,12 @@
     <%= f.label :last_name, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :last_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "DePaul ID#", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :depaul_id, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
@@ -93,13 +99,14 @@
     <% end %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :depaul_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :depaul_id, :class => 'text_field' %>
-    </div>
-  </div>
 
+<div class="control-group">
+    <%= f.label "Shows", :class => 'control-label' %>
+    <div class="controls">
+        <%= f.fields_for :hostings %>
+        <%= f.link_to_add "Add Show", :hostings, :class => "action" %><br /><br />
+    </div>
+</div>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

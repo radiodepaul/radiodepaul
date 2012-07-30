@@ -1,6 +1,8 @@
 class Person < ActiveRecord::Base
+  attr_accessible :first_name, :last_name, :nickname, :bio, :influences, :facebook_username, :linkedin_username, :website_url, :email, :major, :class_year, :hometown, :avatar, :depaul_id, :hostings_attributes
   has_many :hostings, :dependent => :destroy
   has_many :shows, :through => :hostings
+  accepts_nested_attributes_for :hostings, :allow_destroy => true
   before_save :blanks_to_nils
   mount_uploader :avatar, AvatarUploader
 
