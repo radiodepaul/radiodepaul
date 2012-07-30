@@ -80,6 +80,8 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.3)
+    ledermann-rails-settings (1.2.0)
+      activerecord (>= 2.3)
     less (2.2.1)
       commonjs (~> 0.2.6)
     less-rails (2.2.3)
@@ -176,6 +178,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   json
+  ledermann-rails-settings
   mime-types
   nested_form!
   pg

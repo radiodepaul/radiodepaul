@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730113732) do
+ActiveRecord::Schema.define(:version => 20120730142059) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(:version => 20120730113732) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",                       :null => false
+    t.text     "value"
+    t.integer  "target_id"
+    t.string   "target_type", :limit => 30
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "settings", ["target_type", "target_id", "var"], :name => "index_settings_on_target_type_and_target_id_and_var", :unique => true
 
   create_table "shows", :force => true do |t|
     t.string   "title"

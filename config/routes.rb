@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  resources :settings
+
   resources :applications do
     get :autocomplete_genre_name, :on => :collection   
   end
