@@ -10,7 +10,10 @@ gem 'rdiscount', :require => 'rdiscount'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'rabl'
 gem 'json'
+
+gem 'unicorn'
 gem 'thin'
+
 gem 'carrierwave'
 gem 'rmagick'
 gem 'fog'
