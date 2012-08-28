@@ -15,7 +15,7 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "pages/api"
 
-  get 'pages/application'
+  get 'application' => "applications#new", :as => '/application'
 
   get "sessions/new"
 
