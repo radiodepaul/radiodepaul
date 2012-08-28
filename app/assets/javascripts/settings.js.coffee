@@ -4,16 +4,24 @@
 $(".ajax-save").click (event) ->
   event.preventDefault()
   setting = $(this).parent().siblings()[0]
+  value = $(this).parent().siblings()[1]
   setting = $(setting).children()[0]
-  setting = $(setting).attr('href')
+  value = $(value).children()[0]
   console.log(setting)
+  console.log(value)
   $.ajax
-    url: setting
+    url: $(setting).attr('href')
     type: "PUT"
     contentType: "application/json"
-    data: JSON.stringify(value: "SQ2012")
+    data: JSON.stringify(value: $(value).attr('value'))
     dataType: "json"
     beforeSend: (xhr) ->
       xhr.setRequestHeader "X-CSRF-Token", $("meta[name=\"csrf-token\"]").attr("content")
     success: (data) ->
-      console.log data
+      $(value).attr('disabled', 'disabled')
+$(".ajax-edit").click (event) ->
+  event.preventDefault()
+  setting = $(this).parent().siblings()[1]
+  setting = $(setting).children()[0]
+  $(setting).removeAttr('disabled')
+  $(setting).focus()
