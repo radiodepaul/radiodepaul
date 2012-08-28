@@ -11,6 +11,8 @@ class PagesController < ApplicationController
     #if logged_in?
     #end
   end
+  def application
+  end
 
     private
 

@@ -1,181 +1,38 @@
-<%= form_for @application, :html => { :id => 'user_form', :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
+<%= semantic_form_for @application, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
+  <%= f.error_messages %>
+  <%= f.inputs do %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :depaul_id, :label => "DePaul ID" %>
+    <%= f.input :gpa, :label => 'GPA', :hint => 'If you do not have a GPA yet, submit your final H.S. GPA' %>
+    <%= f.input :year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"] %>
+    <%= f.input :major %>
+    <%= f.input :email, :as => :email %>
+    <%= f.input :phone, :as => :phone %>
+    <%= f.input :home_city %>
+    <%= f.input :home_state %>
+    <%= f.input :why_depaul, :label => "Why did you choose DePaul?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  } %>
+    <%= f.input :influences, :label => "Why did you choose DePaul?", :hint => "Musical or otherwise?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :bio, :hint => "Nothing too personal, just tell us about yourself.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :position, :as => :radio, :collection => ["Host", "Newscaster", "Sportscaster", "Other"] %>
+    <%= f.inputs :host_inputs => "Host inputs", :id => "host_inputs" do %>
+      <%= f.input :host_type, :as => :radio, :collection => ["Music", "Talk", "Off-air podcast"] %>
+      <%= f.input :show_type, :hint => "sports, politics..." %>
+      <%= f.input :co_hosts, :label => "Co-host(s) *if you plan on having one", :hint => "Note: Co-hosts must also apply." %>
+      <%= f.input :show_name, :label => "Proposed Show Name?" %>
+      <%= f.input :show_description, :label => "Brief description of your proposed show", :hint => "Think of this as an enticing headline for your show- 20 words maximum.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+      <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ", " %> 
+    <% end %>
+    <%= f.input :experience, :label => "Do you have any broadcasting/journalism experience?  If so, tell us about your experiences.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :campus_involvement, :label => "Are you involved with any other campus groups/organizations?  If so, tell us about them.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :favorite_artists, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :favorite_tv_shows, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :favorite_films, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :famous_person, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :anything_else, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+  <% end %>
   <div class="control-group">
-      <label class="control-label" for="first_name">First Name</label>
-    <div class="controls">
-      <%= f.text_field :first_name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-      <label class="control-label" for="last_name">Last Name</label>
-    <div class="controls">
-      <%= f.text_field :last_name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-      <label class="control-label" for="depaul_id">DePaul ID#</label>
-    <div class="controls">
-      <%= f.number_field :depaul_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-      <label class="control-label" for="gpa">GPA</label>
-    <div class="controls">
-      <%= f.text_field :gpa, :class => 'text_field' %>
-      <span class="help-inline">If you do not have a GPA yet, submit your final H.S. GPA</span>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :year, :class => 'control-label' %>
-    <div class="controls">
-      <%= select( :application, :year, [ "Freshman", "Sophomore", "Junior", "Senior" ], :prompt => true) %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :major, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :major, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :phone, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :phone, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Home City", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :home_city, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Home State", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :home_state, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Why did you choose DePaul?", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :why_depaul, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Personal Influences", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :influences, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-      <span class="help-inline">Musical or otherwise?</span>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :bio, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :bio, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-      <span class="help-inline">Nothing too personal, just tell us about yourself</span>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Position for which you are applying" , :class => 'control-label' %>
-    <div class="controls">
-      <%= select( :application, :position, [ "host", "newscaster", "sportscaster", "other" ], :prompt => true) %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Do you have any broadcasting/journalism experience?  If so, tell us about your experiences.", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :experience, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Are you involved with any other campus groups/organizations?  If so, tell us about them.", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :campus_involvement, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :host_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= select( :application, :host_type, [ "music", "talk", "off-air podcast" ], :prompt => true) %>
-      <span class="help-inline">Music, Talk, or Off-Air Podcast Host?</span>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Co-Hosts Name? (If you plan on having one)", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :co_hosts, :class => 'text_field' %>
-      <span class="help-inline">Note: Co-Hosts must also apply</span>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Proposed Show Name?", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :show_name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Brief Description of Your Proposed Show", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :show_description, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-      <span class="help-inline">Think of this as an enticing headline for your show- 20 words maximum</span>
-    </div>
-  </div>
-  <div class="control-group">
-      <%= f.label :genres, :class => 'control-label' %>
-        <div class="controls">
-              <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ', ' %> 
-        </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Talk Show Type", :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :show_type, :class => 'text_field' %>
-      <span class="help-inline">sports, politics...</span>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :podcast_topic, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :podcast_topic, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :favorite_artists, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :favorite_artists, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :favorite_tv_shows, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :favorite_tv_shows, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :favorite_films, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :favorite_films, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :famous_person, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :famous_person, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :anything_else, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :anything_else, :class => 'text_area', :rows => 5, :style => "width:400px;" %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :avatar, :class => 'control-label' %>
+    <%= f.label :photo, :class => 'control-label' %>
     <div class="controls">
       <% if @application.avatar? %>
       <%= image_tag(@application.avatar.square.thumb.url) %><br />
@@ -189,8 +46,7 @@
       Upload from URL: <%= f.text_field :remote_avatar_url %>
     <% end %>
     </div>
-  </div>
-  <div class="form-actions">
-    <%= f.submit "Send Application", :class => 'btn btn-primary' %>
-  </div>
+  <%= f.actions do %>
+    <%= f.action :submit, :label => 'Submit' %>
+    <% end %> </div>
 <% end %>

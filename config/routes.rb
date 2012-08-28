@@ -15,6 +15,8 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "pages/api"
 
+  get 'pages/application'
+
   get "sessions/new"
 
   get "users/new"
