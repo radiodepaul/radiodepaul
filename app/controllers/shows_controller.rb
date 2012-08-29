@@ -1,5 +1,4 @@
 class ShowsController < ApplicationController
-  before_filter :authenticate_user!
   # GET /shows
   # GET /shows.json
   

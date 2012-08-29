@@ -1,5 +1,4 @@
 class SlotsController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :set_timezone
   # GET /slots
   # GET /slots.json

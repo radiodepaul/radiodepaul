@@ -1,5 +1,4 @@
 class HostingsController < ApplicationController
-  before_filter :authenticate_user!
   # GET /hostings
   # GET /hostings.json
   def index

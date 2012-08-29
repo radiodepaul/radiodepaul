@@ -1,5 +1,4 @@
 class PodcastsController < ApplicationController
-  before_filter :authenticate_user!
   # GET /podcasts
   # GET /podcasts.json
   
