@@ -11,7 +11,6 @@
     <tr>
       <th><%= model_class.human_attribute_name(:headline) %></th>
       <th><%= model_class.human_attribute_name(:datetime_published) %></th>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -21,7 +20,6 @@
       <tr>
         <td><%= link_to news_post.headline, news_post_path(news_post) %></td>
         <td><%= news_post.datetime_published.to_date.to_formatted_s(:long_ordinal) %></td>
-        <td><%= news_post.user.first_last_name %></td>
         <td><%= news_post.created_at.strftime("%I:%M%p %Z") unless news_post.created_at.nil? %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

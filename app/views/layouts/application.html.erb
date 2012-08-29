@@ -41,7 +41,6 @@
 			<li><%= link_to "News Posts", news_posts_path %></li>
 			<li><%= link_to "Applications", applications_path %></li>
 			<li><%= link_to "Settings", settings_path %></li>
-			<li><%= link_to "Users", users_path %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -49,17 +48,12 @@
     </div>
 
     <div class="container">
-    	<div id="user_nav">
-	  <% if current_user %>
-	    Logged in as <%= current_user.first_last_name %>.
-	    <%= link_to "Log out", log_out_path, :class => "action" %>
-	  <% else %>
-	    <%= link_to "log in", log_in_path, :class => "action" %>
-	  <% end %>
-	</div>
       <div class="content">
         <div class="row">
            <div class="span9">
+              <%= render 'devise/menu/login_items' %>
+              <p class="notice"><%= notice %></p>
+              <p class="alert"><%= alert %></p>
               <%= yield %>
             </div>
             <div class="span3">

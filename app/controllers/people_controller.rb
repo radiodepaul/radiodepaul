@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+  before_filter :authenticate_user!
   # GET /people
   # GET /people.json
   
@@ -9,9 +10,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @people
-        end
       } # show.html.erb
       format.js { render json: @people, :callback => params[:callback] }
       format.json { render json: @people, :callback => params[:callback] }
@@ -26,9 +25,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @person
-        end
       } # show.html.erb
       format.json { render json: @person, :callback => params[:callback] }
       format.js { render json: @person, :callback => params[:callback] }

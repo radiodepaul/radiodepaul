@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  devise_for :users
+
   resources :settings
 
   resources :applications do
@@ -11,17 +13,11 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "pages/welcome"
 
-  get "pages/home"
-
   get "application/success" => 'pages#application_success', :as => 'application/success'
 
   get "pages/api"
 
   get 'application' => "applications#new", :as => '/application'
-
-  get "sessions/new"
-
-  get "users/new"
 
   resources :slots do
     collection do
@@ -66,15 +62,6 @@ RadioDePaulWebsite2::Application.routes.draw do
     end
   end
   
-  get "home" => "pages#home", :as => "home"
-  
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  get "sign_up" => "users#new", :as => "sign_up"
-  
-  resources :users
-  resources :sessions
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

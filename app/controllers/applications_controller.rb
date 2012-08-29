@@ -1,4 +1,5 @@
 class ApplicationsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:new, :create]
   # GET /applications
   # GET /applications.json
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'

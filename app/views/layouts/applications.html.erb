@@ -40,7 +40,6 @@
 			<li><%= link_to "Podcasts", podcasts_path %></li>
 			<li><%= link_to "News Posts", news_posts_path %></li>
 			<li><%= link_to "Applications", applications_path %></li>
-			<li><%= link_to "Users", users_path %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -49,12 +48,6 @@
   <% end %>
 
     <div class="container">
-    	<div id="user_nav">
-	  <% if current_user %>
-	    Logged in as <%= current_user.first_last_name %>.
-	    <%= link_to "Log out", log_out_path, :class => "action" %>
-	  <% end %>
-	</div>
       <div class="content">
         <div class="row">
            <div class="span9">

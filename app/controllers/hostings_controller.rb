@@ -1,4 +1,5 @@
 class HostingsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /hostings
   # GET /hostings.json
   def index
@@ -6,9 +7,7 @@ class HostingsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @hostings
-        end
       } # show.html.erb
       #format.json { render json: @hostings }
     end
@@ -21,9 +20,7 @@ class HostingsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @hosting
-        end
       } # show.html.erb
       #format.json { render json: @hosting }
     end

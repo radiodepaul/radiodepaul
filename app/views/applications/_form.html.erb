@@ -21,6 +21,7 @@
       <%= f.input :co_hosts, :label => "Co-host(s) *if you plan on having one", :hint => "Note: Co-hosts must also apply." %>
       <%= f.input :show_name, :label => "Proposed Show Name?" %>
       <%= f.input :show_description, :label => "Brief description of your proposed show", :hint => "Think of this as an enticing headline for your show- 20 words maximum.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+      <%= f.label :genre_list, :class => 'control-label' %>
       <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ", " %> 
     <% end %>
     <%= f.input :experience, :label => "Do you have any broadcasting/journalism experience?  If so, tell us about your experiences.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>

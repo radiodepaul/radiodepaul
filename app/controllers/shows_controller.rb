@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /shows
   # GET /shows.json
   
@@ -11,9 +12,7 @@ class ShowsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @shows
-        end
       } # show.html.erb
       format.js  { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
@@ -28,9 +27,7 @@ class ShowsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @shows
-        end
       } # show.html.erb
       format.js  { render :json => @show, :callback => params[:callback] }
       format.json  { render :json => @show }
@@ -41,27 +38,22 @@ class ShowsController < ApplicationController
   # GET /shows/new
   # GET /shows/new.json
   def new
-    if logged_in?
       @show = Show.new
 
       respond_with(@show) do |format|
         #format.js  { render :json => @show.to_json(:include=>[:people]), :callback => params[:callback] }
       end
-    end
   end
   
 
   # GET /shows/1/edit
   def edit
-    if logged_in?
       @show = Show.find(params[:id])
-    end
   end
 
   # POST /shows
   # POST /shows.json
   def create
-    if logged_in?
       @show = Show.new(params[:show])
 
       respond_to do |format|
@@ -73,13 +65,11 @@ class ShowsController < ApplicationController
           #format.json { render json: @show.errors, status: :unprocessable_entity }
         end
       end
-    end
   end
 
   # PUT /shows/1
   # PUT /shows/1.json
   def update
-    if logged_in?
       @show = Show.find(params[:id])
 
       respond_to do |format|
@@ -91,13 +81,11 @@ class ShowsController < ApplicationController
           #format.json { render json: @show.errors, status: :unprocessable_entity }
         end
       end
-    end
   end
 
   # DELETE /shows/1
   # DELETE /shows/1.json
   def destroy
-    if logged_in?
       @show = Show.find(params[:id])
       @show.destroy
 
@@ -105,7 +93,6 @@ class ShowsController < ApplicationController
         format.html { redirect_to shows_url }
         #format.json { head :ok }
       end
-    end
   end
   
   def random

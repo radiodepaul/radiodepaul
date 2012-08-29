@@ -1,4 +1,5 @@
 class SlotsController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :set_timezone
   # GET /slots
   # GET /slots.json
@@ -11,9 +12,7 @@ class SlotsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @slots
-        end
       } # show.html.erb
       format.json { render json: @slots, :callback => params[:callback] }
       format.js  { render json: @slots, :callback => params[:callback] }
@@ -27,9 +26,7 @@ class SlotsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in?
           render :html => @slot
-        end
       } # show.html.erb
       format.json { render json: @slot, :callback => params[:callback] }
       format.js  { render :json => @slot, :callback => params[:callback] }
