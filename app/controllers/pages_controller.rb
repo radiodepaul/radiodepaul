@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   end
 
   def application_success
-    render :layout => 'applications'
+    render :layout => 'application'
   end
 
     private

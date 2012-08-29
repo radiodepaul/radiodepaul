@@ -5,6 +5,10 @@ class Application < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :depaul_id, :presence => true, :numericality => { :only_integer => true }
+  validates :email, :presence => true
+  validates_format_of :email, :with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i, :on => :create
+  validates :position, :presence => true
+  validates :bio, :presence => true
 
   def first_last_name
     return self.first_name + ' ' + self.last_name

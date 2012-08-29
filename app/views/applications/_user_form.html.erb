@@ -1,22 +1,22 @@
-<%= semantic_form_for @application, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f| %>
+<%= semantic_form_for @application, :html => { :class => 'form-horizontal', :html => {:multipart => true} }, :validate => true do |f| %>
   <%= f.error_messages %>
   <%= f.inputs do %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :depaul_id, :label => "DePaul ID" %>
-    <%= f.input :gpa, :label => 'GPA', :hint => 'If you do not have a GPA yet, submit your final H.S. GPA' %>
-    <%= f.input :year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"] %>
+    <%= f.input :first_name, :required => true %>
+    <%= f.input :last_name, :required => true %>
+    <%= f.input :depaul_id, :label => "DePaul ID", :required => true %>
+    <%= f.input :gpa, :label => 'GPA', :hint => 'If you do not have a GPA yet, submit your final H.S. GPA', :required => true %>
+    <%= f.input :year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"], :required => true %>
     <%= f.input :major %>
-    <%= f.input :email, :as => :email %>
-    <%= f.input :phone, :as => :phone %>
+    <%= f.input :email, :as => :email, :required => true  %>
+    <%= f.input :phone, :as => :phone, :label => 'Cell Phone' %>
     <%= f.input :home_city %>
     <%= f.input :home_state %>
     <%= f.input :why_depaul, :label => "Why did you choose DePaul?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  } %>
     <%= f.input :influences, :label => "Why did you choose DePaul?", :hint => "Musical or otherwise?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
-    <%= f.input :bio, :hint => "Nothing too personal, just tell us about yourself.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
-    <%= f.input :position, :as => :radio, :collection => ["Host", "Newscaster", "Sportscaster", "Other"] %>
+    <%= f.input :bio, :hint => "Nothing too personal, just tell us about yourself.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }, :required => true %>
+    <%= f.input :position, :label => 'Position for which you are applying?', :as => :radio, :collection => ["Host", "Newscaster", "Sportscaster", "Other"], :required => true %>
     <%= f.inputs :host_inputs => "Host inputs", :id => "host_inputs" do %>
-      <%= f.input :host_type, :as => :radio, :collection => ["Music", "Talk", "Off-air podcast"] %>
+      <%= f.input :host_type, :label => 'Host type?', :as => :radio, :collection => ["Music", "Talk", "Off-air podcast"] %>
       <%= f.input :show_type, :hint => "sports, politics..." %>
       <%= f.input :co_hosts, :label => "Co-host(s) *if you plan on having one", :hint => "Note: Co-hosts must also apply." %>
       <%= f.input :show_name, :label => "Proposed Show Name?" %>
@@ -28,11 +28,10 @@
     <%= f.input :favorite_artists, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :favorite_tv_shows, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :favorite_films, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
-    <%= f.input :famous_person, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
-    <%= f.input :anything_else, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :anything_else, :label => 'Anything else you would like us to know about you?', :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
   <% end %>
   <div class="control-group">
-    <%= f.label :photo, :class => 'control-label' %>
+    <%= f.label :website_profile_photo, :class => 'control-label' %>
     <div class="controls">
       <% if @application.avatar? %>
       <%= image_tag(@application.avatar.square.thumb.url) %><br />
