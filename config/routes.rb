@@ -13,6 +13,8 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "pages/home"
 
+  get "application/success" => 'pages#application_success', :as => 'application/success'
+
   get "pages/api"
 
   get 'application' => "applications#new", :as => '/application'

@@ -11,7 +11,9 @@ class PagesController < ApplicationController
     #if logged_in?
     #end
   end
-  def application
+
+  def application_success
+    render :layout => 'applications'
   end
 
     private
