@@ -33,6 +33,7 @@
           <a class="brand" href="/">Radio DePaul</a>
           <div class="container nav-collapse">
             <ul class="nav">
+              <% if user_signed_in? %>
               <li><%= link_to "Shows", shows_path %></li>
 			<li><%= link_to "People", people_path %></li>
 			<li><%= link_to "Managers", managers_path %></li>
@@ -41,6 +42,7 @@
 			<li><%= link_to "News Posts", news_posts_path %></li>
 			<li><%= link_to "Applications", applications_path %></li>
 			<li><%= link_to "Settings", settings_path %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -57,6 +59,7 @@
               <%= yield %>
             </div>
             <div class="span3">
+              <% if user_signed_in? %>
               <div class="well sidebar-nav">
                 <h3>Stats</h3>
                 <ul id="on-air" class="nav nav-list">
@@ -70,6 +73,7 @@
 
                 </ul>
               </div><!--.well -->
+            <% end %>
             </div><!--/span-->
         </div><!--/row-->
       </div><!--/content-->
