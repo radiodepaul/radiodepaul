@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
     Time.zone = 'Central Time (US & Canada)'
   end
   
+  def validate_access(allowed_roles)
+          if current_user.isAdmin? || allowed_roles.include?(current_user.position)
+                  return true
+          end
+          redirect_to root_url, :notice => "Restricted Access."
+          return false
+  end
+
   private
 
   def markdown

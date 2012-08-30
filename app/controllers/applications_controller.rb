@@ -1,5 +1,7 @@
 class ApplicationsController < ApplicationController
   before_filter :authenticate_user!, :except => [:new, :create]
+  allowed_roles = Array["General Manager", "Web Developer"]
+  before_filter :except => [:new, :create] { |c| c.validate_access allowed_roles }
   # GET /applications
   # GET /applications.json
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
