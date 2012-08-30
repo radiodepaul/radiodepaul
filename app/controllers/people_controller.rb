@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+  before_filter :authenticate_user!, :except => [:getPerson, :getList, :getRandom]
   # GET /people
   # GET /people.json
   

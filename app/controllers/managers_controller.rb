@@ -1,4 +1,5 @@
 class ManagersController < ApplicationController
+  before_filter :authenticate_user!, :except => [:getManagers]
   # GET /managers
   # GET /managers.json
   

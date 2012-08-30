@@ -1,4 +1,5 @@
 class NewsPostsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:getList, :getPost]
   # GET /news_posts
   # GET /news_posts.json
   def index

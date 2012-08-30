@@ -1,4 +1,5 @@
 class SlotsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:now_playing, :current, :getOnAir, :getSchedule]
   before_filter :set_timezone
   # GET /slots
   # GET /slots.json

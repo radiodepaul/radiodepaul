@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:getShow, :getList, :getRandom]
   # GET /shows
   # GET /shows.json
   
