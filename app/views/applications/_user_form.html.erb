@@ -12,7 +12,7 @@
     <%= f.input :home_city %>
     <%= f.input :home_state %>
     <%= f.input :why_depaul, :label => "Why did you choose DePaul?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  } %>
-    <%= f.input :influences, :label => "Why did you choose DePaul?", :hint => "Musical or otherwise?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
+    <%= f.input :influences, :label => "Personal Influences", :hint => "Musical or otherwise?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :bio, :hint => "Nothing too personal, just tell us about yourself.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }, :required => true %>
     <%= f.input :position, :label => 'Position for which you are applying?', :as => :radio, :collection => ["Host", "Newscaster", "Sportscaster", "Other"], :required => true %>
     <%= f.inputs :host_inputs => "Host inputs", :id => "host_inputs" do %>
