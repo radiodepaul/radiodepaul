@@ -28,7 +28,7 @@
     <%= f.input :favorite_artists, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :favorite_tv_shows, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :favorite_films, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
-    <%= f.input :twitter_url, :as => :url %>
+    <%= f.input :twitter_url, :as => :url, :hint => 'http://twitter.com/username' %>
     <%= f.input :facebook_url, :as => :url %>
     <%= f.input :tumblr_url, :as => :url %>
     <%= f.input :anything_else, :label => 'Anything else you would like us to know about you?', :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
