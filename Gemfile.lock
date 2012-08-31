@@ -92,6 +92,12 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.3)
+    haml (3.1.6)
+    haml-rails (0.3.4)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      haml (~> 3.0)
+      railties (~> 3.0)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.4)
@@ -211,6 +217,8 @@ DEPENDENCIES
   fog
   formtastic!
   formtastic-bootstrap!
+  haml
+  haml-rails
   jquery-datatables-rails
   jquery-rails
   jquery-ui-rails
