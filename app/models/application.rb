@@ -9,6 +9,8 @@ class Application < ActiveRecord::Base
   validates_format_of :email, :with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i, :on => :create
   validates :position, :presence => true
   validates :bio, :presence => true
+  validates :bio, :presence => true
+  validates :why_work_here, :presence => true
   validates_format_of :twitter_url, :with => /^((http|ftp|https?):\/\/((?:[-a-z0-9]+\.)+[a-z]{2,}))/, :on => :create, :message=>"has an invalid format", :if => :twitter_url_filled?
   validates_format_of :facebook_url, :with => /^((http|ftp|https?):\/\/((?:[-a-z0-9]+\.)+[a-z]{2,}))/, :on => :create, :message=>"has an invalid format", :if => :facebook_url_filled?
   validates_format_of :tumblr_url, :with => /^((http|ftp|https?):\/\/((?:[-a-z0-9]+\.)+[a-z]{2,}))/, :on => :create, :message=>"has an invalid format", :if => :tumblr_url_filled?

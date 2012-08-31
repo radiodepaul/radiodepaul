@@ -1,4 +1,7 @@
 <%= semantic_form_for @application, :html => { :class => 'form-horizontal', :html => {:multipart => true} }, :validate => true do |f| %>
+<p>
+All fields marked with an asterisk (*) are required.<br /><br />
+</p>
   <%= f.error_messages %>
   <%= f.inputs do %>
     <%= f.input :first_name, :required => true %>
@@ -6,7 +9,7 @@
     <%= f.input :depaul_id, :label => "DePaul ID", :required => true %>
     <%= f.input :gpa, :label => 'GPA', :hint => 'If you do not have a GPA yet, submit your final H.S. GPA', :required => true %>
     <%= f.input :year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"], :required => true %>
-    <%= f.input :major %>
+    <%= f.input :major, :label => 'Major/Minor' %>
     <%= f.input :email, :as => :email, :required => true  %>
     <%= f.input :phone, :as => :phone, :label => 'Cell Phone' %>
     <%= f.input :home_city %>
@@ -21,8 +24,15 @@
       <%= f.input :co_hosts, :label => "Co-host(s) *if you plan on having one", :hint => "Note: Co-hosts must also apply." %>
       <%= f.input :show_name, :label => "Proposed Show Name?" %>
       <%= f.input :show_description, :label => "Brief description of your proposed show", :hint => "Think of this as an enticing headline for your show- 20 words maximum.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
-      <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ", " %> 
+      <%= f.input :why_listen, :label => "How do you plan on making your show stand out in the crowd? Why will people want to listen to your show?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  } %>
+      <div class="string control-group optional stringish" id="application_genre_list_input">
+        <%= f.label 'Genre(s)', :for => :genre_list %>
+        <div class="controls">
+          <%= f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ", " %> 
+        </div>
+      </div>
     <% end %>
+    <%= f.input :why_work_here, :label => "Why do you want to work at Radio DePaul?", :required => true, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  } %>
     <%= f.input :experience, :label => "Do you have any broadcasting/journalism experience?  If so, tell us about your experiences.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :campus_involvement, :label => "Are you involved with any other campus groups/organizations?  If so, tell us about them.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
     <%= f.input :favorite_artists, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }  %>
