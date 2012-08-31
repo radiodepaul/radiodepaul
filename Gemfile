@@ -9,6 +9,7 @@ gem 'pg'
 gem 'rdiscount', :require => 'rdiscount'
 gem 'rabl'
 gem 'json'
+gem 'garb'
 
 gem 'unicorn'
 gem 'thin'

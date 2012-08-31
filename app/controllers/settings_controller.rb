@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_person!
+  before_filter { |c| c.validate_access }
   # GET /settings
   # GET /settings.json
   def index

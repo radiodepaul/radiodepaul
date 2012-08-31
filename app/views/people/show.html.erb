@@ -3,7 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
 
-<dl class="dl-horizontal">
+<dl class="dl">
   <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
   <dd><%= @person.first_name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>

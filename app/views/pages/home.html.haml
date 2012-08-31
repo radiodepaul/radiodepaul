@@ -1,10 +1,58 @@
-- if current_person.admin?
+-# if current_person.admin?
   You are an admin
 - if @person.avatar?
-  = image_tag(@person.avatar.square.thumb.url)
+  = image_tag(@person.avatar.square.small.url, :style => "float:right")
 %h1= @person.first_last_name
+%ul
+  %li
+    %strong
+      Email:
+    #{@person.email}
+  %li 
+    %strong
+      Year: 
+    #{@person.class_year}
+  %li
+    %strong
+      Major: 
+    #{@person.major}
+  %li 
+    %strong
+      Hometown: 
+    #{@person.hometown}
+  %li 
+    %strong
+      DePaul ID: 
+    #{@person.depaul_id}
+  %li 
+    %strong
+      Facebook Username: 
+    #{@person.facebook_username}
+  %li 
+    %strong
+      LinkedIn Username: 
+    #{@person.linkedin_username}
+  %li 
+    %strong
+      Twitter Username: 
+    #{@person.twitter_username}
+  %li 
+    %strong
+      Website URL: 
+    #{@person.website_url}
+%p
+  %strong
+    Influences
+%p= @person.influences
+%p
+  %strong
+    Bio
+%p= @person.bio
 = link_to "Edit Profile", edit_person_path(@person), :class => 'btn'
 
+-#%h2 Some Analytics
+-#@analytics.each do |a| 
+-##{a.page_path} #{a.pageviews}
 %h2 My Shows
 - if @shows.length == 0
   %p You have no shows at the moment.

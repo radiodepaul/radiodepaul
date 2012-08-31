@@ -1,10 +1,19 @@
 class PeopleController < ApplicationController
-  #before_filter :authenticate_user!, :except => [:getPerson, :getList, :getRandom]
+  before_filter :authenticate_person!, :except => [:getPerson, :getList, :getRandom]
+  allowed_roles = Array["Program Director"]
+  before_filter :except => [:edit, :update] { |c| c.validate_access allowed_roles }
   # GET /people
   # GET /people.json
   
-  respond_to :html, :xml, :json, :js
-  
+  def validate_person_access(person)
+    unless current_person == person then
+      flash[:error] = "You do not have access to this person."
+      redirect_to root_path
+      return false
+    end
+    return true
+  end
+
   def index
     @people = Person.find(:all, :order => 'first_name')
 
@@ -46,6 +55,7 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    validate_person_access(@person)
   end
 
   # POST /people
@@ -68,6 +78,7 @@ class PeopleController < ApplicationController
   # PUT /people/1.json
   def update
     @person = Person.find(params[:id])
+    validate_person_access(@person)
 
     respond_to do |format|
       if @person.update_attributes(params[:person])

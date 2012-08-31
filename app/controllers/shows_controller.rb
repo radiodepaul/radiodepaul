@@ -1,12 +1,13 @@
 class ShowsController < ApplicationController
   before_filter :authenticate_person!, :except => [:getShow, :getList, :getRandom]
-  before_filter :authenticate_user!, :except => [:index, :show, :edit, :update, :getShow, :getList, :getRandom]
+  allowed_roles = Array["Program Director"]
+  before_filter :except => [:new, :create] { |c| c.validate_access allowed_roles }
   # GET /shows
   # GET /shows.json
   
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
 
-  def validate_access(show)
+  def validate_show_access(show)
     unless current_person.try(:shows).include? show then
       flash[:error] = "You do not have access to this show."
       redirect_to root_path
@@ -33,7 +34,7 @@ class ShowsController < ApplicationController
   # GET /shows/1.json
   def show
     @show = Show.find(params[:id])
-      if validate_access(@show)
+      if validate_show_access(@show)
         respond_to do |format|
           format.html {
               render :html => @show
@@ -57,7 +58,7 @@ class ShowsController < ApplicationController
   # GET /shows/1/edit
   def edit
       @show = Show.find(params[:id])
-      validate_access(@show)
+      validate_show_access(@show)
   end
 
   # POST /shows
@@ -81,7 +82,7 @@ class ShowsController < ApplicationController
   def update
       @show = Show.find(params[:id])
 
-      if validate_access(@show)
+      if validate_show_access(@show)
         respond_to do |format|
           if @show.update_attributes(params[:show])
             format.html { redirect_to @show, notice: 'Show was successfully updated.' }
