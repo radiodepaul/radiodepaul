@@ -18,7 +18,7 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   resources :podcasts
 
-  get "pages/welcome"
+  get 'welcome' => 'pages#welcome', :as => 'welcome'
 
   get 'home' => 'pages#home', :as => 'home'
 
