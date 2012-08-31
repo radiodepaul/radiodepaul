@@ -1,14 +1,23 @@
 class ShowsController < ApplicationController
-  #before_filter :authenticate_user!, :except => [:getShow, :getList, :getRandom]
+  before_filter :authenticate_person!, :except => [:getShow, :getList, :getRandom]
+  before_filter :authenticate_user!, :except => [:index, :show, :edit, :update, :getShow, :getList, :getRandom]
   # GET /shows
   # GET /shows.json
   
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
-  
-  respond_to :html, :xml, :json, :js
+
+  def validate_access(show)
+    unless current_person.try(:shows).include? show then
+      flash[:error] = "You do not have access to this show."
+      redirect_to root_path
+      return false
+    end
+    return true
+  end
   
   def index
-    @shows = Show.find(:all, :order => 'title')
+    #@shows = Show.find(:all, :order => 'title')
+    @shows = current_person.shows
 
     respond_to do |format|
       format.html {
@@ -24,15 +33,14 @@ class ShowsController < ApplicationController
   # GET /shows/1.json
   def show
     @show = Show.find(params[:id])
-
-    respond_to do |format|
-      format.html {
-          render :html => @shows
-      } # show.html.erb
-      format.js  { render :json => @show, :callback => params[:callback] }
-      format.json  { render :json => @show }
-    end
-    
+      if validate_access(@show)
+        respond_to do |format|
+          format.html {
+              render :html => @show
+          } # show.html.erb
+          format.json { render :json => @show.to_json }
+        end
+      end
   end
 
   # GET /shows/new
@@ -49,6 +57,7 @@ class ShowsController < ApplicationController
   # GET /shows/1/edit
   def edit
       @show = Show.find(params[:id])
+      validate_access(@show)
   end
 
   # POST /shows
@@ -72,13 +81,15 @@ class ShowsController < ApplicationController
   def update
       @show = Show.find(params[:id])
 
-      respond_to do |format|
-        if @show.update_attributes(params[:show])
-          format.html { redirect_to @show, notice: 'Show was successfully updated.' }
-          #format.json { head :ok }
-        else
-          format.html { render action: "edit" }
-          #format.json { render json: @show.errors, status: :unprocessable_entity }
+      if validate_access(@show)
+        respond_to do |format|
+          if @show.update_attributes(params[:show])
+            format.html { redirect_to @show, notice: 'Show was successfully updated.' }
+            #format.json { head :ok }
+          else
+            format.html { render action: "edit" }
+            #format.json { render json: @show.errors, status: :unprocessable_entity }
+          end
         end
       end
   end

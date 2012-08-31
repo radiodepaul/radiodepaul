@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   def set_timezone
     Time.zone = 'Central Time (US & Canada)'
   end
-  
+  def after_sign_in_path_for(resource)
+    home_path 
+  end 
   def validate_access(allowed_roles = Array[])
           if current_user.try(:isAdmin?) || allowed_roles.include?(current_user.try(:position))
                   return true

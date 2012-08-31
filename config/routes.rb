@@ -20,6 +20,8 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get "pages/welcome"
 
+  get 'home' => 'pages#home', :as => 'home'
+
   get "application/success" => 'pages#application_success', :as => 'application/success'
 
   get "pages/api"
@@ -119,7 +121,7 @@ RadioDePaulWebsite2::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'shows#index'
+  root :to => 'pages#welcome'
 
   # See how all your routes lay out with "rake routes"
 

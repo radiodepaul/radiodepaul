@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831022352) do
+ActiveRecord::Schema.define(:version => 20120831060646) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20120831022352) do
     t.string   "linkedin_username"
     t.string   "twitter_username"
     t.string   "website_url"
-    t.string   "email",                  :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
     t.string   "major"
     t.string   "class_year"
     t.string   "hometown"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120831022352) do
     t.datetime "updated_at"
     t.string   "avatar"
     t.string   "depaul_id"
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20120831022352) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+    t.boolean  "admin",                  :default => false, :null => false
   end
 
   add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
