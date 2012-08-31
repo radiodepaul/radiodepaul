@@ -1,0 +1,116 @@
+- if current_person.admin?
+  You are an admin
+%h1 My Shows
+%table.datatable.table.table-striped
+  %thead
+    %tr
+      %th= Show.human_attribute_name(:avatar)
+      %th= Show.human_attribute_name(:title)
+      %th= Show.human_attribute_name(:genre)
+      %th # Hosts
+      %th # Slots
+      %th= Show.human_attribute_name(:updated_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @shows.each do |show|
+      %tr
+        %td= image_tag(show.avatar.square.thumb.url)
+        %td= link_to show.title, show_path(show)
+        %td= show.genre
+        %td= show.people.count
+        %td= show.slots.count
+        %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), |
+            edit_show_path(show), :class => 'btn btn-mini'           |
+          -#
+          = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
+            show_path(show),                                                                                |
+            :method => :delete,                                                                             |
+            :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
+            :class => 'btn btn-mini btn-danger'    
+%dl.dl-horizontal
+  %dt
+    %strong
+      = Person.human_attribute_name(:first_name)
+      \:
+  %dd= @person.first_name
+  %dt
+    %strong
+      = Person.human_attribute_name(:last_name)
+      \:
+  %dd= @person.last_name
+  %dt
+    %strong
+      = Person.human_attribute_name(:nickname)
+      \:
+  %dd= @person.nickname
+  %dt
+    %strong
+      = Person.human_attribute_name(:bio)
+      \:
+  %dd= @person.bio
+  %dt
+    %strong
+      = Person.human_attribute_name(:influences)
+      \:
+  %dd= @person.influences
+  %dt
+    %strong
+      = Person.human_attribute_name(:facebook_username)
+      \:
+  %dd= @person.facebook_username
+  %dt
+    %strong
+      = Person.human_attribute_name(:linkedin_username)
+      \:
+  %dd= @person.linkedin_username
+  %dt
+    %strong
+      = Person.human_attribute_name(:twitter_username)
+      \:
+  %dd= @person.twitter_username
+  %dt
+    %strong
+      = Person.human_attribute_name(:website_url)
+      \:
+  %dd= @person.website_url
+  %dt
+    %strong
+      = Person.human_attribute_name(:email)
+      \:
+  %dd= @person.email
+  %dt
+    %strong
+      = Person.human_attribute_name(:major)
+      \:
+  %dd= @person.major
+  %dt
+    %strong
+      = Person.human_attribute_name(:class_year)
+      \:
+  %dd= @person.class_year
+  %dt
+    %strong
+      = Person.human_attribute_name(:hometown)
+      \:
+  %dd= @person.hometown
+  %dt
+    %strong
+      = Person.human_attribute_name(:avatar)
+      \:
+  %dd
+    - if @person.avatar?
+      = image_tag(@person.avatar.square.thumb.url)
+      %br/
+    - else
+      No Photo Uploaded
+  %dt
+    %strong
+      = Person.human_attribute_name(:depaul_id)
+      \:
+  %dd= @person.depaul_id
+  .form-actions
+    = link_to t('.edit', :default => t("helpers.links.edit")), |
+      edit_person_path(@person), :class => 'btn'               |
+    -#

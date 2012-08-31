@@ -33,7 +33,7 @@
           <a class="brand" href="/">Radio DePaul</a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <% if user_signed_in? %>
+              <% if user_signed_in? || (person_signed_in? && current_person.admin?)%>
               <li><%= link_to "Shows", shows_path %></li>
 			<li><%= link_to "People", people_path %></li>
 			<li><%= link_to "Managers", managers_path %></li>

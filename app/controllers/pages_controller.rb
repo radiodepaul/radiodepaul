@@ -4,8 +4,8 @@ class PagesController < ApplicationController
   end
 
   def home
-    #if logged_in?
-    #end
+    @shows = current_person.try(:shows)
+    @person = current_person
   end
 
   def application_success

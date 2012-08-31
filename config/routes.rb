@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  devise_for :people
+
   devise_for :users
   devise_scope :user do
     get '/login' => 'devise/sessions#new'
@@ -17,6 +19,8 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :podcasts
 
   get "pages/welcome"
+
+  get 'home' => 'pages#home', :as => 'home'
 
   get "application/success" => 'pages#application_success', :as => 'application/success'
 
@@ -117,7 +121,7 @@ RadioDePaulWebsite2::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
-  root :to => 'shows#index'
+  root :to => 'pages#welcome'
 
   # See how all your routes lay out with "rake routes"
 
