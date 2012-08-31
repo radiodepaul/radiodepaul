@@ -1,0 +1,98 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+      %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+        %title= content_for?(:title) ? yield(:title) : "Radio DePaul"
+        = csrf_meta_tags
+        / Le HTML5 shim, for IE6-8 support of HTML elements
+        /[if lt IE 9]
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        = stylesheet_link_tag "application", :media => "all"
+        %link{:href => "images/favicon.ico", :rel => "shortcut icon"}
+          %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
+            %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
+              %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
+                %script{:src => "http://use.typekit.com/kng1gpc.js", :type => "text/javascript"}
+                :javascript
+                  try{Typekit.load();}catch(e){}  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "/"} Radio DePaul
+          .container.nav-collapse
+            %ul.nav
+              - if user_signed_in? || (person_signed_in? && current_person.admin?)
+                %li= link_to "Shows", shows_path
+                %li= link_to "People", people_path
+                %li= link_to "Managers", managers_path
+                %li= link_to "Schedule A Show", slots_path
+                %li= link_to "Podcasts", podcasts_path
+                %li= link_to "News Posts", news_posts_path
+                %li= link_to "Applications", applications_path
+                %li= link_to "Settings", settings_path
+          / /.nav-collapse
+    .container
+      .content
+        .row
+          .span9
+            = render 'devise/menu/login_items'
+            - if flash[:notice]
+              %p.notice= notice
+            - if flash[:alert]
+              %p.alert= alert
+            = yield
+          .span3
+            - if user_signed_in?
+              .well.sidebar-nav
+                %h3 Stats
+                %ul#on-air.nav.nav-list
+                  %li
+                    Active Schedule: #{Settings.active_schedule}
+                  %li
+                    Shows: #{Show.count}
+                  %li
+                    Staff: #{Person.count}
+                  %li
+                    Managers: #{Manager.count}
+                  %li
+                    Podcasts: #{Podcast.count}
+                  %li
+                    News Posts: #{NewsPost.count}
+                  %li
+                    Users: #{User.count}
+              / .well
+          / /span
+        / /row
+      / /content
+      %footer
+        %p © Radio DePaul 2012
+    / /container
+    /
+      Javascripts
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application", "autocomplete-rails"
+    :javascript
+      $.ajax({
+            url: "http://radiodepaul.herokuapp.com/api/getOnAir.js",
+            dataType: "jsonp",
+            type: "GET",
+            processData: false,
+            contentType: "application/json",
+            success: function(data) {   
+              console.log(data);
+              var html = 'On Air Now';
+              html += "" + data[0].show.title + "with"
+              jQuery.each(data[0].show.hosts, function() {
+                console.log($(this));
+                html += "" + $(this)[0].name + "";
+             });
+              
+              $('#on-air').append(html);
+            }
+        });
