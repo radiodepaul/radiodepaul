@@ -1,5 +1,13 @@
 class Person < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :nickname, :bio, :influences, :facebook_username, :linkedin_username, :website_url, :email, :major, :class_year, :hometown, :avatar, :depaul_id, :hostings_attributes
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :first_name, :last_name, :nickname, :bio, :influences, :facebook_username, :linkedin_username, :website_url, :email, :major, :class_year, :hometown, :avatar, :depaul_id, :hostings_attributes, :twitter_username, :avatar_cache, :remote_avatar_url, :remove_avatar
   has_many :hostings, :dependent => :destroy
   has_many :shows, :through => :hostings
   accepts_nested_attributes_for :hostings, :allow_destroy => true

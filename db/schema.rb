@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830070706) do
+ActiveRecord::Schema.define(:version => 20120831022352) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20120830070706) do
     t.string   "linkedin_username"
     t.string   "twitter_username"
     t.string   "website_url"
-    t.string   "email"
+    t.string   "email",                  :default => "", :null => false
     t.string   "major"
     t.string   "class_year"
     t.string   "hometown"
@@ -107,7 +107,29 @@ ActiveRecord::Schema.define(:version => 20120830070706) do
     t.datetime "updated_at"
     t.string   "avatar"
     t.string   "depaul_id"
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
   end
+
+  add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
+  add_index "people", ["confirmation_token"], :name => "index_people_on_confirmation_token", :unique => true
+  add_index "people", ["reset_password_token"], :name => "index_people_on_reset_password_token", :unique => true
+  add_index "people", ["unlock_token"], :name => "index_people_on_unlock_token", :unique => true
 
   create_table "podcasts", :force => true do |t|
     t.string   "title"
