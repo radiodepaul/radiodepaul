@@ -1,5 +1,6 @@
 class UsersController < Devise::SessionsController
-  before_filter :authenticate_user!, :except => [:now_playing, :current, :getOnAir, :getSchedule]
+  before_filter :authenticate_user!
+  before_filter :validate_access
   
   def index
     @users = User.all

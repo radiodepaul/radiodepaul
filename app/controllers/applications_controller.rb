@@ -48,6 +48,7 @@ class ApplicationsController < ApplicationController
 
     respond_to do |format|
       if @application.save
+        NotifierMailer.welcome_email(@application).deliver
         format.html { redirect_to :controller => 'pages', :action => 'application_success', notice: 'Application was successfully created.' }
         format.json { render json: @application, status: :created, location: @application }
       else

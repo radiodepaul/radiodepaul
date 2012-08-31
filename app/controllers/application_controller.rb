@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
     Time.zone = 'Central Time (US & Canada)'
   end
   
-  def validate_access(allowed_roles)
-          if current_user.isAdmin? || allowed_roles.include?(current_user.position)
+  def validate_access(allowed_roles = Array[])
+          if current_user.try(:isAdmin?) || allowed_roles.include?(current_user.try(:position))
                   return true
           end
           redirect_to root_url, :notice => "Restricted Access."
