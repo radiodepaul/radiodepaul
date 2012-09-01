@@ -8,5 +8,6 @@
  *= require formtastic
  *= require my_formtastic_changes
  *= require_tree . 
- *= require formtastic-bootstrap
+ *= require formtastic-plus-bootstrap/responsive
+ *= require formtastic-plus-bootstrap
 */

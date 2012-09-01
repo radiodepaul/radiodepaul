@@ -2,7 +2,8 @@
   You are an admin
 - if @person.avatar?
   = image_tag(@person.avatar.square.small.url, :style => "float:right")
-%h1= @person.first_last_name
+%h1 #{@person.first_last_name}
+%h2 My Info
 %ul
   %li
     %strong

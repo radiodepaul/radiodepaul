@@ -6,3 +6,16 @@ footer {
   bottom:0;
   left:20px;
 }
+
+.formtastic fieldset.inputs ol > li.input.text textarea {
+  width:400px !important;
+}
+.formtastic fieldset.inputs ol > li.input.radio fieldset.choices > ol.choices-group > li.choice > label {
+  display:inline !important;
+}
+.formtastic fieldset.inputs ol > li.input.error > p.undefined {
+  margin-left:240px !important;
+}
+.formtastic fieldset.inputs, .formtastic fieldset.actions {
+  margin:0 !important;
+}

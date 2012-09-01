@@ -6,11 +6,10 @@ class SlotsController < ApplicationController
   # GET /slots
   # GET /slots.json
   
-  respond_to :html, :xml, :json, :js
-  
   def index
-    @slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", Settings.active_schedule])
-
+    #@slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", Settings.active_schedule])
+    @q = Slot.search(params[:q])
+    @slots = @q.result(:distinct => true)
 
     respond_to do |format|
       format.html {
