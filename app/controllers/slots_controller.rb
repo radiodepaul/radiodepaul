@@ -1,7 +1,7 @@
 class SlotsController < ApplicationController
-  before_filter :authenticate_person!, :except => [:new, :create]
+  before_filter :authenticate_person!, :except => [:new, :create, :getOnAir, :getSchedule, :now_playing]
   allowed_roles = Array["Program Director"]
-  before_filter :except => [:new, :create] { |c| c.validate_access allowed_roles }
+  before_filter :except => [:new, :create, :getOnAir, :getSchedule, :now_playing] { |c| c.validate_access allowed_roles }
   before_filter :set_timezone
   # GET /slots
   # GET /slots.json

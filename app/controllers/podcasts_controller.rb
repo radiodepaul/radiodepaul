@@ -1,7 +1,7 @@
 class PodcastsController < ApplicationController
-  before_filter :authenticate_person!, :except => [:new, :create]
+  before_filter :authenticate_person!, :except => [:new, :create, :getPodcasts]
   allowed_roles = Array["Podcast Programmer"]
-  before_filter :except => [:new, :create] { |c| c.validate_access allowed_roles }
+  before_filter :except => [:new, :create, :getPodcasts] { |c| c.validate_access allowed_roles }
   # GET /podcasts
   # GET /podcasts.json
   
