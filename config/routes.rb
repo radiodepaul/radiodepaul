@@ -18,6 +18,8 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   resources :podcasts
 
+  get '/edit_password' => 'people#edit_password', :as => 'edit_password'
+
   get 'welcome' => 'pages#welcome', :as => 'welcome'
 
   get 'home' => 'pages#home', :as => 'home'

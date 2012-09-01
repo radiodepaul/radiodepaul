@@ -50,6 +50,7 @@
     Bio
 %p= @person.bio
 = link_to "Edit Profile", edit_person_path(@person), :class => 'btn'
+= link_to "Change Password", edit_person_path(@person), :class => 'btn'
 
 -#%h2 Some Analytics
 -#@analytics.each do |a| 
