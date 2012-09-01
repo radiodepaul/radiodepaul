@@ -1,0 +1,9 @@
+<% if person_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_person_session_path, :method => :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login as Staff', new_person_session_path)  %>  
+  </li>
+<% end %>

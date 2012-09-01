@@ -1,73 +1,43 @@
 <%- model_class = @application.class -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1>Application for <%= @application.first_last_name %></h1>
+  <h3><%= @application.created_at.strftime("Submitted on %m/%d/%Y at %I:%M%p") %></h3>
+  <%= image_tag(@application.avatar.square.small.url, :style => "float:right") %>
 </div>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:first_name) %>:</strong></dt>
-  <dd><%= @application.first_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:last_name) %>:</strong></dt>
-  <dd><%= @application.last_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:depaul_id) %>:</strong></dt>
-  <dd><%= @application.depaul_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:gpa) %>:</strong></dt>
-  <dd><%= @application.gpa %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
-  <dd><%= @application.year %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:major) %>:</strong></dt>
-  <dd><%= @application.major %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
-  <dd><%= @application.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
-  <dd><%= @application.phone %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:home_city) %>:</strong></dt>
-  <dd><%= @application.home_city %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:home_state) %>:</strong></dt>
-  <dd><%= @application.home_state %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:why_depaul) %>:</strong></dt>
-  <dd><%= @application.why_depaul %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:influences) %>:</strong></dt>
-  <dd><%= @application.influences %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:bio) %>:</strong></dt>
-  <dd><%= @application.bio %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:position) %>:</strong></dt>
-  <dd><%= @application.position %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:experience) %>:</strong></dt>
-  <dd><%= @application.experience %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:campus_involvement) %>:</strong></dt>
-  <dd><%= @application.campus_involvement %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:host_type) %>:</strong></dt>
-  <dd><%= @application.host_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:co_hosts) %>:</strong></dt>
-  <dd><%= @application.co_hosts %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:show_name) %>:</strong></dt>
-  <dd><%= @application.show_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:show_description) %>:</strong></dt>
-  <dd><%= @application.show_description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:show_genres) %>:</strong></dt>
-  <dd><%= @application.show_genres %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:show_type) %>:</strong></dt>
-  <dd><%= @application.show_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:podcast_topic) %>:</strong></dt>
-  <dd><%= @application.podcast_topic %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:favorite_artists) %>:</strong></dt>
-  <dd><%= @application.favorite_artists %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:favorite_tv_shows) %>:</strong></dt>
-  <dd><%= @application.favorite_tv_shows %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:favorite_films) %>:</strong></dt>
-  <dd><%= @application.favorite_films %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:famous_person) %>:</strong></dt>
-  <dd><%= @application.famous_person %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:anything_else) %>:</strong></dt>
-  <dd><%= @application.anything_else %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:avatar) %>:</strong></dt>
-  <dd>
-    <% if @application.avatar? %>
-      <%= image_tag(@application.avatar.square.thumb.url) %><br />
-    <% else %>
-      No Photo Uploaded
-   <% end %>
-  </dd>
+<dl>
+  <dd><strong>DePaul ID#:</strong> <%= @application.depaul_id %></dd>
+  <dd><strong>GPA:</strong> <%= @application.gpa %></dd>
+  <dd><strong>Year:</strong> <%= @application.year %></dd>
+  <dd><strong>Major/Minor:</strong> <%= @application.major %></dd> 
+  <dd><strong>Email:</strong> <%= @application.email %></dd>
+  <dd><strong>Phone:</strong> <%= @application.phone %></dd>
+  <dd><strong>Home City:</strong> <%= @application.home_city %></dd>
+  <dd><strong>Home State:</strong> <%= @application.home_state %></dd>
+  <dd><strong>Why DePaul?:</strong> <%= @application.why_depaul %></dd>
+  <dd><strong>Personal Influences:</strong> <%= @application.influences %></dd>
+  <dd><strong>Bio:</strong> <%= @application.bio %></dd>
+  <dd><strong>Experience:</strong> <%= @application.experience %></dd>
+  <dd><strong>Campus Involvement:</strong> <%= @application.campus_involvement %></dd>
+  <% unless @application.position == "Other" then %>
+    <dd><strong>Position:</strong> <%= @application.position %></dd>
+  <% else %>
+    <dd><strong>Position:</strong> <%= @application.position_other %></dd>
+  <% end %>
+  <% if @application.created_at < Date.strptime('09/01/2012', '%m/%d/%Y') || @application.position == "Host" %>
+    <dd><strong>Host Type:</strong> <%= @application.host_type %></dd>
+    <dd><strong>Co-Hosts:</strong> <%= @application.co_hosts %></dd>
+    <dd><strong>Show Name:</strong> <%= @application.show_name %></dd>
+    <dd><strong>Show Description:</strong> <%= @application.show_description %></dd>
+    <% if @application.host_type == "Music" && @application.created_at > Date.strptime('09/01/2012', '%m/%d/%Y')  %>
+      <dd><strong>Show Genres:</strong> <%= @application.show_genres %></dd>
+    <% elsif @application.created_at > Date.strptime('09/01/2012', '%m/%d/%Y')  %>
+      <dd><strong>Show Type:</strong> <%= @application.show_type %></dd>
+    <% end %>
+  <% end %>
+  <dd><strong>Favorite Artists:</strong> <%= @application.favorite_artists %></dd>
+  <dd><strong>Favorite TV Shows:</strong> <%= @application.favorite_tv_shows %></dd>
+  <dd><strong>Favorite Films:</strong> <%= @application.favorite_films %></dd>
+  <dd><strong>Anything Else:</strong> <%= @application.anything_else %></dd>
 </dl>
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

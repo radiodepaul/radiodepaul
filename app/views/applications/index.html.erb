@@ -5,6 +5,7 @@
 <table class="datatable table table-striped">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:avatar) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:year) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
@@ -16,7 +17,8 @@
   <tbody>
     <% @applications.each do |application| %>
       <tr>
-        <td><%= application.first_last_name %></td>
+        <td><%= image_tag(application.avatar.square.thumb.url) %></td>
+        <td><%= link_to application.first_last_name, "/applications/" + application.id.to_s %></td>
         <td><%= application.year %></td>
         <td><%= application.email %></td>
         <td><%= application.position %></td>

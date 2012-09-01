@@ -17,8 +17,11 @@ class ShowsController < ApplicationController
   end
   
   def index
-    #@shows = Show.find(:all, :order => 'title')
-    @shows = current_person.shows
+    if current_person.admin?
+      @shows = Show.find(:all, :order => 'title')
+    else
+      @shows = current_person.shows
+    end
 
     respond_to do |format|
       format.html {
