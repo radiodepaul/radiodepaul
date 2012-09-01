@@ -1,14 +1,15 @@
 class SlotsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:now_playing, :current, :getOnAir, :getSchedule]
+  before_filter :authenticate_person!, :except => [:new, :create, :getOnAir, :getSchedule, :now_playing]
+  allowed_roles = Array["Program Director"]
+  before_filter :except => [:new, :create, :getOnAir, :getSchedule, :now_playing] { |c| c.validate_access allowed_roles }
   before_filter :set_timezone
   # GET /slots
   # GET /slots.json
   
-  respond_to :html, :xml, :json, :js
-  
   def index
-    @slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", Settings.active_schedule])
-
+    #@slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", Settings.active_schedule])
+    @q = Slot.search(params[:q])
+    @slots = @q.result(:distinct => true)
 
     respond_to do |format|
       format.html {

@@ -1,6 +1,5 @@
 class UsersController < Devise::SessionsController
-  before_filter :authenticate_user!
-  before_filter :validate_access
+  before_filter :authenticate_person!
   
   def index
     @users = User.all

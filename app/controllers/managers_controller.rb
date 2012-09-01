@@ -1,9 +1,8 @@
 class ManagersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:getManagers]
+  before_filter :authenticate_person!, :except => [:getManagers]
+  before_filter :except => [:new, :create, :getManagers] { |c| c.validate_access }
   # GET /managers
   # GET /managers.json
-  
-  respond_to :html, :xml, :json, :js
   
   def index
     @managers = Manager.all

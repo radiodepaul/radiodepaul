@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     home_path 
   end 
   def validate_access(allowed_roles = Array[])
-          if current_user.try(:isAdmin?) || allowed_roles.include?(current_user.try(:position))
+          if current_person.try(:admin?) || allowed_roles.include?(current_user.try(:position))
                   return true
           end
           redirect_to root_url, :notice => "Restricted Access."

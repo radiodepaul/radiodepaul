@@ -2,6 +2,33 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
+<div id="search_form">
+<%= search_form_for @q do |f| %>
+  <div class="controls>
+    <%= f.label :quarter_cont, "Quarter" %>
+    <%= f.text_field :quarter_cont %>
+    <%= f.label :monday_true, "Monday" %>
+    <%= f.check_box :monday_true %>
+    <%= f.label :tuesday_true, "Tuesday" %>
+    <%= f.check_box :tuesday_true %>
+    <%= f.label :wednesday_true, "Wednesday" %>
+    <%= f.check_box :wednesday_true %>
+    <%= f.label :thursday_true, "Thursday" %>
+    <%= f.check_box :thursday_true %>
+    <%= f.label :friday_true, "Friday" %>
+    <%= f.check_box :friday_true %>
+    <%= f.label :saturday_true, "Saturday" %>
+    <%= f.check_box :saturday_true %>
+    <%= f.label :sunday_true, "Sunday" %>
+    <%= f.check_box :sunday_true %>
+    <%= f.label :start_time_gteq, "Time between" %>
+    <%= f.time_select :start_time_gteq, {:default => { :hour => 0, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
+    <%= f.label :end_time_lteq, "and" %>
+    <%= f.time_select :end_time_lteq, {:default => { :hour => 0, :minute => 0 }, :ampm => true, :minute_step => 30 } %>
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_slot_path,
             :class => 'btn btn-primary' %>

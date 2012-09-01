@@ -1,4 +1,7 @@
 class HostingsController < ApplicationController
+  before_filter :authenticate_person!, :except => [:new, :create]
+  allowed_roles = Array["Program Director"]
+  before_filter :except => [:new, :create] { |c| c.validate_access allowed_roles }
   # GET /hostings
   # GET /hostings.json
   def index

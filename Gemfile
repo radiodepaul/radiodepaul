@@ -9,16 +9,21 @@ gem 'pg'
 gem 'rdiscount', :require => 'rdiscount'
 gem 'rabl'
 gem 'json'
+gem 'garb'
 
 gem 'unicorn'
 gem 'thin'
+gem "ransack"
 
 gem 'haml'
 gem 'haml-rails'
 gem 'devise'
 gem 'client_side_validations'
-gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => '2.1-stable'
-gem 'formtastic-bootstrap', :git => 'https://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
+#gem "bootstrap-sass", "~> 2.0.3"
+gem "formtastic", "~> 2.1"
+gem "formtastic-plus-bootstrap"
+#gem 'formtastic', :git => 'git://github.com/justinfrench/formtastic.git', :branch => '2.1-stable'
+#gem 'formtastic-bootstrap', :git => 'https://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
 gem "dynamic_form"
 gem 'carrierwave'
 gem 'rmagick'
