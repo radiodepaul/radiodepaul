@@ -1,13 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
   devise_for :people
 
-  devise_for :users
-  devise_scope :user do
-    get '/login' => 'devise/sessions#new'
-    get '/logout' => 'devise/sessions#destroy'
-    resources :users, :controller => "users"
-  end
-
   resources :settings
 
   resources :applications do
@@ -18,13 +11,13 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   resources :podcasts
 
-  get '/edit_password' => 'people#edit_password', :as => 'edit_password'
-
   get 'welcome' => 'pages#welcome', :as => 'welcome'
 
   get 'home' => 'pages#home', :as => 'home'
 
-  get "application/success" => 'pages#application_success', :as => 'application/success'
+  match "/applications/hire/:id" => "applications#hire"
+
+  #get "application/success" => 'pages#application_success', :as => 'application/success'
 
   get "pages/api"
 

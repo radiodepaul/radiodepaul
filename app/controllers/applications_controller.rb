@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
   # GET /applications.json
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
   def index
-    @applications = Application.all
+    @applications = Application.find(:all, :order => 'created_at desc')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,6 +16,24 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/1
   # GET /applications/1.json
+  def hire
+    application = Application.find(params[:id])
+    person = Person.new
+    person.email = application.email
+    person.first_name = application.first_name
+    person.last_name = application.last_name
+    person.bio = application.bio
+    person.facebook_username = application.facebook_username
+    person.twitter_username = application.twitter_username
+    person.tumblr_username = application.tumblr_username
+    person.major = application.major
+    person.class_year = application.year
+    person.hometown = "#{application.home_city}, #{application.home_state}"
+    person.influences = application.influences
+    #person.nickname = application.nickname
+    #person.website_url = application.website_url
+
+  end
   def show
     @application = Application.find(params[:id])
 

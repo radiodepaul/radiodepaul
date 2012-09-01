@@ -16,5 +16,4 @@ $('.datatable').dataTable({
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap",
   "iDisplayLength": 50,
-  "aaSorting": [[4,'desc']]
 });

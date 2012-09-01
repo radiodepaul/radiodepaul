@@ -1,5 +1,5 @@
 class NewsPost < ActiveRecord::Base
-	belongs_to :user 
+	belongs_to :person 
 
 	def snippet(thought, wordcount)
 		thought.split[0..(wordcount-1)].join(" ") +(thought.split.size > wordcount ? "..." : "")
