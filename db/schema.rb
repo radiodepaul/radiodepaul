@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120901041655) do
+ActiveRecord::Schema.define(:version => 20120901100731) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.string   "file"
     t.integer  "attachable_id"
     t.string   "attachable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "contributors"
   end
 
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
   create_table "hostings", :force => true do |t|
     t.integer  "show_id"
     t.integer  "person_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "managers", :force => true do |t|
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.text     "office_hours"
     t.string   "email"
     t.string   "phone_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "person_id"
   end
 
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.string   "headline"
     t.datetime "datetime_published"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "user_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "person_id"
   end
 
   create_table "people", :force => true do |t|
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.string   "major"
     t.string   "class_year"
     t.string   "hometown"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "avatar"
     t.string   "depaul_id"
     t.string   "encrypted_password",     :default => "",    :null => false
@@ -128,6 +128,11 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.datetime "locked_at"
     t.string   "authentication_token"
     t.boolean  "admin",                  :default => false, :null => false
+    t.string   "tumblr_username"
+    t.string   "phone"
+    t.text     "favorite_artists"
+    t.text     "favorite_films"
+    t.text     "favorite_tv_shows"
   end
 
   add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
@@ -141,16 +146,9 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.string   "podcast_type"
     t.string   "contributors"
     t.string   "file"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.boolean  "priority"
-  end
-
-  create_table "schedulings", :force => true do |t|
-    t.integer  "show_id"
-    t.integer  "slot_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "settings", :force => true do |t|
@@ -173,8 +171,8 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.string   "email"
     t.string   "twitter_username"
     t.string   "website_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "avatar"
   end
 
@@ -189,8 +187,8 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
     t.boolean  "friday"
     t.boolean  "saturday"
     t.boolean  "sunday"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "show_id"
   end
 
@@ -210,33 +208,5 @@ ActiveRecord::Schema.define(:version => 20120901041655) do
   create_table "tags", :force => true do |t|
     t.string "name"
   end
-
-  create_table "users", :force => true do |t|
-    t.string   "first_name",             :default => "", :null => false
-    t.string   "last_name",              :default => "", :null => false
-    t.boolean  "isAdmin"
-    t.boolean  "isStaff"
-    t.string   "position"
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-  end
-
-  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

@@ -15,7 +15,8 @@
               %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
                 %script{:src => "http://use.typekit.com/kng1gpc.js", :type => "text/javascript"}
                 :javascript
-                  try{Typekit.load();}catch(e){}  %body
+                  try{Typekit.load();}catch(e){}  
+  %body
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
@@ -26,7 +27,7 @@
           %a.brand{:href => "/"} Radio DePaul
           .container.nav-collapse
             %ul.nav
-              - if user_signed_in? || (person_signed_in? && current_person.admin?)
+              - if person_signed_in? && current_person.admin?
                 %li= link_to "Shows", shows_path
                 %li= link_to "People", people_path
                 %li= link_to "Managers", managers_path
@@ -40,14 +41,14 @@
       .content
         .row
           .span9
-            = render 'devise/menu/login_items'
+            = render 'people/menu/login_items'
             - if flash[:notice]
               %p.notice= notice
             - if flash[:alert]
               %p.alert= alert
             = yield
           .span3
-            - if user_signed_in?
+            - if person_signed_in? && current_person.admin?
               .well.sidebar-nav
                 %h3 Stats
                 %ul#on-air.nav.nav-list
@@ -63,8 +64,6 @@
                     Podcasts: #{Podcast.count}
                   %li
                     News Posts: #{NewsPost.count}
-                  %li
-                    Users: #{User.count}
               / .well
           / /span
         / /row
