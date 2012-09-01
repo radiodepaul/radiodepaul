@@ -1,7 +1,7 @@
 class PeopleController < ApplicationController
   before_filter :authenticate_person!, :except => [:getPerson, :getList, :getRandom]
   allowed_roles = Array["Program Director"]
-  before_filter :except => [:edit, :update] { |c| c.validate_access allowed_roles }
+  before_filter :except => [:edit, :update, :getPerson, :getList, :getRandom] { |c| c.validate_access allowed_roles }
   # GET /people
   # GET /people.json
   
