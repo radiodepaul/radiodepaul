@@ -1,0 +1,14 @@
+
+<%= @person.first_name.capitalize %>,
+
+<p>
+  Your Radio DePaul account has been created!
+</p>
+
+<p>
+  Please visit <a href="http://www.radiodepaul.herokuapp.com/people/password/edit?initial=true&reset_password_token=<%= @person.reset_password_token %>">http://www.radiodepaul.herokuapp.com/people/password/edit?initial=true&reset_password_token=<%= @person.reset_password_token %></a> to login and set your password.
+</p>
+
+<p>Sincerely,</p>
+
+<p>The Radio DePaul Staff</p>

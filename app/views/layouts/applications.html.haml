@@ -17,17 +17,17 @@
                 :javascript
                   try{Typekit.load();}catch(e){}  
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand{:href => "/"} Radio DePaul
-          .container.nav-collapse
-            %ul.nav
-              - if person_signed_in?
+    - if person_signed_in?
+      .navbar.navbar-fixed-top
+        .navbar-inner
+          .container
+            %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.brand{:href => "/"} Radio DePaul
+            .container.nav-collapse
+              %ul.nav
                 %li= link_to "Shows", shows_path
                 %li= link_to "People", people_path
                 %li= link_to "Managers", managers_path
@@ -36,12 +36,11 @@
                 %li= link_to "News Posts", news_posts_path
                 %li= link_to "Applications", applications_path
                 %li= link_to "Settings", settings_path
-          / /.nav-collapse
+            / /.nav-collapse
     .container
       .content
         .row
           .span9
-            = render 'people/menu/login_items'
             - if flash[:notice]
               %p.notice= notice
             - if flash[:alert]
@@ -76,22 +75,23 @@
       \==================================================
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application", "autocomplete-rails"
-    :javascript
-      $.ajax({
-            url: "http://radiodepaul.herokuapp.com/api/getOnAir.js",
-            dataType: "jsonp",
-            type: "GET",
-            processData: false,
-            contentType: "application/json",
-            success: function(data) {   
-              console.log(data);
-              var html = 'On Air Now';
-              html += "" + data[0].show.title + "with"
-              jQuery.each(data[0].show.hosts, function() {
-                console.log($(this));
-                html += "" + $(this)[0].name + "";
-             });
-              
-              $('#on-air').append(html);
-            }
-        });
+    - if person_signed_in? && current_person.admin?
+      :javascript
+        $.ajax({
+              url: "http://radiodepaul.herokuapp.com/api/getOnAir.js",
+              dataType: "jsonp",
+              type: "GET",
+              processData: false,
+              contentType: "application/json",
+              success: function(data) {   
+                console.log(data);
+                var html = 'On Air Now';
+                html += "" + data[0].show.title + "with"
+                jQuery.each(data[0].show.hosts, function() {
+                  console.log($(this));
+                  html += "" + $(this)[0].name + "";
+               });
+                
+                $('#on-air').append(html);
+              }
+          });
