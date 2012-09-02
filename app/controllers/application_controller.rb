@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     home_path 
   end 
+
+  def isAdmin?
+    if current_person.admin?
+      return true
+    end
+    redirect_to root_url, :notice => "Restricted Access."
+    return false
+  end
   def validate_access(allowed_roles = Array[])
           if current_person.try(:admin?) || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position)
                   return true

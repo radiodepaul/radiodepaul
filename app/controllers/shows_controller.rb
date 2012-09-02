@@ -2,6 +2,7 @@ class ShowsController < ApplicationController
   before_filter :authenticate_person!, :except => [:getShow, :getList, :getRandom]
   allowed_roles = Array["Program Director"]
   before_filter :except => [:new, :create, :getShow, :getList, :getRandom] { |c| c.validate_access allowed_roles }
+  before_filter :isAdmin?, :only => [:destroy]
   # GET /shows
   # GET /shows.json
   
