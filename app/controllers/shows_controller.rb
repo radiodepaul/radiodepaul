@@ -9,12 +9,12 @@ class ShowsController < ApplicationController
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
 
   def validate_show_access(show)
-    unless current_person.admin? || current_person.try(:shows).include? show then
-      flash[:error] = "You do not have access to this show."
-      redirect_to root_path
-      return false
+    if current_person.admin? || current_person.try(:shows).include?(show)
+      return true
     end
-    return true
+    flash[:error] = "You do not have access to this show."
+    redirect_to root_path
+    return false
   end
   
   def index
@@ -49,9 +49,10 @@ class ShowsController < ApplicationController
   def new
       @show = Show.new
 
-      respond_with(@show) do |format|
-        #format.js  { render :json => @show.to_json(:include=>[:people]), :callback => params[:callback] }
-      end
+    respond_to do |format|
+      format.html # new.html.erb
+      #format.json { render json: @person }
+    end
   end
   
 
