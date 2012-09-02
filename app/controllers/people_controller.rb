@@ -6,7 +6,7 @@ class PeopleController < ApplicationController
   # GET /people.json
   
   def validate_person_access(person)
-    unless current_person == person then
+    unless current_person.admin? || current_person == person then
       flash[:error] = "You do not have access to this person."
       redirect_to root_path
       return false

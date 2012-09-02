@@ -8,7 +8,7 @@ class ShowsController < ApplicationController
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
 
   def validate_show_access(show)
-    unless current_person.try(:shows).include? show then
+    unless current_person.admin? || current_person.try(:shows).include? show then
       flash[:error] = "You do not have access to this show."
       redirect_to root_path
       return false
@@ -17,11 +17,7 @@ class ShowsController < ApplicationController
   end
   
   def index
-    if current_person.admin?
-      @shows = Show.find(:all, :order => 'title')
-    else
-      @shows = current_person.shows
-    end
+      @shows = Show.find(:all, :order => 'title desc')
 
     respond_to do |format|
       format.html {
