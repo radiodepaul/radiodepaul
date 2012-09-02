@@ -42,7 +42,7 @@
                       show_path(show),
                       :method => :delete,
                       :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                      :class => 'btn btn-mini btn-danger' %>
+                      :class => 'btn btn-mini btn-danger' if current_person.admin? %>
         </td>
       </tr>
     <% end %>

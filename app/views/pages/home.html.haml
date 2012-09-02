@@ -50,7 +50,6 @@
     Bio
 %p= @person.bio
 = link_to "Edit Profile", edit_person_path(@person), :class => 'btn'
-= link_to "Change Password", edit_person_path(@person), :class => 'btn'
 
 -#%h2 Some Analytics
 -#@analytics.each do |a| 
@@ -81,9 +80,3 @@
           %td
             = link_to t('.edit', :default => t("helpers.links.edit")), |
               edit_show_path(show), :class => 'btn btn-mini'           |
-            -#
-            = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
-              show_path(show),                                                                                |
-              :method => :delete,                                                                             |
-              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
-              :class => 'btn btn-mini btn-danger'    

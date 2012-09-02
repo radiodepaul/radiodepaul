@@ -2,6 +2,7 @@ class ApplicationsController < ApplicationController
   before_filter :authenticate_person!, :except => [:new, :create]
   allowed_roles = Array["Program Director"]
   before_filter :except => [:new, :create] { |c| c.validate_access allowed_roles }
+  before_filter :isAdmin?, :only => [:destroy, :edit]
   # GET /applications
   # GET /applications.json
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'

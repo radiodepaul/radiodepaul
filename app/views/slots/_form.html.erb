@@ -2,7 +2,7 @@
   <div class="control-group">
     <%= f.label :quarter, :class => 'control-label' %>
     <div class="controls">
-      <%= select( :slot, :quarter, [ "AQ2011", "WQ2012", "SQ2012", "SU2012", "AQ2013", "WQ2013" ], :prompt => true ) %>
+      <%= select( :slot, :quarter, [ "AQ2011", "WQ2012", "SQ2012", "SU2012", "AQ2012", "WQ2013" ], :selected => @slot.quarter || 'AQ2012', :prompt => true ) %>
     </div>
   </div>
   <div class="control-group">
