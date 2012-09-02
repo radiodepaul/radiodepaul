@@ -3,7 +3,7 @@ class Person < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,# :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable#, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -12,6 +12,7 @@ class Person < ActiveRecord::Base
   has_many :shows, :through => :hostings
   accepts_nested_attributes_for :hostings, :allow_destroy => true
   before_save :blanks_to_nils
+  after_create :send_welcome_email
   mount_uploader :avatar, AvatarUploader
 
   def first_last_name
@@ -25,6 +26,10 @@ class Person < ActiveRecord::Base
   def convert_markdown(input)
     markdown = RDiscount.new(input)
     return markdown.to_html
+  end
+
+  def send_welcome_email
+    self.send_reset_password_instructions
   end
 
   validates :first_name, :presence => true

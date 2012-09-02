@@ -6,4 +6,9 @@ class Notifier < ActionMailer::Base
     mail(:to => application.email, :subject => 'Radio DePaul Application Confirmation')
   end
 
+  def welcome(person)
+    @person = person
+    mail(:to => person.email, :subject => 'Your Radio DePaul Account')
+  end
+
 end

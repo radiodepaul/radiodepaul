@@ -1,5 +1,6 @@
 class NewsPostsController < ApplicationController
   before_filter :authenticate_person!, :except => [:getList, :getPost]
+  before_filter :except => [:getList, :getPost] { |c| c.validate_access }
   # GET /news_posts
   # GET /news_posts.json
   def index
