@@ -1,5 +1,6 @@
 <%= nested_form_for @show, :html => { :class => 'form-horizontal' }, :html => {:multipart => true} do |f| %>
-  <div class="control-group">
+  <%= f.error_messages %>
+  <dir class="control-group">
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :title, :class => 'text_field' %>

@@ -3,7 +3,7 @@ class Person < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,# :registerable,
-         :recoverable, :rememberable, :trackable, :validatable#, :confirmable
+         :recoverable, :rememberable, :trackable#, :validatable#, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -12,7 +12,9 @@ class Person < ActiveRecord::Base
   has_many :shows, :through => :hostings
   accepts_nested_attributes_for :hostings, :allow_destroy => true
   before_save :blanks_to_nils
-  after_create :send_welcome_email
+  before_create :set_password
+  validates :email, :presence => true, :uniqueness => true
+  #after_create :send_welcome_email
   mount_uploader :avatar, AvatarUploader
 
   def first_last_name
@@ -21,6 +23,14 @@ class Person < ActiveRecord::Base
 
   def last_first_name
     return self.last_name + ', ' + self.first_name
+  end
+
+  def set_password
+    if self.password.nil? || self.password.blank?
+      password = Devise.friendly_token.first(8)
+      self.password = password
+      self.password_confirmation = password
+    end
   end
   
   def convert_markdown(input)

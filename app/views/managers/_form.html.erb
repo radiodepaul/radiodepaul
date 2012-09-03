@@ -1,5 +1,5 @@
 <%= form_for @manager, :html => { :class => 'form-horizontal' } do |f| %>
-  
+  <%= f.error_messages %>
   <div class="control-group">
     <%= f.label :person_id, :class => 'control-label' %>
     <div class="controls">
