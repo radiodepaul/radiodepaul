@@ -1,8 +1,19 @@
--# if current_person.admin?
-  You are an admin
+- if current_person && current_person.admin?
+  %p Login as
+  = select "login_as_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
+- if current_person && current_person.admin?
+  %p Reset password for
+  = select "reset_password_for_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
+- if current_person && current_person.admin?
+  %p Send welcome email to
+  = select "send_welcome_to_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
+
 - if @person.avatar?
   = image_tag(@person.avatar.square.small.url, :style => "float:right")
-%h1 #{@person.first_last_name}
+%h1
+  = @person.first_last_name
+  - if @person.admin?
+    (Admin)
 %h2 My Info
 %ul
   %li
@@ -50,6 +61,7 @@
     Bio
 %p= @person.bio
 = link_to "Edit Profile", edit_person_path(@person), :class => 'btn'
+= link_to 'Change my Password', edit_person_registration_path, :class => 'btn'
 
 -#%h2 Some Analytics
 -#@analytics.each do |a| 
@@ -80,3 +92,26 @@
           %td
             = link_to t('.edit', :default => t("helpers.links.edit")), |
               edit_show_path(show), :class => 'btn btn-mini'           |
+%h2 My Show Podcasts
+- if @person.podcasts.length == 0
+  %p Your shows have no podcasts at the moment.
+- else
+  %table.datatable.table.table-striped
+    %thead
+      %tr
+        %th= Podcast.human_attribute_name(:title)
+        %th= Podcast.human_attribute_name(:file)
+        %th= Podcast.human_attribute_name(:created_at)
+        %th= t '.actions', :default => t("helpers.actions")
+    %tbody
+      - @person.podcasts.each do |podcast|
+        %tr
+          %td= link_to podcast.title, podcast_path(podcast)
+          %td
+            - if podcast.file?
+              = link_to "Download File", podcast.file.url
+            - else
+              No file attached
+          %td= podcast.created_at.strftime("%I:%M%p %Z") unless podcast.created_at.nil?
+          %td
+            = link_to t('.edit', :default => t("helpers.links.edit")), edit_podcast_path(podcast), :class => 'btn btn-mini'

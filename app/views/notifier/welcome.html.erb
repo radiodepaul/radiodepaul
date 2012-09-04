@@ -5,9 +5,7 @@
   Your Radio DePaul account has been created!
 </p>
 
-<p>
-  Please visit <a href="http://www.radiodepaul.herokuapp.com/people/password/edit?initial=true&reset_password_token=<%= @person.reset_password_token %>">http://www.radiodepaul.herokuapp.com/people/password/edit?initial=true&reset_password_token=<%= @person.reset_password_token %></a> to login and set your password.
-</p>
+<p>You can login to your account at <%= link_to home_url(:auth_token => @person.authentication_token), home_url(@person, :auth_token => @person.authentication_token) %> .</p>
 
 <p>Sincerely,</p>
 

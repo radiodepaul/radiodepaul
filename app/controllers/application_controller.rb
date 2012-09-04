@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     return false
   end
   def validate_access(allowed_roles = Array[])
-          if current_person.try(:admin?) || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position)
+          if current_person.try(:admin?) || allowed_roles.include?(current_person.position)
                   return true
           end
           redirect_to root_url, :notice => "Restricted Access."

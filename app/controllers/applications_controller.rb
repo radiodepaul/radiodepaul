@@ -18,22 +18,20 @@ class ApplicationsController < ApplicationController
   # GET /applications/1
   # GET /applications/1.json
   def hire
-    application = Application.find(params[:id])
-    person = Person.new
-    person.email = application.email
-    person.first_name = application.first_name
-    person.last_name = application.last_name
-    person.bio = application.bio
-    person.facebook_username = application.facebook_username
-    person.twitter_username = application.twitter_username
-    person.tumblr_username = application.tumblr_username
-    person.major = application.major
-    person.class_year = application.year
-    person.hometown = "#{application.home_city}, #{application.home_state}"
-    person.influences = application.influences
-    #person.nickname = application.nickname
-    #person.website_url = application.website_url
+    @a = Application.find(params[:id])
+    @person = Person.new(:email => @a.email, :first_name => @a.first_name, :last_name => @a.last_name, :bio => @a.bio, :facebook_username => @a.facebook_username,
+                        :twitter_username => @a.twitter_username, :tumblr_username => @a.tumblr_username, :major => @a.major, :class_year => @a.year, 
+                        :hometown => "#{@a.home_city}, #{@a.home_state}", :influences => @a.influences, :password => Devise.friendly_token.first(8))
 
+    @person.replace_avatar_from(@a)
+    respond_to do |format|
+      if @person.save
+        #Notifier.application_confirmation(@application).deliver
+        format.html { redirect_to @person, notice: 'Person was successfully hired.' }
+      else
+        format.html { redirect_to applications_path, notice: @person.errors.first }
+      end
+    end
   end
   def show
     @application = Application.find(params[:id])
@@ -100,7 +98,7 @@ class ApplicationsController < ApplicationController
     @application.destroy
 
     respond_to do |format|
-      format.html { redirect_to applications_url }
+      format.html { redirect_to applications_url, notice: 'Application was successfully deleted.' }
       format.json { head :no_content }
     end
   end

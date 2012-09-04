@@ -1,0 +1,92 @@
+- model_class = @application.class
+.page-header
+  %h1
+    Application for #{@application.first_last_name}
+  %h3= @application.created_at.strftime("Submitted on %m/%d/%Y at %I:%M%p")
+  = image_tag(@application.avatar.square.small.url, :style => "float:right")
+  = link_to 'Hire Applicant', applications_hire_path(@application.id), :class => 'btn'
+%dl
+  %dd
+    %strong DePaul ID#:
+    = @application.depaul_id
+  %dd
+    %strong GPA:
+    = @application.gpa
+  %dd
+    %strong Year:
+    = @application.year
+  %dd
+    %strong Major/Minor:
+    = @application.major
+  %dd
+    %strong Email:
+    = @application.email
+  %dd
+    %strong Phone:
+    = @application.phone
+  %dd
+    %strong Home City:
+    = @application.home_city
+  %dd
+    %strong Home State:
+    = @application.home_state
+  %dd
+    %strong Why DePaul?:
+    = @application.why_depaul
+  %dd
+    %strong Personal Influences:
+    = @application.influences
+  %dd
+    %strong Bio:
+    = @application.bio
+  %dd
+    %strong Experience:
+    = @application.experience
+  %dd
+    %strong Campus Involvement:
+    = @application.campus_involvement
+  - unless @application.position == "Other" then
+    %dd
+      %strong Position:
+      = @application.position
+  - else
+    %dd
+      %strong Position:
+      = @application.position_other
+  - if @application.created_at < Date.strptime('09/01/2012', '%m/%d/%Y') || @application.position == "Host"
+    %dd
+      %strong Host Type:
+      = @application.host_type
+    %dd
+      %strong Co-Hosts:
+      = @application.co_hosts
+    %dd
+      %strong Show Name:
+      = @application.show_name
+    %dd
+      %strong Show Description:
+      = @application.show_description
+    - if @application.host_type == "Music" && @application.created_at > Date.strptime('09/01/2012', '%m/%d/%Y')
+      %dd
+        %strong Show Genres:
+        = @application.show_genres
+    - elsif @application.created_at > Date.strptime('09/01/2012', '%m/%d/%Y')
+      %dd
+        %strong Show Type:
+        = @application.show_type
+  %dd
+    %strong Favorite Artists:
+    = @application.favorite_artists
+  %dd
+    %strong Favorite TV Shows:
+    = @application.favorite_tv_shows
+  %dd
+    %strong Favorite Films:
+    = @application.favorite_films
+  %dd
+    %strong Anything Else:
+    = @application.anything_else
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")), apps_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_app_path(@application), :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), app_path(@application), :method => 'delete', :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-danger'

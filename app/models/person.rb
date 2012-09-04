@@ -2,20 +2,32 @@ class Person < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,# :registerable,
-         :recoverable, :rememberable, :trackable#, :validatable#, :confirmable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
+
+  mount_uploader :avatar, AvatarUploader
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :first_name, :last_name, :nickname, :bio, :influences, :facebook_username, :linkedin_username, :website_url, :email, :major, :class_year, :hometown, :avatar, :depaul_id, :hostings_attributes, :twitter_username, :avatar_cache, :remote_avatar_url, :remove_avatar
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :authentication_token
+  attr_accessible :first_name, :last_name, :nickname, :bio, :influences, :facebook_username, :linkedin_username, :website_url, :email, :major, :class_year, :hometown, :avatar, :depaul_id, :hostings_attributes, :twitter_username, :tumblr_username, :avatar_cache, :remote_avatar_url, :remove_avatar
+
+  # relationships
   has_many :hostings, :dependent => :destroy
   has_many :shows, :through => :hostings
   accepts_nested_attributes_for :hostings, :allow_destroy => true
+
+  # callbacks
   before_save :blanks_to_nils
   before_create :set_password
-  validates :email, :presence => true, :uniqueness => true
   #after_create :send_welcome_email
-  mount_uploader :avatar, AvatarUploader
+
+  # validation
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
+  
+  def after_token_authentication
+    update_attributes :authentication_token => nil
+  end
 
   def first_last_name
     return self.first_name + ' ' + self.last_name
@@ -32,6 +44,13 @@ class Person < ActiveRecord::Base
       self.password_confirmation = password
     end
   end
+
+  def position
+    manager = Manager.find_by_person_id(self.id)
+    unless manager.nil?
+      return manager.position
+    end
+  end
   
   def convert_markdown(input)
     markdown = RDiscount.new(input)
@@ -42,8 +61,15 @@ class Person < ActiveRecord::Base
     self.send_reset_password_instructions
   end
 
-  validates :first_name, :presence => true
-  validates :last_name, :presence => true
+  def podcasts
+    podcasts = Array.new
+    self.shows.each do |show|
+      show.attachments.each do |podcast|
+        podcasts.push podcast
+      end
+    end
+    return podcasts
+  end
 
   def get_shows
     shows = Array.new
@@ -68,6 +94,10 @@ class Person < ActiveRecord::Base
      self.depaul_id = nil if self.depaul_id.blank?
   end
 
+  def replace_avatar_from(resource)
+    self.avatar = resource.avatar.file
+  end
+
   def as_json(options={})
       { :id => self.id,
         :name => self.first_last_name,
@@ -89,4 +119,8 @@ class Person < ActiveRecord::Base
         :photo_large => self.avatar.square.large.url }
   end
 
+  def self.find_for_database_authentication(conditions={})
+      self.where("username = ?", conditions[:email]).limit(1).first ||
+      self.where("email = ?", conditions[:email]).limit(1).first
+  end
 end

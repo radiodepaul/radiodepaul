@@ -18,9 +18,9 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
+    <%= f.label :person_id, :class => 'control-label' %>
     <div class="controls">
-      <%= collection_select(:news_post, :user_id, User.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>
+      <%= collection_select(:news_post, :person_id, Person.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true) %>
     </div>
   </div>
 

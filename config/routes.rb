@@ -1,9 +1,18 @@
 RadioDePaulWebsite2::Application.routes.draw do
-  devise_for :people
+  devise_for :people, :path => "/", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+
+  get 'people/become' => 'people#become'
+  get 'people/reset_password' => 'people#reset_password'
+
+  get 'people/send_welcome' => 'people#send_welcome'
 
   resources :settings
 
   resources :applications do
+    get :autocomplete_genre_name, :on => :collection   
+  end
+
+  resources :apps, :controller => 'applications' do
     get :autocomplete_genre_name, :on => :collection   
   end
 
@@ -15,7 +24,7 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get 'home' => 'pages#home', :as => 'home'
 
-  match "/applications/hire/:id" => "applications#hire"
+  get 'apps/hire/:id' => 'applications#hire', :as => 'applications_hire'
 
   #get "application/success" => 'pages#application_success', :as => 'application/success'
 

@@ -1,6 +1,7 @@
 class ManagersController < ApplicationController
   before_filter :authenticate_person!, :except => [:getManagers]
-  before_filter :except => [:new, :create, :getManagers] { |c| c.validate_access }
+  before_filter :except => [:index, :show, :getManagers] { |c| c.validate_access }
+  before_filter :isAdmin?, :only => [:destroy]
   # GET /managers
   # GET /managers.json
   

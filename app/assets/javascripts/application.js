@@ -17,3 +17,12 @@ $('.datatable').dataTable({
   "sPaginationType": "bootstrap",
   "iDisplayLength": 50,
 });
+$('#login_as_id').change(function() {
+  window.location.href = "/people/become?id=" + $('#login_as_id option:selected').val() ;
+});
+$('#reset_password_for_id').change(function() {
+  window.location.href = "/people/reset_password?id=" + $('#reset_password_for_id option:selected').val() ;
+});
+$('#send_welcome_to_id').change(function() {
+  window.location.href = "/people/send_welcome?id=" + $('#send_welcome_to_id option:selected').val() ;
+});

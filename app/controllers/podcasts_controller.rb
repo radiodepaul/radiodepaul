@@ -1,12 +1,20 @@
 class PodcastsController < ApplicationController
-  before_filter :authenticate_person!, :except => [:new, :create, :getPodcasts]
+  before_filter :authenticate_person!, :except => [:getPodcasts]
   allowed_roles = Array["Podcast Programmer"]
-  before_filter :except => [:new, :create, :getPodcasts] { |c| c.validate_access allowed_roles }
+  before_filter :except => [:index, :new, :create, :edit, :update, :getPodcasts] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   # GET /podcasts
   # GET /podcasts.json
   
-  respond_to :html, :xml, :json, :js
+  def validate_podcast_access(podcast)
+    allowed_roles = Array["Podcast Programmer"]
+    if current_person.admin? || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position) || current_person.try(:podcasts).include?(podcast)
+      return true
+    end
+    flash[:notice] = "You do not have access to this podcast."
+    redirect_to root_path
+    return false
+  end
   
   def index
     @podcasts = Podcast.all
@@ -43,6 +51,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1/edit
   def edit
     @podcast = Podcast.find(params[:id])
+    validate_podcast_access(@podcast)
   end
 
   # POST /podcasts
@@ -65,6 +74,7 @@ class PodcastsController < ApplicationController
   # PUT /podcasts/1.json
   def update
     @podcast = Podcast.find(params[:id])
+    validate_podcast_access(@podcast)
 
     respond_to do |format|
       if @podcast.update_attributes(params[:podcast])

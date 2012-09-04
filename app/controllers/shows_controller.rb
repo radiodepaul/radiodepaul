@@ -1,7 +1,7 @@
 class ShowsController < ApplicationController
   before_filter :authenticate_person!, :except => [:getShow, :getList, :getRandom]
   allowed_roles = Array["Program Director"]
-  before_filter :except => [:new, :create, :getShow, :getList, :getRandom] { |c| c.validate_access allowed_roles }
+  before_filter :only => [:new, :create] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   # GET /shows
   # GET /shows.json
@@ -9,10 +9,11 @@ class ShowsController < ApplicationController
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
 
   def validate_show_access(show)
-    if current_person.admin? || current_person.try(:shows).include?(show)
+    allowed_roles = Array["Program Director"]
+    if current_person.admin? || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position) || current_person.try(:shows).include?(show)
       return true
     end
-    flash[:error] = "You do not have access to this show."
+    flash[:notice] = "You do not have access to this show."
     redirect_to root_path
     return false
   end
@@ -26,7 +27,6 @@ class ShowsController < ApplicationController
       } # show.html.erb
       format.js  { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
-    end
 
   end
 
@@ -34,7 +34,6 @@ class ShowsController < ApplicationController
   # GET /shows/1.json
   def show
     @show = Show.find(params[:id])
-      if validate_show_access(@show)
         respond_to do |format|
           format.html {
               render :html => @show

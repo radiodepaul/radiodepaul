@@ -1,18 +1,50 @@
 class PeopleController < ApplicationController
   before_filter :authenticate_person!, :except => [:getPerson, :getList, :getRandom]
   allowed_roles = Array['Program Director']
-  before_filter :except => [:edit, :update, :getPerson, :getList, :getRandom] { |c| c.validate_access allowed_roles }
+  before_filter :except => [:edit, :update, :show, :index, :getPerson, :getList, :getRandom] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   # GET /people
   # GET /people.json
-  
-  def validate_person_access(person)
-    unless current_person.admin? || current_person == person then
-      flash[:error] = "You do not have access to this person."
-      redirect_to root_path
-      return false
+
+  def change_password
+    current_user.reset_password!(params[:password], params[:password_confirmation])
+    flash[:notice] = "Password changed."
+    redirect_to root_path
+  end
+
+  def reset_password
+    return unless current_person.admin?
+    @person = Person.find(params[:id])
+    @person.send_reset_password_instructions
+    flash[:notice] = "Password reset instructions sent."
+    redirect_to root_path # or user_root_url
+  end
+
+  def send_welcome
+    return unless current_person.admin?
+    @person = Person.find(params[:id])
+    if Notifier.welcome(@person).deliver
+      flash[:notice] = "Welcome email sent."
+    else
+      flash[:notice] = "Problem sending email..."
     end
-    return true
+    redirect_to root_path # or user_root_url
+  end
+
+  def become
+    return unless current_person.admin?
+    sign_in(:person, Person.find(params[:id]))
+    redirect_to root_path # or user_root_url
+  end
+
+  def validate_person_access(person)
+    allowed_roles = Array["Program Director"]
+    if current_person.admin? || allowed_roles.include?(person.position) || current_person  == person
+      return true
+    end
+    flash[:notice] = "You do not have access to this person."
+    redirect_to root_path
+    return false
   end
 
   def index

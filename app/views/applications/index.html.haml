@@ -1,0 +1,26 @@
+- model_class = Application.new.class
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize
+%table.datatable.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:avatar)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:year)
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:position)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @applications.each do |application|
+      %tr
+        %td= image_tag(application.avatar.square.thumb.url)
+        %td= link_to application.first_last_name, app_path(application)
+        %td= application.year
+        %td= application.email
+        %td= application.position
+        %td= l application.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_app_path(application), :class => 'btn btn-mini'
+          = link_to 'Destroy', app_path(application), :method => :delete, :class => 'btn btn-mini btn-danger'
+= link_to t('.new', :default => t("helpers.links.new")), new_app_path, :class => 'btn btn-primary'

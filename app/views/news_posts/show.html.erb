@@ -10,8 +10,8 @@
   <dd><%= @news_post.datetime_published %></dd>
   <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
   <dd><%= @news_post.content %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @news_post.user_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:person_id) %>:</strong></dt>
+  <dd><%= @news_post.person.first_last_name %></dd>
 </dl>
 
 <div class="form-actions">

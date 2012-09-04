@@ -8,6 +8,7 @@ class Notifier < ActionMailer::Base
 
   def welcome(person)
     @person = person
+    @person.reset_authentication_token!
     mail(:to => person.email, :subject => 'Your Radio DePaul Account')
   end
 

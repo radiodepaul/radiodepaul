@@ -1,0 +1,65 @@
+= semantic_form_for @application, :html => { :class => 'form-horizontal', :html => {:multipart => true} }, :validate => true do |f|
+  %p
+    All fields marked with an asterisk (*) are required.
+    %br/
+    %br/
+  = f.error_messages
+  = f.inputs do
+    = f.input :first_name, :required => true, :placeholder => 'David'
+    = f.input :last_name, :required => true, :placeholder => 'Bowie'
+    = f.input :depaul_id, :label => "DePaul ID#", :required => true, :placeholder => '1045252'
+    = f.input :gpa, :label => 'GPA', :hint => 'If you do not have a GPA yet, submit your final H.S. GPA', :required => true, :placeholder => '3.5'
+    = f.input :year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"], :required => true
+    = f.input :major, :label => 'Major/Minor', :placeholder => 'Changes/Pretty Things'
+    = f.input :email, :as => :email, :required => true, :placeholder => 'ziggy@stardust.co.uk'
+    = f.input :phone, :as => :phone, :label => 'Cell Phone', :placeholder => '(555) 555-555'
+    = f.input :home_city, :placeholder => 'Brixton'
+    = f.input :home_state, :as => :select, :collection => ["AK" ,"AL" ,"AR" ,"AS" ,"AZ" ,"CA" ,"CO" ,"CT" ,"DC" ,"DE" ,"FL" ,"GA" ,"GU" ,"HI" ,"IA" ,"ID" ,"IL" ,"IN" ,"KS" ,"KY" ,"LA" ,"MA" ,"MD" ,"ME" ,"MI" ,"MN" ,"MO" ,"MS" ,"MT" ,"NC" ,"ND" ,"NE" ,"NH" ,"NJ" ,"NM" ,"NV" ,"NY" ,"OH" ,"OK" ,"OR" ,"PA" ,"PR" ,"RI" ,"SC" ,"SD" ,"TN" ,"TX" ,"UT" ,"VA" ,"VI" ,"VT" ,"WA" ,"WI" ,"WV" ,"WY"]
+    = f.input :why_depaul, :label => "Why did you choose DePaul?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :bio, :hint => "Nothing too personal, just tell us about yourself.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }, :required => true
+    = f.input :influences, :label => "Personal Influences", :hint => "Musical or otherwise", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }, :required => true
+    = f.input :position, :label => 'Position for which you are applying?', :as => :radio, :collection => ["Host", "Newscaster", "Sportscaster", "Other"], :required => true
+    = f.input :position_other, :label => 'Other Position'
+    = f.inputs :host_inputs => "Host inputs", :id => "host_inputs" do
+      = f.input :host_type, :label => 'Host type?', :as => :radio, :collection => ["Music", "Talk", "Off-air podcast"]
+      = f.inputs :talk_podcast_show_inputs => "Talk or Podcast show inputs", :id => "talk_podcast_show_inputs" do
+        = f.input :show_type, :label => 'Talk or podcast show type?', :hint => "sports, pop culture, politics..."
+      = f.inputs :music_show_inputs => "Music show inputs", :id => "music_show_inputs" do
+        #application_genre_list_input.string.control-group.optional.stringish
+          = f.label 'Genre(s)', :for => :genre_list, :class => 'label'
+          .controls
+            = f.autocomplete_field :genre_list, autocomplete_genre_name_shows_path, :"data-delimiter" => ", "
+      = f.input :co_hosts, :label => "Co-Hosts Name (If you plan on having one)", :hint => "Note: Co-hosts must also apply."
+      = f.input :show_name, :label => "Proposed Show Name?"
+      = f.input :show_description, :label => "Brief description of your proposed show", :hint => "Think of this as an enticing headline for your show- 20 words maximum.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+      = f.input :why_listen, :label => "How do you plan on making your show stand out in the crowd? Why will people want to listen to your show?", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :why_work_here, :label => "Why do you want to work at Radio DePaul?", :required => true, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :experience, :label => "Do you have any broadcasting/journalism experience?  If so, tell us about your experiences.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :campus_involvement, :label => "Are you involved with any other campus groups/organizations?  If so, tell us about them.", :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :favorite_artists, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :favorite_tv_shows, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :favorite_films, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :twitter_username, :hint => 'http://www.twitter.com/username', :placeholder => 'david_bowie'
+    = f.input :facebook_username, :hint => 'http://www.facebook.com/username', :placeholder => 'david_bowie'
+    = f.input :tumblr_username, :hint => 'http://www.username.tumblr.com', :placeholder => 'david_bowie'
+    = f.input :anything_else, :label => 'Anything else you would like us to know about you?', :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+  .control-group
+    = f.label :website_profile_photo, :class => 'control-label'
+    .controls
+      - if @application.avatar?
+        = image_tag(@application.avatar.square.thumb.url)
+        %br/
+        Replace File: #{f.file_field :avatar}
+        %br/
+        = f.hidden_field :avatar_cache
+        Replace from URL: #{f.text_field :remote_avatar_url}
+        %br/
+        Remove Photo#{f.check_box :remove_avatar}
+        %br/
+      - else
+        Upload File: #{f.file_field :avatar}
+        %br/
+        = f.hidden_field :avatar_cache
+        Upload from URL: #{f.text_field :remote_avatar_url}
+    = f.actions do
+      = f.action :submit, :label => 'Submit'
