@@ -1,5 +1,9 @@
 RadioDePaulWebsite2::Application.routes.draw do
-  devise_for :people, :path => "/", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  if Rails.env == 'production'
+    devise_for :people, :controllers => {:registrations => "registrations" }, :path => "/", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  else
+    devise_for :people, :path => "/", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  end
 
   get 'people/become' => 'people#become'
   get 'people/reset_password' => 'people#reset_password'
