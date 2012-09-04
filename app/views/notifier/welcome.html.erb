@@ -1,11 +1,11 @@
 
 <%= @person.first_name.capitalize %>,
 
-<p>
-  Your Radio DePaul account has been created!
-</p>
+<p>Your Radio DePaul account has been created!</p>
 
 <p>You can login to your account at <%= link_to home_url(:auth_token => @person.authentication_token), home_url(@person, :auth_token => @person.authentication_token) %> .</p>
+
+<p>Be sure to change your password as soon as you login.</p>
 
 <p>Sincerely,</p>
 
