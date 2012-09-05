@@ -70,6 +70,8 @@ RadioDePaulWebsite2::Application.routes.draw do
     collection do
       get 'random'
       get 'search'
+      put 'archive'
+      put 'restore'
     end
   end
 
@@ -78,9 +80,11 @@ RadioDePaulWebsite2::Application.routes.draw do
       get 'random'
       get 'search'
       get :autocomplete_genre_name
+      put 'archive'
+      put 'restore'
     end
   end
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

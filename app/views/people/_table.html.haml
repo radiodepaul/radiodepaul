@@ -1,0 +1,25 @@
+- model_class = Person.new.class
+%table.datatable.table.table-striped
+  %thead
+    %tr
+      %th
+      %th= model_class.human_attribute_name(:avatar)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:nickname)
+      %th= model_class.human_attribute_name(:email)
+      %th # Shows:
+      %th= model_class.human_attribute_name(:updated_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @people.each do |person|
+      %tr
+        %th= check_box_tag 'person_ids[]', person.id
+        %td= image_tag(person.avatar.square.thumb.url)
+        %td= link_to person.last_first_name, person
+        %td= person.nickname
+        %td= link_to person.email, "mailto:" + person.email unless person.email.nil?
+        %td= person.shows.count
+        %td= person.updated_at.strftime("%I:%M%p %Z") unless person.updated_at.nil?
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(person), :class => 'btn btn-mini'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), person_path(person), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger' if current_person.admin?

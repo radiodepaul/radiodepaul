@@ -50,8 +50,26 @@ class PeopleController < ApplicationController
     return false
   end
 
+  def archive
+    if Person.update_all(["archived=?", true], :id => params[:person_ids])
+      flash[:notice] = 'Person(s) have been archived'
+      redirect_to people_path
+    end
+  end
+
+  def restore
+    if Person.update_all(["archived=?", false], :id => params[:person_ids])
+      flash[:notice] = 'Person(s) have been restored'
+      redirect_to people_path
+    end
+  end
+
   def index
-    @people = Person.find(:all, :order => 'first_name')
+    if params.has_key?(:archived) && params[:archived] = 'true'
+      @people = Person.find(:all, :conditions => {:archived => true}, :order => 'first_name')
+    else
+      @people = Person.find(:all, :conditions => {:archived => false}, :order => 'first_name')
+    end
 
     respond_to do |format|
       format.html {
@@ -163,7 +181,7 @@ class PeopleController < ApplicationController
   def getList
     respond_to do |format|
       format.html { redirect_to pages_api_path}
-      @people = Person.find(:all, :order => 'first_name')
+      @people = Person.find(:all, :conditions => {:archived => false}, :order => 'first_name')
       format.js { render json: @people, :callback => params[:callback] }
       format.json { render json: @people, :callback => params[:callback] }
       format.xml  { render :xml => @people }
@@ -184,7 +202,7 @@ class PeopleController < ApplicationController
   def getRandom
     respond_to do |format|
       format.html { redirect_to pages_api_path}
-      person_ids = Person.find( :all, :select => 'id' ).map( &:id )
+      person_ids = Person.find( :all, :conditions => {:archived => false}, :select => 'id' ).map( &:id )
       @people = Person.find( (1..5).map { person_ids.delete_at( person_ids.size * rand ) } )
       format.js { render :json => @people, :callback => params[:callback] }
       format.json  { render :json => @people }

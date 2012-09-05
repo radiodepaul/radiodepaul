@@ -19,7 +19,11 @@ class ShowsController < ApplicationController
   end
   
   def index
-      @shows = Show.find(:all, :order => 'title desc')
+    if params.has_key?(:archived) && params[:archived] = 'true'
+      @shows = Show.find(:all, :conditions => {:archived => true}, :order => 'title desc')
+    else
+      @shows = Show.find(:all, :conditions => {:archived => false}, :order => 'title desc')
+    end
 
     respond_to do |format|
       format.html {
@@ -28,6 +32,20 @@ class ShowsController < ApplicationController
       format.js  { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
 
+  end
+
+  def archive
+    if Show.update_all(["archived=?", true], :id => params[:show_ids])
+      flash[:notice] = 'Show(s) have been archived'
+      redirect_to shows_path
+    end
+  end
+
+  def restore
+    if Show.update_all(["archived=?", false], :id => params[:show_ids])
+      flash[:notice] = 'Show(s) have been restored'
+      redirect_to shows_path
+    end
   end
 
   # GET /shows/1

@@ -17,7 +17,7 @@
 %p
   %strong= model_class.human_attribute_name(:award_organization_id) + ':'
   %br
-  = @award.award_organization_id
+  = @award.award_organization.try(:name)
 
 .form-actions
   = link_to t('.back', :default => t("helpers.links.back")), awards_path, :class => 'btn'

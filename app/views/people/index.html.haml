@@ -1,0 +1,23 @@
+- model_class = Person.new.class
+.page-header
+  - if params[:archived] == 'true'
+    %h1= t '.title', :default => "Archived #{model_class.model_name.human.pluralize}"
+    = link_to 'Show Active', people_path
+  - else
+    %h1= t '.title', :default => "Active #{model_class.model_name.human.pluralize}"
+    = link_to 'Show Archived', :action => 'index', :archived => true
+- if params[:archived] == 'true'
+  = form_tag restore_people_path, :method => :put do
+    = link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'
+    = submit_tag 'Restore', :class => 'btn'
+    %br
+    %br
+    = render :partial => 'table'
+- else
+  = form_tag archive_people_path, :method => :put do
+    = link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'
+    = submit_tag 'Archive', :class => 'btn'
+    %br
+    %br
+    = render :partial => 'table'
+= link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'

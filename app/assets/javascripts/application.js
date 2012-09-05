@@ -26,3 +26,6 @@ $('#reset_password_for_id').change(function() {
 $('#send_welcome_to_id').change(function() {
   window.location.href = "/people/send_welcome?id=" + $('#send_welcome_to_id option:selected').val() ;
 });
+$.fn.toggleCheckbox = function() {
+    this.attr('checked', !this.attr('checked'));
+}

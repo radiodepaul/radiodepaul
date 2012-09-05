@@ -1,20 +1,9 @@
-= form_for @award, :html => { :class => 'form-horizontal' } do |f|
-  .control-group
-    = f.label :name, :class => 'control-label'
-    .controls
-      = f.text_field :name, :class => 'text_field'
-  .control-group
-    = f.label :for, :class => 'control-label'
-    .controls
-      = f.text_field :for, :class => 'text_field'
-  .control-group
-    = f.label :year, :class => 'control-label'
-    .controls
-      = f.text_field :year, :class => 'text_field'
-  .control-group
-    = f.label :award_organization_id, :class => 'control-label'
-    .controls
-      = f.number_field :award_organization_id, :class => 'number_field'
-  .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
+= semantic_form_for @award, :html => { :class => 'form-horizontal' } do |f|
+  = f.inputs do
+    = f.input :name
+    = f.input :for
+    = f.input :year
+    = f.input :award_organization_id, :as => :select, :collection => AwardOrganization.all, :prompt => true
+  = f.actions do   
+    = f.action :submit, :label => 'Submit', :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), awards_path, :class => 'btn'

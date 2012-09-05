@@ -1,10 +1,9 @@
 - model_class = Award
 .page-header
   %h1=t '.title', :default => model_class.model_name.human.pluralize
-%table.table.table-striped
+%table.table.table-striped.datatable
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:name)
       %th= model_class.human_attribute_name(:for)
       %th= model_class.human_attribute_name(:year)
@@ -14,8 +13,7 @@
   %tbody
     - @awards.each do |award|
       %tr
-        %td= link_to award.id, award_path(award)
-        %td= award.name
+        %td= link_to award.name, award_path(award)
         %td= award.for
         %td= award.year
         %td= award.award_organization.name
