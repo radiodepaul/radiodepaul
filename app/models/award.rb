@@ -4,7 +4,6 @@ class Award < ActiveRecord::Base
   has_and_belongs_to_many :people
   accepts_nested_attributes_for :people
 
-  validates :name, :presence => true
   validates :for, :presence => true
   validates :year, :presence => true
 end
