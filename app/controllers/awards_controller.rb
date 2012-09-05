@@ -1,4 +1,6 @@
 class AwardsController < ApplicationController
+  before_filter :authenticate_person!
+  before_filter :only => [:new, :create, :destroy, :edit, :update] { |c| c.validate_access }
   # GET /awards
   # GET /awards.json
   def index

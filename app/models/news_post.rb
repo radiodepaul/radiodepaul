@@ -10,7 +10,7 @@ class NewsPost < ActiveRecord::Base
         :headline => self.headline,
         :snippet => snippet(RDiscount.new(self.content, :smart, :filter_html).to_html.html_safe , 30),
         :content => RDiscount.new(self.content, :smart, :filter_html).to_html.html_safe,
-#        :author => { :name => self.user.first_last_name },
+        :author => { :name => self.person.first_last_name },
         :published_at => self.datetime_published.to_date.to_formatted_s(:long_ordinal)
     	}
    end

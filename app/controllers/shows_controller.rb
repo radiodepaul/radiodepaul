@@ -10,7 +10,7 @@ class ShowsController < ApplicationController
 
   def validate_show_access(show)
     allowed_roles = Array["Program Director"]
-    if current_person.admin? || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position) || current_person.try(:shows).include?(show)
+    if current_person.admin? || allowed_roles.include?(Manager.find_by_person_id(current_person.id).try(:position)) || current_person.try(:shows).include?(show)
       return true
     end
     flash[:notice] = "You do not have access to this show."
