@@ -6,8 +6,9 @@ class Notifier < ActionMailer::Base
     mail(:to => application.email, :subject => 'Radio DePaul Application Confirmation')
   end
 
-  def welcome(person)
+  def welcome(person, new_password)
     @person = person
+    @new_password = new_password
     @person.reset_authentication_token!
     mail(:to => person.email, :subject => 'Your Radio DePaul Account')
   end

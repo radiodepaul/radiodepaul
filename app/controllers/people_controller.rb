@@ -23,7 +23,10 @@ class PeopleController < ApplicationController
   def send_welcome
     return unless current_person.admin?
     @person = Person.find(params[:id])
-    if Notifier.welcome(@person).deliver
+    new_password = Devise.friendly_token.first(8)
+    @person.reset_password!(new_password,new_password)
+
+    if Notifier.welcome(@person, new_password).deliver
       flash[:notice] = "Welcome email sent."
     else
       flash[:notice] = "Problem sending email..."

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120903114829) do
+ActiveRecord::Schema.define(:version => 20120905024634) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -65,6 +65,22 @@ ActiveRecord::Schema.define(:version => 20120903114829) do
   end
 
   add_index "attachments", ["attachable_id"], :name => "index_attachments_on_attachable_id"
+
+  create_table "award_organizations", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "awards", :force => true do |t|
+    t.string   "name"
+    t.string   "for"
+    t.string   "year"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "award_organization_id"
+  end
 
   create_table "hostings", :force => true do |t|
     t.integer  "show_id"

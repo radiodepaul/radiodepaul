@@ -15,6 +15,8 @@ class Person < ActiveRecord::Base
   has_many :hostings, :dependent => :destroy
   has_many :shows, :through => :hostings
   accepts_nested_attributes_for :hostings, :allow_destroy => true
+  has_and_belongs_to_many :awards
+  accepts_nested_attributes_for :awards
 
   # callbacks
   before_save :blanks_to_nils

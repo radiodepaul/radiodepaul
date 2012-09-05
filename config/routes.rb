@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  resources :awards
+
   if Rails.env == 'production'
     devise_for :people, :controllers => {:registrations => "registrations" }, :path => "/", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
   else

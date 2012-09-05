@@ -3,11 +3,11 @@
 
 Your Radio DePaul account has been created!
 
-Your password has been set to <%= @password %>.
+The password <%= @new_password %> has been automatically generated for you.
 
-You can login to your account at http://radiodepaul.herokuapp.com/login .
+You can login to your account at <%= edit_person_registration_url(:auth_token => @person.authentication_token) %> .
 
-Be sure to change your password as soon as you login.
+Please change your password as soon as you login.
 
 Sincerely,
 
