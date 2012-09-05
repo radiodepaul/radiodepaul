@@ -1,5 +1,5 @@
 class Award < ActiveRecord::Base
-  attr_accessible :for, :name, :year
+  attr_accessible :for, :name, :year, :award_organization_id
   belongs_to :award_organization
   has_and_belongs_to_many :people
   accepts_nested_attributes_for :people
