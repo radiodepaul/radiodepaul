@@ -157,7 +157,7 @@ class ShowsController < ApplicationController
   def getList
     respond_to do |format|
       format.html { redirect_to pages_api_path}
-      @shows = Show.find(:all, :order => 'title')
+      @shows = Show.find(:all, :conditions => {:archived => false}, :order => 'title')
       format.js  { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
     end
@@ -166,7 +166,7 @@ class ShowsController < ApplicationController
   def getRandom
     respond_to do |format|
       format.html { redirect_to pages_api_path}
-      show_ids = Show.find( :all, :select => 'id' ).map( &:id )
+      show_ids = Show.find( :all, :conditions => {:archived => false}, :select => 'id' ).map( &:id )
       @shows = Show.find( (1..5).map { show_ids.delete_at( show_ids.size * rand ) } )
       format.js { render :json => @shows, :callback => params[:callback] }
       format.json  { render :json => @shows }
