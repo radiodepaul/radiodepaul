@@ -8,6 +8,7 @@
     = link_to 'Show Archived', :action => 'index', :archived => true
 - if params[:archived] == 'true'
   = form_tag restore_people_path, :method => :put do
+    = link_to_function '✓', '$("input[id=person_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
     = link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'
     = submit_tag 'Restore', :class => 'btn'
     %br
@@ -15,8 +16,9 @@
     = render :partial => 'table'
 - else
   = form_tag archive_people_path, :method => :put do
+    = link_to_function '✓', '$("input[id=person_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
     = link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'
-    = submit_tag 'Archive', :class => 'btn'
+    = submit_tag 'Archive', :class => 'btn btn-danger'
     %br
     %br
     = render :partial => 'table'

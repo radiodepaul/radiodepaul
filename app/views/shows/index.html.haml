@@ -14,7 +14,7 @@
   = form_tag restore_shows_path, :method => :put do
     = link_to_function '✓', '$("input[id=show_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
     = link_to t('.new', :default => t("helpers.links.new")), new_show_path, :class => 'btn btn-primary'
-    = submit_tag 'Restore', :class => 'btn btn-primary'
+    = submit_tag 'Restore', :class => 'btn'
     %br
     %br
     = render :partial => 'table'
