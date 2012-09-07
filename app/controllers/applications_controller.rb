@@ -19,10 +19,8 @@ class ApplicationsController < ApplicationController
   # GET /applications/1.json
   def hire
     @a = Application.find(params[:id])
-    @person = Person.new(:email => @a.email, :first_name => @a.first_name, :last_name => @a.last_name, :bio => @a.bio, :facebook_username => @a.facebook_username,
-                        :twitter_username => @a.twitter_username, :tumblr_username => @a.tumblr_username, :major => @a.major, :class_year => @a.year, 
-                        :hometown => "#{@a.home_city}, #{@a.home_state}", :influences => @a.influences, :password => Devise.friendly_token.first(8))
-
+    @person = Person.new(:email => @a.email, :first_name => @a.first_name, :last_name => @a.last_name, :bio => @a.bio, :facebook_username => @a.facebook_username, :twitter_username => @a.twitter_username, :tumblr_username => @a.tumblr_username, :major => @a.major, :class_year => @a.year, :hometown => "#{@a.home_city}, #{@a.home_state}", :influences => @a.influences, :depaul_id => @a.depaul_id, :password => Devise.friendly_token.first(8))
+                        
     @person.replace_avatar_from(@a)
     respond_to do |format|
       if @person.save
