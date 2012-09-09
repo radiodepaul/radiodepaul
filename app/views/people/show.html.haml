@@ -75,9 +75,9 @@
           %tr
             %th= Show.human_attribute_name(:avatar)
             %th= Show.human_attribute_name(:title)
-            %th= Show.human_attribute_name(:genre)
-            %th # Hosts
-            %th # Slots
+            %th= Show.human_attribute_name(:genres)
+            %th # Host
+            %th # Slos
             %th= Show.human_attribute_name(:updated_at)
             %th= t '.actions', :default => t("helpers.actions")
         %tbody
@@ -85,7 +85,7 @@
             %tr
               %td= image_tag(show.avatar.square.thumb.url)
               %td= link_to show.title, show_path(show)
-              %td= show.genre
+              %td= show.genre_list
               %td= show.people.count
               %td= show.slots.count
               %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
