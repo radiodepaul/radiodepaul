@@ -1,0 +1,14 @@
+= semantic_form_for @podcast, :html => { :class => 'form-horizontal' } do |f|
+  = f.inputs do
+    = f.input :title
+    = f.input :description
+    = f.input :podcast_type
+    = f.input :contributors
+    %strong Current File:
+    %p= link_to @podcast.file.url
+    = f.input :file
+    = f.input :file_cache, :as => :hidden
+    = f.input :priority, :as => :boolean
+  = f.actions do
+    = f.action :submit, :label => 'Save'
+    = f.action :cancel, :label => 'Cancel'

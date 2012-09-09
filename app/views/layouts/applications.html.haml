@@ -41,6 +41,8 @@
       .content
         .row
           .span9
+            - if person_signed_in?
+              = render_breadcrumbs
             - if flash[:notice]
               %p.notice= notice
             - if flash[:alert]

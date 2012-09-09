@@ -4,6 +4,9 @@ class NewsPostsController < ApplicationController
   before_filter :isAdmin?, :only => [:destroy]
   # GET /news_posts
   # GET /news_posts.json
+
+  add_breadcrumb 'News Posts', :news_posts_path
+
   def index
     @news_posts = NewsPost.all
 

@@ -6,6 +6,9 @@ class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
+  
+  add_breadcrumb 'Applications', :apps_path
+  
   def index
     @applications = Application.find(:all, :order => 'created_at desc')
 
@@ -33,6 +36,7 @@ class ApplicationsController < ApplicationController
   end
   def show
     @application = Application.find(params[:id])
+    add_breadcrumb "#{@application.first_name} #{@application.last_name}", app_path(@application)
 
     respond_to do |format|
       format.html # show.html.erb

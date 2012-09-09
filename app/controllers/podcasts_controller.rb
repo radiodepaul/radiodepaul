@@ -5,6 +5,8 @@ class PodcastsController < ApplicationController
   before_filter :isAdmin?, :only => [:destroy]
   # GET /podcasts
   # GET /podcasts.json
+
+  add_breadcrumb 'Podcasts', :podcasts_path
   
   def validate_podcast_access(podcast)
     allowed_roles = Array["Podcast Programmer"]
@@ -30,6 +32,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1.json
   def show
     @podcast = Podcast.find(params[:id])
+    add_breadcrumb @podcast.title, podcast_path(@podcast)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -51,6 +54,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1/edit
   def edit
     @podcast = Podcast.find(params[:id])
+    add_breadcrumb @podcast.title, podcast_path(@podcast)
     validate_podcast_access(@podcast)
   end
 

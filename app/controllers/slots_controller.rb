@@ -6,6 +6,8 @@ class SlotsController < ApplicationController
   before_filter :set_timezone
   # GET /slots
   # GET /slots.json
+
+  add_breadcrumb 'Schedule A Show', :slots_path
   
   def index
     #@slots = Slot.find(:all, :order => 'start_time',  :conditions => ["quarter=?", Settings.active_schedule])
@@ -25,6 +27,8 @@ class SlotsController < ApplicationController
   # GET /slots/1.json
   def show
     @slot = Slot.find(params[:id])
+    
+    add_breadcrumb "#{@slot.quarter} Slot", slot_path(@slot)
 
     respond_to do |format|
       format.html {
@@ -49,6 +53,7 @@ class SlotsController < ApplicationController
   # GET /slots/1/edit
   def edit
     @slot = Slot.find(params[:id])
+    add_breadcrumb "#{@slot.quarter} Slot", slot_path(@slot)
   end
 
   # POST /slots

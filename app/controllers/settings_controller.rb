@@ -4,6 +4,9 @@ class SettingsController < ApplicationController
   before_filter :isAdmin?, :only => [:destroy]
   # GET /settings
   # GET /settings.json
+
+  add_breadcrumb 'Settings', :settings_path
+
   def index
     @settings = Setting.all
 
@@ -17,6 +20,7 @@ class SettingsController < ApplicationController
   # GET /settings/1.json
   def show
     @setting = Setting.find(params[:id])
+    add_breadcrumb @setting.var, setting_path(@setting)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,6 +42,7 @@ class SettingsController < ApplicationController
   # GET /settings/1/edit
   def edit
     @setting = Setting.find(params[:id])
+    add_breadcrumb @setting.var, setting_path(@setting)
   end
 
   # POST /settings

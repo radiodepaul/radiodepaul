@@ -5,6 +5,8 @@ class ManagersController < ApplicationController
   # GET /managers
   # GET /managers.json
   
+  add_breadcrumb 'Managers', :managers_path
+  
   def index
     @managers = Manager.all
 
@@ -21,6 +23,7 @@ class ManagersController < ApplicationController
   # GET /managers/1.json
   def show
     @manager = Manager.find(params[:id])
+    add_breadcrumb @manager.person.try(:first_last_name), manager_path(@manager)
 
     respond_to do |format|
       format.html {
