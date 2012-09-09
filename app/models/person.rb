@@ -20,7 +20,9 @@ class Person < ActiveRecord::Base
 
   # callbacks
   before_save :blanks_to_nils
-  before_create :set_password
+  before_validation(:on => :create) do
+    self.set_password
+  end
   #after_create :send_welcome_email
 
   # validation
