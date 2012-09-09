@@ -36,16 +36,36 @@
                 %li= link_to "News Posts", news_posts_path
                 %li= link_to "Applications", apps_path
                 %li= link_to "Settings", settings_path
+            %ul.nav.pull-right
+              - if person_signed_in?
+                %li.drowndown
+                  %a{class: 'dropdown-toggle', href: '#', :'data-toggle' => 'dropdown'}
+                    = image_tag(current_person.avatar.square.thumb.url, :style => 'height:25px')
+                    #{current_person.first_last_name} logged in
+                    %strong.caret
+                  %div{class: 'dropdown-menu', style: 'padding: 15px;padding-bottom:0'}
+                    = link_to('Logout', destroy_person_session_path, :style => 'text-align:center;clear:left, width:100%, height:32px; font-size:13px', :method => :delete)
+              - else
+                %li.dropdown
+                  %a{class: 'dropdown-toggle', href: '#', :'data-toggle' => 'dropdown'}
+                    Login
+                    %strong.caret
+                  %div{class: 'dropdown-menu', style: 'padding: 15px;padding-bottom:0'}
+                    = form_for(:person, :url => person_session_path) do |f|
+                      = f.text_field :email, :placeholder => 'Email'
+                      = f.password_field :password, :placeholder => 'Password'
+                      = submit_tag 'Login', :class => 'btn btn-primary'
           / /.nav-collapse
+          <!-- The drop down menu -->
     .container
       .content
         .row
           .span9
-            = render 'people/menu/login_items'
+            = render_breadcrumbs
             - if flash[:notice]
-              %p.notice= notice
+              %p.notice= flash[:notice]
             - if flash[:alert]
-              %p.alert= alert
+              %p.alert= flash[:alert]
             = yield
           .span3
             - if person_signed_in? && current_person.admin?

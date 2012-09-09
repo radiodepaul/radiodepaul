@@ -1,0 +1,65 @@
+- model_class = @show.class
+.page-header
+  %h1= @show.title
+  %h3= @show.created_at.strftime("Added on %m/%d/%Y at %I:%M%p")
+%div#tabs
+  %ul
+    %li
+      = link_to 'Info', '#info' 
+    %li
+      = link_to 'Hosts', '#hosts'
+  %div#info
+    = image_tag(@show.avatar.square.small.url, :style => "margin-left:10px;float:right")
+    %dl.dl
+      %dt
+        %strong
+          = model_class.human_attribute_name(:short_description)
+      %dd= @show.short_description
+      %dt
+        %strong
+          = model_class.human_attribute_name(:long_description)
+      %dd= @show.long_description
+      %dt
+        %strong
+          = model_class.human_attribute_name(:facebook_page_username)
+      %dd= @show.facebook_page_username
+      %dt
+        %strong
+          = model_class.human_attribute_name(:twitter_username)
+      %dd= @show.twitter_username
+      %dt
+        %strong
+          = model_class.human_attribute_name(:website_url)
+      %dd= @show.website_url
+      %dt
+        %strong
+          = model_class.human_attribute_name(:email)
+      %dd= mail_to @show.email
+  %div#hosts
+    %h2 Hosts
+    - if @show.people.length == 0
+      %p No hosts at the moment.
+    - else
+      %table.datatable.table.table-striped
+        %thead
+          %tr
+            %th= Person.human_attribute_name(:avatar)
+            %th= Person.human_attribute_name(:first_last_name)
+            %th= Person.human_attribute_name(:email)
+            %th # Shows
+            %th= Person.human_attribute_name(:updated_at)
+            %th= t '.actions', :default => t("helpers.actions")
+        %tbody
+          - @show.people.each do |person|
+            %tr
+              %td= image_tag(person.avatar.square.thumb.url)
+              %td= link_to person.first_last_name, person_path(person)
+              %td= mail_to person.email
+              %td= person.shows.count
+              %td= person.updated_at.strftime("%I:%M%p %Z") unless person.updated_at.nil?
+              %td
+                = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(person), :class => 'btn btn-mini'
+.form-actions
+  = link_to "Back", :back, :class => 'btn'
+  = link_to 'Edit', edit_show_path(@show), :class => 'btn'
+  = link_to 'Delete', show_path(@show), :method => 'delete',:data => { :confirm => "Are you sure you want to delete #{@show.title}?" }, :class => 'btn btn-danger'

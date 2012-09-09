@@ -1,3 +1,12 @@
 // Place all the styles related to the Pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.am-wrapper{
+    float:left;
+    position:relative;
+    overflow:hidden;
+}
+.am-wrapper img{
+    position:absolute;
+    outline:none;
+}

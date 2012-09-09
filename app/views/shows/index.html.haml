@@ -11,18 +11,18 @@
     %h1= t '.title', :default => "Active #{model_class.model_name.human.pluralize}"
     = link_to 'Show Archived', :action => 'index', :archived => true
 - if params[:archived] == 'true'
-  = form_tag restore_shows_path, :method => :put do
+  = form_tag admin_shows_path, :method => :put do
     = link_to_function '✓', '$("input[id=show_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
     = link_to t('.new', :default => t("helpers.links.new")), new_show_path, :class => 'btn btn-primary'
-    = submit_tag 'Restore', :class => 'btn'
+    = submit_tag 'Restore', :name => 'restore_button', :class => 'btn'
     %br
     %br
     = render :partial => 'table'
 - else
-  = form_tag archive_shows_path, :method => :put do
+  = form_tag admin_shows_path, :method => :put do
     = link_to_function '✓', '$("input[id=show_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
     = link_to t('.new', :default => t("helpers.links.new")), new_show_path, :class => 'btn btn-primary'
-    = submit_tag 'Archive', :class => 'btn btn-danger'
+    = submit_tag 'Archive', :name => 'archive_button', :class => 'btn btn-danger'
     %br
     %br
     = render :partial => 'table'

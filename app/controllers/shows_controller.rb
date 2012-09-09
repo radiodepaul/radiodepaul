@@ -7,6 +7,7 @@ class ShowsController < ApplicationController
   # GET /shows.json
   
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
+  add_breadcrumb 'Shows', :shows_path
 
   def validate_show_access(show)
     allowed_roles = Array["Program Director"]
@@ -34,24 +35,26 @@ class ShowsController < ApplicationController
 
   end
 
-  def archive
-    if Show.update_all(["archived=?", true], :id => params[:show_ids])
-      flash[:notice] = 'Show(s) have been archived'
-      redirect_to shows_path
+  def admin
+    if params[:send_welcome_email_button]
+    elsif params[:reset_password_button]
+    elsif params[:restore_button]
+      if Show.update_all(["archived=?", false], :id => params[:show_ids])
+        flash[:notice] = 'Show(s) have been restored'
+        redirect_to shows_path
+      end
+    elsif params[:archive_button]
+      if Show.update_all(["archived=?", true], :id => params[:show_ids])
+        flash[:notice] = 'Show(s) have been archived'
+        redirect_to shows_path
+      end
     end
   end
-
-  def restore
-    if Show.update_all(["archived=?", false], :id => params[:show_ids])
-      flash[:notice] = 'Show(s) have been restored'
-      redirect_to shows_path
-    end
-  end
-
   # GET /shows/1
   # GET /shows/1.json
   def show
     @show = Show.find(params[:id])
+    add_breadcrumb @show.title, @show
         respond_to do |format|
           format.html {
               render :html => @show
@@ -76,6 +79,7 @@ class ShowsController < ApplicationController
   # GET /shows/1/edit
   def edit
       @show = Show.find(params[:id])
+      add_breadcrumb @show.title, @show
       validate_show_access(@show)
   end
 
@@ -99,6 +103,10 @@ class ShowsController < ApplicationController
   # PUT /shows/1.json
   def update
       @show = Show.find(params[:id])
+
+      if !current_person.admin? && current_person.try(:position) != 'Program Director'
+        params[:show].delete :hostings_attributes
+      end
 
       if validate_show_access(@show)
         respond_to do |format|

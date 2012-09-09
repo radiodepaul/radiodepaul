@@ -8,6 +8,8 @@ class PagesController < ApplicationController
   end
 
   def welcome
+    show_ids = Show.where("archived is FALSE AND avatar IS NOT NULL").select(:id).map( &:id )
+    @shows = Show.find( (1..25).map { show_ids.delete_at( show_ids.size * rand ) } )
   end
 
   def home

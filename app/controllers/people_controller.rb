@@ -6,32 +6,12 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
 
+  add_breadcrumb 'People', :people_path
+
   def change_password
     current_user.reset_password!(params[:password], params[:password_confirmation])
     flash[:notice] = "Password changed."
     redirect_to root_path
-  end
-
-  def reset_password
-    return unless current_person.admin?
-    @person = Person.find(params[:id])
-    @person.send_reset_password_instructions
-    flash[:notice] = "Password reset instructions sent."
-    redirect_to root_path # or user_root_url
-  end
-
-  def send_welcome
-    return unless current_person.admin?
-    @person = Person.find(params[:id])
-    new_password = Devise.friendly_token.first(8)
-    @person.reset_password!(new_password,new_password)
-
-    if Notifier.welcome(@person, new_password).deliver
-      flash[:notice] = "Welcome email sent."
-    else
-      flash[:notice] = "Problem sending email..."
-    end
-    redirect_to root_path # or user_root_url
   end
 
   def become
@@ -50,17 +30,32 @@ class PeopleController < ApplicationController
     return false
   end
 
-  def archive
-    if Person.update_all(["archived=?", true], :id => params[:person_ids])
-      flash[:notice] = 'Person(s) have been archived'
+  def admin
+    if params[:send_welcome_email_button]
+      params[:person_ids].each do |id|
+        @person = Person.find(id)
+        new_password = Devise.friendly_token.first(8)
+        @person.reset_password!(new_password,new_password)
+        Notifier.welcome(@person, new_password).deliver
+      end
+      flash[:notice] = "Welcome email sent to #{params[:person_ids].length} user(s)."
       redirect_to people_path
-    end
-  end
-
-  def restore
-    if Person.update_all(["archived=?", false], :id => params[:person_ids])
-      flash[:notice] = 'Person(s) have been restored'
+    elsif params[:reset_password_button]
+      params[:person_ids].each do |id|
+        @person.send_reset_password_instructions
+      end
+      flash[:notice] = "Reset password instructions sent to #{params[:person_ids].length} user(s)."
       redirect_to people_path
+    elsif params[:restore_button]
+      if Person.update_all(["archived=?", false], :id => params[:person_ids])
+        flash[:notice] = 'Person(s) have been restored'
+        redirect_to people_path
+      end
+    elsif params[:archive_button]
+      if Person.update_all(["archived=?", true], :id => params[:person_ids])
+        flash[:notice] = 'Person(s) have been archived'
+        redirect_to people_path
+      end
     end
   end
 
@@ -85,6 +80,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
+    add_breadcrumb @person.first_last_name, @person
 
     respond_to do |format|
       format.html {
@@ -109,6 +105,7 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    add_breadcrumb @person.first_last_name, @person
     validate_person_access(@person)
   end
 
@@ -133,6 +130,10 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     validate_person_access(@person)
+
+    if !current_person.admin? && current_person.try(:position) != 'Program Director'
+      params[:person].delete :hostings_attributes
+    end
 
     respond_to do |format|
       if @person.update_attributes(params[:person])

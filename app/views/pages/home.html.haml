@@ -1,117 +1,120 @@
-- if current_person && current_person.admin?
-  %p Login as
-  = select "login_as_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
-- if current_person && current_person.admin?
-  %p Reset password for
-  = select "reset_password_for_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
-- if current_person && current_person.admin?
-  %p Send welcome email to
-  = select "send_welcome_to_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
+%div#tabs
+  %ul
+    %li
+      = link_to 'My Profile', '#profile' 
+    %li
+      = link_to 'My Shows', '#shows'
+    %li
+      = link_to 'My Podcasts', '#podcasts'
+  %div#profile
+    - if current_person && current_person.admin?
+      %p Login as
+      = select "login_as_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
+      = image_tag(@person.avatar.square.small.url, :style => "float:right")
+    %h1
+      = @person.first_last_name
+      - if @person.admin?
+        (Admin)
+    %h2 My Info
+    %ul
+      %li
+        %strong
+          Email:
+        #{@person.email}
+      %li 
+        %strong
+          Year: 
+        #{@person.class_year}
+      %li
+        %strong
+          Major: 
+        #{@person.major}
+      %li 
+        %strong
+          Hometown: 
+        #{@person.hometown}
+      %li 
+        %strong
+          DePaul ID: 
+        #{@person.depaul_id}
+      %li 
+        %strong
+          Facebook Username: 
+        #{@person.facebook_username}
+      %li 
+        %strong
+          LinkedIn Username: 
+        #{@person.linkedin_username}
+      %li 
+        %strong
+          Twitter Username: 
+        #{@person.twitter_username}
+      %li 
+        %strong
+          Website URL: 
+        #{@person.website_url}
+    %p
+      %strong
+        Influences
+    %p= @person.influences
+    %p
+      %strong
+        Bio
+    %p= @person.bio
+    = link_to "Edit Profile", edit_person_path(@person), :class => 'btn'
+    = link_to 'Change my Password', edit_person_registration_path, :class => 'btn'
 
-- if @person.avatar?
-  = image_tag(@person.avatar.square.small.url, :style => "float:right")
-%h1
-  = @person.first_last_name
-  - if @person.admin?
-    (Admin)
-%h2 My Info
-%ul
-  %li
-    %strong
-      Email:
-    #{@person.email}
-  %li 
-    %strong
-      Year: 
-    #{@person.class_year}
-  %li
-    %strong
-      Major: 
-    #{@person.major}
-  %li 
-    %strong
-      Hometown: 
-    #{@person.hometown}
-  %li 
-    %strong
-      DePaul ID: 
-    #{@person.depaul_id}
-  %li 
-    %strong
-      Facebook Username: 
-    #{@person.facebook_username}
-  %li 
-    %strong
-      LinkedIn Username: 
-    #{@person.linkedin_username}
-  %li 
-    %strong
-      Twitter Username: 
-    #{@person.twitter_username}
-  %li 
-    %strong
-      Website URL: 
-    #{@person.website_url}
-%p
-  %strong
-    Influences
-%p= @person.influences
-%p
-  %strong
-    Bio
-%p= @person.bio
-= link_to "Edit Profile", edit_person_path(@person), :class => 'btn'
-= link_to 'Change my Password', edit_person_registration_path, :class => 'btn'
-
--#%h2 Some Analytics
--#@analytics.each do |a| 
--##{a.page_path} #{a.pageviews}
-%h2 My Shows
-- if @shows.length == 0
-  %p You have no shows at the moment.
-- else
-  %table.datatable.table.table-striped
-    %thead
-      %tr
-        %th= Show.human_attribute_name(:avatar)
-        %th= Show.human_attribute_name(:title)
-        %th= Show.human_attribute_name(:genre)
-        %th # Hosts
-        %th # Slots
-        %th= Show.human_attribute_name(:updated_at)
-        %th= t '.actions', :default => t("helpers.actions")
-    %tbody
-      - @shows.each do |show|
-        %tr
-          %td= image_tag(show.avatar.square.thumb.url)
-          %td= link_to show.title, show_path(show)
-          %td= show.genre
-          %td= show.people.count
-          %td= show.slots.count
-          %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
-          %td
-            = link_to t('.edit', :default => t("helpers.links.edit")), |
-              edit_show_path(show), :class => 'btn btn-mini'           |
-%h2 My Show Podcasts
-- if @person.podcasts.length == 0
-  %p Your shows have no podcasts at the moment.
-- else
-  %table.datatable.table.table-striped
-    %thead
-      %tr
-        %th= Podcast.human_attribute_name(:title)
-        %th= Podcast.human_attribute_name(:file)
-        %th= Podcast.human_attribute_name(:created_at)
-        %th= t '.actions', :default => t("helpers.actions")
-    %tbody
-      - @person.podcasts.each do |podcast|
-        %tr
-          %td= link_to podcast.title, podcast_path(podcast)
-          %td
-            - if podcast.file?
-              = link_to "Download File", podcast.file.url
-            - else
-              No file attached
-          %td= podcast.created_at.strftime("%I:%M%p %Z") unless podcast.created_at.nil?
-          %td
-            = link_to t('.edit', :default => t("helpers.links.edit")), edit_podcast_path(podcast), :class => 'btn btn-mini'
+    -#%h2 Some Analytics
+    -#@analytics.each do |a| 
+    -##{a.page_path} #{a.pageviews}
+  %div#shows
+    %h2 My Shows
+    - if @shows.length == 0
+      %p You have no shows at the moment.
+    - else
+      %table.datatable.table.table-striped
+        %thead
+          %tr
+            %th= Show.human_attribute_name(:avatar)
+            %th= Show.human_attribute_name(:title)
+            %th= Show.human_attribute_name(:genre)
+            %th # Hosts
+            %th # Slots
+            %th= Show.human_attribute_name(:updated_at)
+            %th= t '.actions', :default => t("helpers.actions")
+        %tbody
+          - @shows.each do |show|
+            %tr
+              %td= image_tag(show.avatar.square.thumb.url)
+              %td= link_to(show.title, show_path(show))
+              %td= show.genre
+              %td= show.people.count
+              %td= show.slots.count
+              %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
+              %td
+                = link_to t('.edit', :default => t("helpers.links.edit")), |
+                  edit_show_path(show), :class => 'btn btn-mini'           |
+  %div#podcasts
+    %h2 My Show Podcasts
+    - if @person.podcasts.length == 0
+      %p Your shows have no podcasts at the moment.
+    - else
+      %table.datatable.table.table-striped
+        %thead
+          %tr
+            %th= Podcast.human_attribute_name(:title)
+            %th= Podcast.human_attribute_name(:file)
+            %th= Podcast.human_attribute_name(:created_at)
+            %th= t '.actions', :default => t("helpers.actions")
+        %tbody
+          - @person.podcasts.each do |podcast|
+            %tr
+              %td= link_to podcast.title, podcast_path(podcast)
+              %td
+                - if podcast.file?
+                  = link_to "Download File", podcast.file.url
+                - else
+                  No file attached
+              %td= podcast.created_at.strftime("%I:%M%p %Z") unless podcast.created_at.nil?
+              %td
+                = link_to t('.edit', :default => t("helpers.links.edit")), edit_podcast_path(podcast), :class => 'btn btn-mini'

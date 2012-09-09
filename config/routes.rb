@@ -70,8 +70,7 @@ RadioDePaulWebsite2::Application.routes.draw do
     collection do
       get 'random'
       get 'search'
-      put 'archive'
-      put 'restore'
+      put 'admin'
     end
   end
 
@@ -80,8 +79,7 @@ RadioDePaulWebsite2::Application.routes.draw do
       get 'random'
       get 'search'
       get :autocomplete_genre_name
-      put 'archive'
-      put 'restore'
+      put 'admin'
     end
   end
 

@@ -1,0 +1,26 @@
+= semantic_nested_form_for @person, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f|
+  = f.error_messages
+  = image_tag(@person.avatar.square.small.url, :style => 'float:right;')
+  = f.inputs do
+    %h2 Basic Info
+    = f.inputs :first_name, :last_name, :nickname
+    = f.input :depaul_id, :label => 'DePaul ID#'
+    = f.input :bio, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :influences, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.inputs :facebook_username, :linkedin_username, :twitter_username, :tumblr_username
+    = f.input :website_url
+    = f.input :email, :as => :email
+    = f.input :major, :label => 'Major/Minor'
+    = f.input :class_year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"]
+    = f.input :hometown
+    = f.input :avatar, :as => :file, :label => 'Photo'
+    = f.input :avatar_cache, :as => :hidden
+    = f.input :remote_avatar_url, :as => :url, :label => 'Remote Photo URL'
+    %h2 Shows
+    = f.semantic_fields_for :hostings do |show|
+      = show.input :show, :as => :select, :collection => Show.find(:all, :order => :title), :prompt => true
+      = show.link_to_remove "remove"
+    = f.link_to_add 'Add Show', :hostings
+  = f.actions do
+    = f.action :submit, :label => 'Save'
+    = f.action :cancel, :label => 'Cancel'

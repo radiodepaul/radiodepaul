@@ -1,7 +1,0 @@
-<p>
-	<%= f.label "Hosts", :class => 'control-label' %>
-        <div class="controls">
-                <%= f.collection_select :person_id, Person.all, :id, :first_last_name %>
-	</div>
- 	<%= f.link_to_remove "remove" %>
-</p>

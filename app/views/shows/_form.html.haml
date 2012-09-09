@@ -1,0 +1,33 @@
+= semantic_nested_form_for @show, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f|
+  = f.error_messages
+  = image_tag(@show.avatar.square.small.url, :style => 'float:right;')
+  = f.inputs do
+    %h2 Basic Info
+    = f.inputs :title, :genre
+    = f.input :genre_list, :label => 'Genre(s)', :as => :autocomplete, :url => autocomplete_genre_name_shows_path, :input_html => {:"data-delimiter" => ', '}
+    = f.input :short_description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.input :long_description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+    = f.inputs :facebook_page_username, :twitter_username
+    = f.input :website_url
+    = f.input :email, :as => :email
+    = f.input :avatar, :as => :file, :label => 'Photo'
+    = f.input :avatar_cache, :as => :hidden
+    = f.input :remote_avatar_url, :as => :url, :label => 'Remote Photo URL'
+    %h2 Attachments
+    = f.semantic_fields_for :attachments do |attachment|
+      = attachment.inputs do
+        = attachment.input :title
+        = attachment.input :description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+        = attachment.input :contributors
+        = attachment.input :file, :as => :file, :label => 'File'
+        = attachment.input :file_cache, :as => :hidden
+        = attachment.link_to_remove "remove"
+    = f.link_to_add 'Add Attachment', :attachments
+    %h2 Hosts
+    = f.semantic_fields_for :hostings do |person|
+      = person.input :person, :as => :select, :collection => Person.order(:first_name), :member_label => :first_last_name, :prompt => true
+      = person.link_to_remove "remove"
+    = f.link_to_add 'Add Person', :hostings
+  = f.actions do
+    = f.action :submit, :label => 'Save'
+    = f.action :cancel, :label => 'Cancel'
