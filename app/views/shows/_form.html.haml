@@ -3,7 +3,7 @@
   = image_tag(@show.avatar.square.small.url, :style => 'float:right;')
   = f.inputs do
     %h2 Basic Info
-    = f.inputs :title, :genre
+    = f.inputs :title
     = f.input :genre_list, :label => 'Genre(s)', :as => :autocomplete, :url => autocomplete_genre_name_shows_path, :input_html => {:"data-delimiter" => ', '}
     = f.input :short_description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
     = f.input :long_description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }

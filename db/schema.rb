@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905074653) do
+ActiveRecord::Schema.define(:version => 20120909120725) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -191,7 +191,6 @@ ActiveRecord::Schema.define(:version => 20120905074653) do
 
   create_table "shows", :force => true do |t|
     t.string   "title"
-    t.string   "genre"
     t.string   "short_description"
     t.text     "long_description"
     t.string   "facebook_page_username"

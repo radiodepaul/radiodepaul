@@ -5,7 +5,7 @@
       %th
       %th= model_class.human_attribute_name(:avatar)
       %th= model_class.human_attribute_name(:title)
-      %th= model_class.human_attribute_name(:genre)
+      %th= model_class.human_attribute_name(:genre_list)
       %th # Hosts
       %th # Slots
       %th= model_class.human_attribute_name(:updated_at)
@@ -16,7 +16,7 @@
         %th= check_box_tag 'show_ids[]', show.id
         %td= image_tag(show.avatar.square.thumb.url)
         %td= link_to show.title, show_path(show)
-        %td= show.genre
+        %td= show.genre_list
         %td= show.people.count
         %td= show.slots.count
         %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?

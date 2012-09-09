@@ -1,5 +1,5 @@
 class Show < ActiveRecord::Base
-  attr_accessible :title, :genre, :short_description, :long_description, :facebook_page_username, :twitter_username, :email, :website_url, :attachments_attributes, :avatar, :remove_avatar, :avatar_cache, :remote_avatar_url, :genre_list, :hostings_attributes
+  attr_accessible :title, :short_description, :long_description, :facebook_page_username, :twitter_username, :email, :website_url, :attachments_attributes, :avatar, :remove_avatar, :avatar_cache, :remote_avatar_url, :genre_list, :hostings_attributes
 
   # relationships
   has_many :hostings, :dependent => :destroy
@@ -49,7 +49,6 @@ class Show < ActiveRecord::Base
   end
   
   def blanks_to_nils
-     self.genre = nil if self.genre.blank?
      self.short_description = nil if self.short_description.blank?
      self.long_description = nil if self.long_description.blank?
      self.facebook_page_username = nil if self.facebook_page_username.blank?
@@ -61,7 +60,7 @@ class Show < ActiveRecord::Base
   def as_json(options={})
        {:id => self.id,
         :title => self.title,
-        :genres => self.genres,
+        :genres => self.genre_list,
         :hosts => get_hosts,
         :scheduled_slots => get_scheduled_slots,
         :short_description => self.short_description,
