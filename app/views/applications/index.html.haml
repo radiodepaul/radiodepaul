@@ -22,5 +22,5 @@
         %td= l application.created_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_app_path(application), :class => 'btn btn-mini'
-          = link_to 'Destroy', app_path(application), :method => :delete, :class => 'btn btn-mini btn-danger'
+          = link_to 'Delete', app_path(application), :method => :delete, :class => 'btn btn-mini btn-danger'
 = link_to t('.new', :default => t("helpers.links.new")), new_app_path, :class => 'btn btn-primary'

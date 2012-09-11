@@ -32,8 +32,6 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   get 'apps/hire/:id' => 'applications#hire', :as => 'applications_hire'
 
-  #get "application/success" => 'pages#application_success', :as => 'application/success'
-
   get "pages/api"
 
   get 'application' => "applications#new", :as => '/application'

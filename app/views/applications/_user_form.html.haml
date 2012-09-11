@@ -43,23 +43,7 @@
     = f.input :facebook_username, :hint => 'http://www.facebook.com/username', :placeholder => 'david_bowie'
     = f.input :tumblr_username, :hint => 'http://www.username.tumblr.com', :placeholder => 'david_bowie'
     = f.input :anything_else, :label => 'Anything else you would like us to know about you?', :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
-  .control-group
-    = f.label :website_profile_photo, :class => 'control-label'
-    .controls
-      - if @application.avatar?
-        = image_tag(@application.avatar.square.thumb.url)
-        %br/
-        Replace File: #{f.file_field :avatar}
-        %br/
-        = f.hidden_field :avatar_cache
-        Replace from URL: #{f.text_field :remote_avatar_url}
-        %br/
-        Remove Photo#{f.check_box :remove_avatar}
-        %br/
-      - else
-        Upload File: #{f.file_field :avatar}
-        %br/
-        = f.hidden_field :avatar_cache
-        Upload from URL: #{f.text_field :remote_avatar_url}
+    = f.input :avatar, :as => :file, :label => 'Website Profile Photo'
+    = f.input :avatar_cache, :as => :hidden
     = f.actions do
       = f.action :submit, :label => 'Submit'

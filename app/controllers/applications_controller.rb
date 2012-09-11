@@ -68,13 +68,16 @@ class ApplicationsController < ApplicationController
     respond_to do |format|
       if @application.save
         Notifier.application_confirmation(@application).deliver
-        format.html { redirect_to :controller => 'pages', :action => 'application_success', notice: 'Application was successfully created.' }
+        format.html { render 'application_success', :locals => { :first_name => @application.first_name } }
         format.json { render json: @application, status: :created, location: @application }
       else
         format.html { render action: "new" }
         format.json { render json: @application.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def application_success
   end
 
   # PUT /applications/1
