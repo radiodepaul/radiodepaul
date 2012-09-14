@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909120725) do
+ActiveRecord::Schema.define(:version => 20120914100424) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -42,15 +42,18 @@ ActiveRecord::Schema.define(:version => 20120909120725) do
     t.text     "favorite_films"
     t.text     "famous_person"
     t.text     "anything_else"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "avatar"
     t.string   "twitter_username"
     t.string   "facebook_username"
     t.string   "tumblr_username"
-    t.text     "why_listen",         :default => "", :null => false
-    t.text     "why_work_here",      :default => "", :null => false
-    t.string   "position_other",     :default => "", :null => false
+    t.text     "why_listen",         :default => "",    :null => false
+    t.text     "why_work_here",      :default => "",    :null => false
+    t.string   "position_other",     :default => "",    :null => false
+    t.boolean  "archived",           :default => false
+    t.boolean  "hired",              :default => false
+    t.boolean  "rejected",           :default => false
   end
 
   create_table "attachments", :force => true do |t|

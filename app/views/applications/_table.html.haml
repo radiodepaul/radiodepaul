@@ -1,0 +1,24 @@
+%table.datatable.table.table-striped
+  %thead
+    %tr
+      %th
+      %th= model_class.human_attribute_name(:avatar)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:year)
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:position)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @applications.each do |application|
+      %tr
+        %th= check_box_tag 'app_ids[]', application.id
+        %td= image_tag(application.avatar.square.thumb.url)
+        %td= link_to application.first_last_name, app_path(application)
+        %td= application.year
+        %td= application.email
+        %td= application.position
+        %td= l application.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_app_path(application), :class => 'btn btn-mini'
+          = link_to 'Delete', app_path(application), :method => :delete, :class => 'btn btn-mini btn-danger'
