@@ -16,10 +16,16 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   resources :applications do
     get :autocomplete_genre_name, :on => :collection   
+    collection do
+      put 'admin'
+    end
   end
 
   resources :apps, :controller => 'applications' do
     get :autocomplete_genre_name, :on => :collection   
+    collection do
+      put 'admin'
+    end
   end
 
   resources :news_posts
