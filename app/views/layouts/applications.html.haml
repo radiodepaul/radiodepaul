@@ -40,6 +40,11 @@
                   %li= link_to "Settings", settings_path
               %ul.nav.pull-right
                 - if person_signed_in?
+                  - if current_person.admin?
+                    %li
+                      - new_apps = Application.find(:all, :conditions => {:archived => false, :hired => false, :rejected => false}).length
+                      %a{:href => apps_path}
+                        %span.badge.badge-important= "#{new_apps}"
                   %li.drowndown
                     %a{class: 'dropdown-toggle', href: '#', :'data-toggle' => 'dropdown'}
                       = image_tag(current_person.avatar.square.thumb.url, :style => 'height:25px')

@@ -55,6 +55,15 @@ class Person < ActiveRecord::Base
       return manager.position
     end
   end
+
+  def holds_position?(position)
+    manager = Manager.find_by_person_id(self.id) 
+    if manager && manager.position.capitalize == position.capitalize
+      true
+    else
+      false
+    end
+  end
   
   def convert_markdown(input)
     markdown = RDiscount.new(input)
