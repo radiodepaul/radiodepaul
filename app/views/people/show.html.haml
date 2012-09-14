@@ -68,7 +68,7 @@
         %dt
           %strong Welcome Email Sent At
         - if @person.welcome_email_sent_at
-          %dd= @person.welcome_email_sent_at.strftime("%m/%d/%Y at %I:%M%p") 
+          %dd= @person.welcome_email_sent_at
         - else
           %dd Welcome email never sent
   %div#shows
