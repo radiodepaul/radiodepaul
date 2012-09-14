@@ -36,18 +36,21 @@ class ShowsController < ApplicationController
   end
 
   def admin
-    if params[:send_welcome_email_button]
-    elsif params[:reset_password_button]
-    elsif params[:restore_button]
-      if Show.update_all(["archived=?", false], :id => params[:show_ids])
-        flash[:notice] = 'Show(s) have been restored'
-        redirect_to shows_path
+    if params.has_key?(:show_ids)
+      if params[:restore_button]
+        if Show.update_all(["archived=?", false], :id => params[:show_ids])
+          flash[:notice] = 'Show(s) have been restored'
+          redirect_to shows_path
+        end
+      elsif params[:archive_button]
+        if Show.update_all(["archived=?", true], :id => params[:show_ids])
+          flash[:notice] = 'Show(s) have been archived'
+          redirect_to shows_path
+        end
       end
-    elsif params[:archive_button]
-      if Show.update_all(["archived=?", true], :id => params[:show_ids])
-        flash[:notice] = 'Show(s) have been archived'
+    else
+        flash[:notice] = 'Please select at least one show.'
         redirect_to shows_path
-      end
     end
   end
   # GET /shows/1

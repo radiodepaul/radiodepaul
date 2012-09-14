@@ -31,32 +31,38 @@ class PeopleController < ApplicationController
   end
 
   def admin
-    if params[:send_welcome_email_button]
-      params[:person_ids].each do |id|
-        @person = Person.find(id)
-        new_password = Devise.friendly_token.first(8)
-        @person.reset_password!(new_password,new_password)
-        Notifier.welcome(@person, new_password).deliver
-      end
-      flash[:notice] = "Welcome email sent to #{params[:person_ids].length} user(s)."
-      redirect_to people_path
-    elsif params[:reset_password_button]
-      params[:person_ids].each do |id|
-        @person = Person.find(id)
-        @person.send_reset_password_instructions
-      end
-      flash[:notice] = "Reset password instructions sent to #{params[:person_ids].length} user(s)."
-      redirect_to people_path
-    elsif params[:restore_button]
-      if Person.update_all(["archived=?", false], :id => params[:person_ids])
-        flash[:notice] = 'Person(s) have been restored'
+    if params.has_key?(:person_ids)
+      if params[:send_welcome_email_button]
+        params[:person_ids].each do |id|
+          @person = Person.find(id)
+          new_password = Devise.friendly_token.first(8)
+          @person.reset_password!(new_password,new_password)
+          Notifier.welcome(@person, new_password).deliver
+          @person.update_attribute(:welcome_email_sent_at, Time.now)
+        end
+        flash[:notice] = "Welcome email sent to #{params[:person_ids].length} user(s)."
         redirect_to people_path
-      end
-    elsif params[:archive_button]
-      if Person.update_all(["archived=?", true], :id => params[:person_ids])
-        flash[:notice] = 'Person(s) have been archived'
+      elsif params[:reset_password_button]
+        params[:person_ids].each do |id|
+          @person = Person.find(id)
+          @person.send_reset_password_instructions
+        end
+        flash[:notice] = "Reset password instructions sent to #{params[:person_ids].length} user(s)."
         redirect_to people_path
+      elsif params[:restore_button]
+        if Person.update_all(["archived=?", false], :id => params[:person_ids])
+          flash[:notice] = 'Person(s) have been restored'
+          redirect_to people_path
+        end
+      elsif params[:archive_button]
+        if Person.update_all(["archived=?", true], :id => params[:person_ids])
+          flash[:notice] = 'Person(s) have been archived'
+          redirect_to people_path
+        end
       end
+    else
+        flash[:notice] = 'Please select at least one person.'
+        redirect_to people_path
     end
   end
 

@@ -10,45 +10,50 @@ class ApplicationsController < ApplicationController
   add_breadcrumb 'Applications', :apps_path
   
   def admin
-    if params[:hire_button]
-      params[:app_ids].each do |id|
-        @a = Application.find(id)
-        @person = Person.new(:email => @a.email, :first_name => @a.first_name, :last_name => @a.last_name, :bio => @a.bio, :facebook_username => @a.facebook_username, :twitter_username => @a.twitter_username, :tumblr_username => @a.tumblr_username, :major => @a.major, :class_year => @a.year, :hometown => "#{@a.home_city}, #{@a.home_state}", :influences => @a.influences, :depaul_id => @a.depaul_id, :password => Devise.friendly_token.first(8))
-        @person.replace_avatar_from(@a)
-        if @person.save
-          @a.hired = true
-          @a.rejected = false
-          @a.archived = false
-          @a.save
+    if params.has_key?(:app_ids)
+      if params[:hire_button]
+        params[:app_ids].each do |id|
+          @a = Application.find(id)
+          @person = Person.new(:email => @a.email, :first_name => @a.first_name, :last_name => @a.last_name, :bio => @a.bio, :facebook_username => @a.facebook_username, :twitter_username => @a.twitter_username, :tumblr_username => @a.tumblr_username, :major => @a.major, :class_year => @a.year, :hometown => "#{@a.home_city}, #{@a.home_state}", :influences => @a.influences, :depaul_id => @a.depaul_id, :password => Devise.friendly_token.first(8))
+          @person.replace_avatar_from(@a)
+          if @person.save
+            @a.hired = true
+            @a.rejected = false
+            @a.archived = false
+            @a.save
+          end
+        end
+        flash[:notice] = "#{params[:app_ids].try(:length)} applicant(s) have been hired"
+        redirect_to apps_path
+      elsif params[:mark_as_hired_button]
+        params[:app_ids].each do |id|
+          @a = Application.find(id)
+          @a.update_attribute(:hired, true)
+          @a.update_attribute(:rejected, false)
+          @a.update_attribute(:archived, false)
+          @a.save(:validation => false)
+        end
+        flash[:notice] = "#{params[:app_ids].try(:length)} applicant(s) have been marked as hired"
+        redirect_to apps_path
+      elsif params[:reject_button]
+        if Application.update_all(["rejected=?,archived=?,hired=?", true, false, false], :id => params[:app_ids])
+          flash[:notice] = 'Applicants(s) have been rejected'
+          redirect_to apps_path
+        end
+      elsif params[:archive_button]
+        if Application.update_all(["archived=?,hired=?,rejected=?", true, false, false], :id => params[:app_ids])
+          flash[:notice] = "#{params[:app_ids].length} applicant(s) have been archived"
+          redirect_to apps_path
+        end
+      elsif params[:restore_button]
+        if Application.update_all(["archived=?, rejected=?, hired=?", false, false, false], :id => params[:app_ids])
+          flash[:notice] = 'Applicant(s) have been restored'
+          redirect_to apps_path
         end
       end
-      flash[:notice] = "#{params[:app_ids].try(:length)} applicant(s) have been hired"
-      redirect_to apps_path
-    elsif params[:mark_as_hired_button]
-      params[:app_ids].each do |id|
-        @a = Application.find(id)
-        @a.update_attribute(:hired, true)
-        @a.update_attribute(:rejected, false)
-        @a.update_attribute(:archived, false)
-        @a.save(:validation => false)
-      end
-      flash[:notice] = "#{params[:app_ids].try(:length)} applicant(s) have been marked as hired"
-      redirect_to apps_path
-    elsif params[:reject_button]
-      if Application.update_all(["rejected=?,archived=?,hired=?", true, false, false], :id => params[:app_ids])
-        flash[:notice] = 'Applicants(s) have been rejected'
+    else
+        flash[:notice] = 'Please select at least one application.'
         redirect_to apps_path
-      end
-    elsif params[:archive_button]
-      if Application.update_all(["archived=?,hired=?,rejected=?", true, false, false], :id => params[:app_ids])
-        flash[:notice] = "#{params[:app_ids].length} applicant(s) have been archived"
-        redirect_to apps_path
-      end
-    elsif params[:restore_button]
-      if Application.update_all(["archived=?, rejected=?, hired=?", false, false, false], :id => params[:app_ids])
-        flash[:notice] = 'Applicant(s) have been restored'
-        redirect_to apps_path
-      end
     end
   end
 

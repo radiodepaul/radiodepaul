@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914100424) do
+ActiveRecord::Schema.define(:version => 20120914193134) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(:version => 20120914100424) do
     t.text     "favorite_tv_shows"
     t.string   "username"
     t.boolean  "archived",               :default => false
+    t.datetime "welcome_email_sent_at"
   end
 
   create_table "podcasts", :force => true do |t|
