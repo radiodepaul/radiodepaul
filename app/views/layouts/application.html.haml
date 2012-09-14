@@ -46,7 +46,7 @@
                     %strong.caret
                   %ul.dropdown-menu
                     %li
-                      = link_to "Edit Profile", edit_person_path(@person)
+                      = link_to "Edit Profile", edit_person_path(current_person)
                     %li
                       = link_to 'Change my Password', edit_person_registration_path
                     %li.divider
@@ -62,8 +62,6 @@
                       = f.text_field :email, :placeholder => 'Email'
                       = f.password_field :password, :placeholder => 'Password'
                       = submit_tag 'Login', :class => 'btn btn-primary'
-          <!-- The drop down menu -->
-          / /.nav-collapse
     .container
       .content
         .row
