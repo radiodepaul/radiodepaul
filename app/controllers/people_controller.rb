@@ -38,7 +38,7 @@ class PeopleController < ApplicationController
           new_password = Devise.friendly_token.first(8)
           @person.reset_password!(new_password,new_password)
           Notifier.welcome(@person, new_password).deliver
-          @person.update_attribute(:welcome_email_sent_at, Time.now)
+          @person.update_attribute(:welcome_email_sent_at, Time.now.utc)
         end
         flash[:notice] = "Welcome email sent to #{params[:person_ids].length} user(s)."
         redirect_to people_path
