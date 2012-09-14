@@ -34,3 +34,5 @@ $.fn.toggleCheckbox = function() {
   e.stopPropagation();
 });
 $('#tabs').tabs()
+$('.sort_on_desc').click().click()
+$('.sort_on_asc').click()

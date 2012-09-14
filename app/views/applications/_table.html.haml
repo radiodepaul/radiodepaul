@@ -7,7 +7,7 @@
       %th= model_class.human_attribute_name(:year)
       %th= model_class.human_attribute_name(:email)
       %th= model_class.human_attribute_name(:position)
-      %th= model_class.human_attribute_name(:created_at)
+      %th.sort_on_desc= model_class.human_attribute_name(:created_at)
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
     - @applications.each do |application|

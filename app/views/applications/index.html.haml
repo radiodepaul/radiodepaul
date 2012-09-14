@@ -28,7 +28,7 @@
   = form_tag admin_apps_path, :method => :put do
     %div{:class => 'btn-toolbar'}
       .btn-group
-        = link_to_function '✓', '$("input[id=person_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
+        = link_to_function '✓', '$("input[id=app_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
         = link_to t('.new', :default => t("helpers.links.new")), new_app_path, :class => 'btn btn-primary'
       .btn-group
         = submit_tag 'Hire', :name => 'hire_button', :class => 'btn'

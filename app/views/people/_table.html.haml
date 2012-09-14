@@ -4,7 +4,7 @@
     %tr
       %th
       %th= model_class.human_attribute_name(:avatar)
-      %th= model_class.human_attribute_name(:name)
+      %th.sort_on_asc= model_class.human_attribute_name(:name)
       %th= model_class.human_attribute_name(:nickname)
       %th= model_class.human_attribute_name(:email)
       %th # Shows:
@@ -19,6 +19,6 @@
         %td= person.nickname
         %td= link_to person.email, "mailto:" + person.email unless person.email.nil?
         %td= person.shows.count
-        %td= person.updated_at.strftime("%I:%M%p %Z") unless person.updated_at.nil?
+        %td=l person.updated_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(person), :class => 'btn btn-mini'
