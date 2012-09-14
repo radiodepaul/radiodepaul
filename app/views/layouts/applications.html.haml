@@ -28,15 +28,17 @@
             %a.brand{:href => "/"} Radio DePaul
             .container.nav-collapse
               %ul.nav
-                %li= link_to "Shows", shows_path
-                %li= link_to "People", people_path
-                %li= link_to "Managers", managers_path
-                %li= link_to "Schedule A Show", slots_path
-                %li= link_to "Podcasts", podcasts_path
-                %li= link_to "News Posts", news_posts_path
-                %li= link_to "Applications", apps_path
-                %li= link_to "Settings", settings_path
               / /.nav-collapse
+                - if person_signed_in?
+                  %li= link_to "Shows", shows_path
+                  %li= link_to "People", people_path
+                  %li= link_to "Managers", managers_path
+                  %li= link_to "Schedule A Show", slots_path
+                  %li= link_to "Podcasts", podcasts_path
+                  %li= link_to "News Posts", news_posts_path
+                  %li= link_to "Awards", awards_path
+                  %li= link_to "Applications", apps_path
+                  %li= link_to "Settings", settings_path
               %ul.nav.pull-right
                 - if person_signed_in?
                   %li.drowndown
@@ -62,8 +64,8 @@
                         = f.text_field :email, :placeholder => 'Email'
                         = f.password_field :password, :placeholder => 'Password'
                         = submit_tag 'Login', :class => 'btn btn-primary'
-            / /.nav-collapse
             <!-- The drop down menu -->
+            //.nav-collapse
     .container
       .content
         .row
