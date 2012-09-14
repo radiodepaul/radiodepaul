@@ -42,6 +42,7 @@ class PeopleController < ApplicationController
       redirect_to people_path
     elsif params[:reset_password_button]
       params[:person_ids].each do |id|
+        @person = Person.find(id)
         @person.send_reset_password_instructions
       end
       flash[:notice] = "Reset password instructions sent to #{params[:person_ids].length} user(s)."
