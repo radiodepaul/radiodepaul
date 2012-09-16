@@ -7,7 +7,10 @@
     = f.input :depaul_id, :label => 'DePaul ID#'
     = f.input :bio, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
     = f.input :influences, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
-    = f.inputs :facebook_username, :linkedin_username, :twitter_username, :tumblr_username
+    = f.input :facebook_username, :hint => 'http://facebook.com/facebook_username'
+    = f.input :linkedin_username, :hint => 'http://linkedin.com/in/linkedin_username'
+    = f.input :twitter_username, :hint => 'http://facebook.com/twitter_username'
+    = f.input :tumblr_username, :hint => 'http://tumblr_username.tumblr.com'
     = f.input :website_url
     = f.input :email, :as => :email
     = f.input :major, :label => 'Major/Minor'
