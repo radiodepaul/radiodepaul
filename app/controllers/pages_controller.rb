@@ -13,7 +13,6 @@ class PagesController < ApplicationController
   end
 
   def home
-    #get_analytics_profile
     @shows = current_person.try(:shows)
     @person = current_person
   end
