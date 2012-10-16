@@ -17,3 +17,7 @@ pickle-email-*.html
 
 # Ignore all local files
 .local
+
+# environment configuration
+.envrc
+
