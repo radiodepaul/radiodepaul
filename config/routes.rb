@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  resources :events
+
   resources :awards
 
   if Rails.env == 'production'
