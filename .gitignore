@@ -20,4 +20,4 @@ pickle-email-*.html
 
 # environment configuration
 .envrc
-
+.env
