@@ -4,14 +4,6 @@
     .controls
       = f.text_field :title, :class => 'text_field'
   .control-group
-    = f.label :location, :class => 'control-label'
-    .controls
-      = f.text_field :location, :class => 'text_field'
-  .control-group
-    = f.label :description, :class => 'control-label'
-    .controls
-      = f.text_area :description, :class => 'text_area'
-  .control-group
     = f.label :first_line, :class => 'control-label'
     .controls
       = f.text_field :first_line, :class => 'text_field'
@@ -19,6 +11,14 @@
     = f.label :second_line, :class => 'control-label'
     .controls
       = f.text_field :second_line, :class => 'text_field'
+  .control-group
+    = f.label :location, :class => 'control-label'
+    .controls
+      = f.text_field :location, :class => 'text_field'
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_area :description, :class => 'text_area'
   .form-actions
     = f.submit nil, :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), events_path, :class => 'btn'
