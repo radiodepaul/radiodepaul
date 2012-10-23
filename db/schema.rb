@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914193134) do
+ActiveRecord::Schema.define(:version => 20121023102705) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(:version => 20120914193134) do
 
   add_index "awards_people", ["award_id", "person_id"], :name => "index_awards_people_on_award_id_and_person_id", :unique => true
 
+  create_table "events", :force => true do |t|
+    t.string   "title"
+    t.string   "location"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "first_line"
+    t.string   "second_line"
+  end
+
   create_table "hostings", :force => true do |t|
     t.integer  "show_id"
     t.integer  "person_id"
@@ -163,6 +173,11 @@ ActiveRecord::Schema.define(:version => 20120914193134) do
     t.boolean  "archived",               :default => false
     t.datetime "welcome_email_sent_at"
   end
+
+  add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
+  add_index "people", ["confirmation_token"], :name => "index_people_on_confirmation_token", :unique => true
+  add_index "people", ["reset_password_token"], :name => "index_people_on_reset_password_token", :unique => true
+  add_index "people", ["unlock_token"], :name => "index_people_on_unlock_token", :unique => true
 
   create_table "podcasts", :force => true do |t|
     t.string   "title"

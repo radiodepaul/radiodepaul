@@ -82,4 +82,14 @@ class AwardsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def getList
+    @awards = Award.find(:all, order: 'year DESC')
+
+    respond_to do |format|
+      format.js  { render :json => @awards, :callback => params[:callback] }
+      format.json  { render :json => @awards }
+    end
+  end
+
 end

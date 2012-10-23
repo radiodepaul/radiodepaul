@@ -1,6 +1,7 @@
 - model_class = Award
 .page-header
   %h1=t '.title', :default => model_class.model_name.human.pluralize
+  = link_to 'Manage Organizations', award_organizations_path, :class => 'btn'
 %table.table.table-striped.datatable
   %thead
     %tr

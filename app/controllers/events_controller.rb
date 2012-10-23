@@ -80,4 +80,13 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def getList
+    @events = Event.find(:all, order: 'created_at DESC')
+
+    respond_to do |format|
+      format.js  { render :json => @events, :callback => params[:callback] }
+      format.json  { render :json => @events }
+    end
+  end
 end

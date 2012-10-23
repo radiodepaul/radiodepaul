@@ -3,6 +3,8 @@ RadioDePaulWebsite2::Application.routes.draw do
 
   resources :awards
 
+  resources :award_organizations
+
   if Rails.env == 'production'
     devise_for :people, :controllers => {:registrations => "registrations" }, :path => "/", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
   else
@@ -63,6 +65,8 @@ RadioDePaulWebsite2::Application.routes.draw do
   get "api/getPodcasts" => "podcasts#getPodcasts", :as => "getPodcasts"
   get "api/news_posts/getList" => "news_posts#getList", :as => "getList"
   get "api/news_posts/getPost" => "news_posts#getPost", :as => "getPost"
+  get "api/awards/getList" => "awards#getList"
+  get "api/events/getList" => "events#getList"
 
   resources :managers do
     collection do

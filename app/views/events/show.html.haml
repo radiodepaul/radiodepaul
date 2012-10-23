@@ -1,21 +1,29 @@
-%p#notice= notice
+- model_class = Event
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human
 
 %p
-  %b Title:
+  %strong= model_class.human_attribute_name(:title) + ':'
+  %br
   = @event.title
 %p
-  %b Start:
-  = @event.start
-%p
-  %b End:
-  = @event.end
-%p
-  %b Location:
+  %strong= model_class.human_attribute_name(:location) + ':'
+  %br
   = @event.location
 %p
-  %b Description:
+  %strong= model_class.human_attribute_name(:description) + ':'
+  %br
   = @event.description
+%p
+  %strong= model_class.human_attribute_name(:first_line) + ':'
+  %br
+  = @event.first_line
+%p
+  %strong= model_class.human_attribute_name(:second_line) + ':'
+  %br
+  = @event.second_line
 
-= link_to 'Edit', edit_event_path(@event)
-\|
-= link_to 'Back', events_path
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")), events_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_event_path(@event), :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), event_path(@event), :method => "delete", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-danger'

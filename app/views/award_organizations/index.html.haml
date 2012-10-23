@@ -1,0 +1,20 @@
+- model_class = AwardOrganization
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.pluralize
+  = link_to 'Manage Awards', awards_path, :class => 'btn'
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:url)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @award_organizations.each do |award_organization|
+      %tr
+        %td= link_to award_organization.name, award_organization_path(award_organization)
+        %td= award_organization.url
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_award_organization_path(award_organization), :class => 'btn btn-mini'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), award_organization_path(award_organization), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_award_organization_path, :class => 'btn btn-primary'
