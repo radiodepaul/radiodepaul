@@ -13,7 +13,6 @@ gem 'garb'
 gem 'cocoon'
 
 gem 'unicorn'
-gem 'thin'
 gem 'ransack'
 gem 'foreman'
 
