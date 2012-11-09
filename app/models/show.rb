@@ -60,7 +60,7 @@ class Show < ActiveRecord::Base
   def as_json(options={})
        {id: self.id,
         title: self.title,
-        genres: self.genre_list,
+        genres: self.genre_list.join(", "),
         hosts: get_hosts,
         scheduled_slots: get_scheduled_slots,
         short_description: self.short_description || '',
