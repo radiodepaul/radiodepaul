@@ -25,7 +25,7 @@ class Show < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.people.each do |person|
-      hosts.push :name => person.first_last_name,:id => person.id.to_s, :photo_thumb => person.avatar.square.thumb.url
+      hosts.push person 
     end
     return hosts
   end
@@ -58,21 +58,22 @@ class Show < ActiveRecord::Base
   end
   
   def as_json(options={})
-       {:id => self.id,
-        :title => self.title,
-        :genres => self.genre_list,
-        :hosts => get_hosts,
-        :scheduled_slots => get_scheduled_slots,
-        :short_description => self.short_description,
-        :long_description => self.long_description,
-        :facebook => self.facebook_page_username,
-        :twitter => self.twitter_username,
-        :email => self.email,
-        :website => self.website_url,
-        :podcasts => get_podcasts,
-        :photo_thumb => self.avatar.square.thumb.url,
-        :photo_small => self.avatar.square.small.url,
-        :photo_medium => self.avatar.square.medium.url,
-        :photo_large => self.avatar.square.large.url }
+       {id: self.id,
+        title: self.title,
+        genres: self.genre_list,
+        hosts: get_hosts,
+        scheduled_slots: get_scheduled_slots,
+        short_description: self.short_description || '',
+        long_description: self.long_description || '',
+        facebook: self.facebook_page_username || '',
+        twitter: self.twitter_username || '',
+        email: self.email || '',
+        website: self.website_url || '',
+        show_url: "http://radio.depaul.edu/show?id=#{self.id}",
+        podcasts: get_podcasts,
+        photo_thumb: self.avatar.square.thumb.url,
+        photo_small: self.avatar.square.small.url,
+        photo_medium: self.avatar.square.medium.url,
+        photo_large: self.avatar.square.large.url }
    end
 end

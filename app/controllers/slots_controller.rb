@@ -117,8 +117,9 @@ class SlotsController < ApplicationController
         current_day = Time.now.strftime("%A").downcase!
         @slot = Slot.find(:all, :conditions => ["quarter = ? AND start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Settings.active_schedule, Time.now, Time.now])
         unless @slot.length > 0 then
-          @slot = [{:show => { :title => "HAL 2012", :id => "10", :hosts => [{:name => "HAL 2012",:id => "58", :photo_thumb => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_thumb_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg"}], :genre => "Indie, College, Hip Hop", :short_description => "Hal 2011 is our automated system that plays when we don't have live shows. Hal is loaded with the newest and best tunes. Enjoy!", :photo => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_small_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg" }
-          }]
+          @slot = {
+            show: Show.where("title like ?", "%HAL%").first
+          }
         end
       if (Settings.override == true)
         @slot.first.show = Show.find(Settings.override_show)
@@ -134,9 +135,15 @@ class SlotsController < ApplicationController
   # API
 
   def getSchedule
+
+    if params.has_key?(:day)
+        @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter = ? AND #{params[:day]} = true", Settings.active_schedule])
+    else
+      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter = ?", Settings.active_schedule])
+    end
+
     respond_to do |format|
       format.html { redirect_to pages_api_path }
-      @slots = Slot.find(:all, :order => 'start_time', :conditions => ["quarter = ?", Settings.active_schedule])
       format.json { render json: @slots, :callback => params[:callback] }
       format.js  { render json: @slots, :callback => params[:callback] }
     end
@@ -146,10 +153,14 @@ class SlotsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to pages_api_path }
         current_day = Time.now.strftime("%A").downcase!
-        @slot = Slot.find(:all, :conditions => ["quarter = ? AND start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Settings.active_schedule, Time.now, Time.now])
-        unless @slot.length > 0 then
-          @slot = [{:show => { :title => "HAL 2012", :id => "10", :hosts => [{:name => "HAL 2012",:id => "58", :photo_thumb => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_thumb_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg"}], :genre => "Indie, College, Hip Hop", :short_description => "Hal 2011 is our automated system that plays when we don't have live shows. Hal is loaded with the newest and best tunes. Enjoy!", :photo => "https://radiodepaul.s3.amazonaws.com/uploads/show/avatar/10/square_small_eee65920-911c-4f67-a746-2980cbfb4cc3.jpg" }
-          }]
+        @slot = Slot.find(:all, :conditions => ["quarter = ? AND start_time <= ? AND end_time >=  ? AND " + current_day + " = 't'", Settings.active_schedule, Time.now, Time.now]).first
+        unless @slot then
+          @slot = {
+                   start_time: '',
+                   end_time: '',
+                   quarter: Settings.active_schedule,
+                   show: Show.where("title like ?", "%HAL%").first
+                  }
         end
       if (Settings.override == true)
         @slot.first.show = Show.find(Settings.override_show)

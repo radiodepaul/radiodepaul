@@ -112,24 +112,25 @@ class Person < ActiveRecord::Base
   end
 
   def as_json(options={})
-      { :id => self.id,
-        :name => self.first_last_name,
-        :nickname => nickname,
-        :shows => get_shows,
-        :bio => self.bio,
-        :influences => self.influences,
-        :major => self.major,
-        :hometown => self.hometown,
-        :class_year => self.class_year,
-        :email => self.email,
-        :facebook => self.facebook_username,
-        :twitter => self.twitter_username,
-        :linkedin => self.linkedin_username,
-        :website => self.website_url,
-        :photo_thumb => self.avatar.square.thumb.url,
-        :photo_small => self.avatar.square.small.url,
-        :photo_medium => self.avatar.square.medium.url,
-        :photo_large => self.avatar.square.large.url }
+      { id: self.id,
+        name: self.first_last_name,
+        nickname: nickname || '',
+        shows: get_shows,
+        bio: self.bio || '',
+        influences: self.influences || '',
+        major: self.major || '',
+        hometown: self.hometown || '',
+        class_year: self.class_year || '',
+        email: self.email || '',
+        facebook: self.facebook_username || '',
+        twitter: self.twitter_username || '',
+        linkedin: self.linkedin_username || '',
+        website: self.website_url || '',
+        person_url: "http://radio.depaul.edu/person?id=#{self.id}",
+        photo_thumb: self.avatar.square.thumb.url,
+        photo_small: self.avatar.square.small.url,
+        photo_medium: self.avatar.square.medium.url,
+        photo_large: self.avatar.square.large.url }
   end
 
   def self.find_for_database_authentication(conditions={})
