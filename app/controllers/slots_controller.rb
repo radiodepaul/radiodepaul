@@ -1,6 +1,6 @@
 class SlotsController < ApplicationController
   before_filter :authenticate_person!, :except => [:new, :create, :getOnAir, :getSchedule, :now_playing]
-  allowed_roles = Array["Program Director"]
+  allowed_roles = Array["Program Director", "Student General Manager"]
   before_filter :except => [:new, :create, :getOnAir, :getSchedule, :now_playing] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   before_filter :set_timezone

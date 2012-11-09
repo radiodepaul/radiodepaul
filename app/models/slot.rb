@@ -75,17 +75,39 @@ class Slot < ActiveRecord::Base
   def get_hosts 
     hosts = Array.new
     self.show.people.each do |person|
-      hosts.push :name => person.first_last_name, :id => person.id, :photo_thumb => person.avatar.square.thumb.url
+      hosts.push name: person.first_last_name,
+        id: person.id,
+        bio: person.bio || '',
+        influences: person.influences || '',
+        photo_thumb: person.avatar.square.thumb.url,
+        photo_small: person.avatar.square.small.url,
+        photo_medium: person.avatar.square.medium.url,
+        photo_large: person.avatar.square.large.url,
+        show_url: "http://radio.depaul.edu/person?id=#{person.id}"
     end
     return hosts
   end
   
   def as_json(options={})
-      {:quarter => self.quarter,
-       :days  => get_days_airing,
-       :start_time => self.start_time.strftime("%I:%M%p %Z"),
-       :end_time => self.end_time.strftime("%I:%M%p %Z"),
-       :show => { :title => self.show.title, :id => self.show.id, :hosts => get_hosts, :genre => self.show.genre_list, :short_description => self.show.short_description, :photo => self.show.avatar.square.small.url }
+      {
+         quarter: self.quarter,
+         days: get_days_airing,
+         start_time: self.start_time.strftime("%I:%M%p %Z"),
+         end_time: self.end_time.strftime("%I:%M%p %Z"),
+         show: { title: self.show.title,
+                 scheduled_at: self.show.get_scheduled_slots,
+                 id: self.show.id,
+                 hosts: get_hosts,
+                 genre: self.show.genre_list,
+                 show_url: "http://radio.depaul.edu/show?id=#{self.show.id}",
+                 short_description: self.show.short_description,
+                 long_description: self.show.long_description,
+                 photo: self.show.avatar.square.small.url,
+                 photo_thumb: self.show.avatar.square.thumb.url,
+                 photo_small: self.show.avatar.square.small.url,
+                 photo_medium: self.show.avatar.square.medium.url,
+                 photo_large: self.show.avatar.square.large.url
+              }
       }
   end
   

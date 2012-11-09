@@ -1,6 +1,6 @@
 class ShowsController < ApplicationController
   before_filter :authenticate_person!, :except => [:getShow, :getList, :getRandom]
-  allowed_roles = Array["Program Director"]
+  allowed_roles = Array["Program Director", "Student General Manager"]
   before_filter :only => [:new, :create] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   # GET /shows

@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   before_filter :authenticate_person!, :except => [:getPerson, :getList, :getRandom]
-  allowed_roles = Array['Program Director']
+  allowed_roles = Array['Program Director', 'Student General Manager']
   before_filter :except => [:edit, :update, :show, :index, :getPerson, :getList, :getRandom] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   # GET /people

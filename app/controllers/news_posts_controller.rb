@@ -1,6 +1,7 @@
 class NewsPostsController < ApplicationController
   before_filter :authenticate_person!, :except => [:getList, :getPost]
-  before_filter :except => [:index, :getList, :getPost, :show] { |c| c.validate_access }
+  allowed_roles = Array["Student General Manager"]
+  before_filter :except => [:index, :getList, :getPost, :show] { |c| c.validate_access allowed_roles}
   before_filter :isAdmin?, :only => [:destroy]
   # GET /news_posts
   # GET /news_posts.json

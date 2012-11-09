@@ -1,6 +1,7 @@
 class ManagersController < ApplicationController
   before_filter :authenticate_person!, :except => [:getManagers]
-  before_filter :except => [:index, :show, :getManagers] { |c| c.validate_access }
+  allowed_roles = Array["Program Director"]
+  before_filter :except => [:index, :show, :getManagers] { |c| c.validate_access allowed_roles}
   before_filter :isAdmin?, :only => [:destroy]
   # GET /managers
   # GET /managers.json

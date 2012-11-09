@@ -1,4 +1,8 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_person!, :except => [:getList]
+  allowed_roles = Array["Program Director", "Student General Manager"]
+  before_filter :only => [:new, :create, :edit] { |c| c.validate_access allowed_roles }
+  before_filter :isAdmin?, :only => [:destroy]
   # GET /events
   # GET /events.json
   def index

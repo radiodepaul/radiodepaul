@@ -1,4 +1,8 @@
 class AwardOrganizationsController < ApplicationController
+  before_filter :authenticate_person!
+  allowed_roles = Array["Student General Manager"]
+  before_filter :only => [:new, :create] { |c| c.validate_access allowed_roles }
+  before_filter :isAdmin?, :only => [:destroy]
   # GET /award_organizations
   # GET /award_organizations.json
   def index
