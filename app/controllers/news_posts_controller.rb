@@ -92,7 +92,7 @@ class NewsPostsController < ApplicationController
   def getList
     respond_to do |format|
       format.html { redirect_to pages_api_path}
-      @news_posts = NewsPost.find(:all, :order => 'datetime_published')
+      @news_posts = NewsPost.find(:all, :order => 'datetime_published DESC')
       format.js  { render :json => @news_posts, :callback => params[:callback] }
       format.json  { render :json => @news_posts }
     end
