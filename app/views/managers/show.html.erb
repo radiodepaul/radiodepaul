@@ -1,18 +1,17 @@
-<%- model_class = @manager.class -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1>Manager</h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:person_id) %>:</strong></dt>
-  <dd><%= link_to @manager.person.first_last_name, @manager.person %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:position) %>:</strong></dt>
+  <dt><strong>Name</strong></dt>
+  <dd><%= link_to @manager.person.name, @manager.person %></dd>
+  <dt><strong>Position</strong></dt>
   <dd><%= @manager.position %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:office_hours) %>:</strong></dt>
-  <dd><%= @manager.office_hours %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dt><strong>Office Hours</strong></dt>
+  <dd><%= @manager.office_hours || 'None' %></dd>
+  <dt><strong>Email</strong></dt>
   <dd><%= @manager.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
+  <dt><strong>Phone Number</strong></dt>
   <dd><%= @manager.phone_number %></dd>  
 </dl>
 

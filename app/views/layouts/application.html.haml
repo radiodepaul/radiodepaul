@@ -47,7 +47,7 @@
                 %li.drowndown
                   %a{class: 'dropdown-toggle', href: '#', :'data-toggle' => 'dropdown'}
                     = image_tag(current_person.avatar.square.thumb.url, :style => 'height:25px')
-                    #{current_person.first_last_name} logged in
+                    #{current_person.name} logged in
                     %strong.caret
                   %ul.dropdown-menu
                     %li

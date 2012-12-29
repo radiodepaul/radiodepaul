@@ -1,0 +1,23 @@
+.page-header
+  %h1 Managers
+= link_to t('.new', :default => t("helpers.links.new")), new_manager_path, :class => 'btn btn-primary'
+%table.datatable.table.table-striped
+  %thead
+    %tr
+      %th Photo
+      %th Name
+      %th Position
+      %th Email
+      %th Created At
+      %th Actions
+  %tbody
+    - @managers.each do |manager|
+      %tr
+        %td= image_tag(manager.person.avatar.square.thumb.url)
+        %td= link_to manager.person.name, manager_path(manager)
+        %td= manager.position
+        %td= manager.email
+        %td= manager.created_at.strftime("%I:%M%p %Z")
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_manager_path(manager), :class => 'btn btn-mini'
+= link_to t('.new', :default => t("helpers.links.new")), new_manager_path, :class => 'btn btn-primary'

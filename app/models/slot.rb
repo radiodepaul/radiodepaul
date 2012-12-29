@@ -38,7 +38,7 @@ class Slot < ActiveRecord::Base
     return days_airing
   end
   
-  def get_days_airing_s
+  def days
     days_airing = Array.new
       if self.monday == true
         days_airing.push "Mondays"
@@ -72,21 +72,11 @@ class Slot < ActiveRecord::Base
     return days_airing_s
   end
   
-  def get_hosts 
-    hosts = Array.new
-    self.show.people.each do |person|
-      hosts.push :name => person.first_last_name, :id => person.id, :photo_thumb => person.avatar.square.thumb.url
-    end
-    return hosts
-  end
-  
   def as_json(options={})
-      {:quarter => self.quarter,
-       :days  => get_days_airing,
-       :start_time => self.start_time.strftime("%I:%M%p %Z"),
-       :end_time => self.end_time.strftime("%I:%M%p %Z"),
-       :show => { :title => self.show.title, :id => self.show.id, :hosts => get_hosts, :genre => self.show.genre_list, :short_description => self.show.short_description, :photo => self.show.avatar.square.small.url }
-      }
+    options[:include] ||= [:show]
+    options[:methods] ||= [:days]
+
+    super(options)
   end
   
 end
