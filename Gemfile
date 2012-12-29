@@ -10,11 +10,9 @@ gem 'rdiscount', :require => 'rdiscount'
 gem 'rabl'
 gem 'json'
 gem 'garb'
-gem 'cocoon'
 
 gem 'unicorn'
 gem 'ransack'
-gem 'foreman'
 
 gem 'haml'
 gem 'haml-rails'

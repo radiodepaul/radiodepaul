@@ -46,7 +46,6 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
     client_side_validations (3.1.4)
-    cocoon (1.0.22)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -76,8 +75,6 @@ GEM
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5.0)
       ruby-hmac
-    foreman (0.60.2)
-      thor (>= 0.13.6)
     formatador (0.2.3)
     formtastic (2.2.1)
       actionpack (>= 3.0)
@@ -220,12 +217,10 @@ DEPENDENCIES
   breadcrumbs_on_rails
   carrierwave
   client_side_validations
-  cocoon
   coffee-rails (~> 3.2.1)
   devise
   dynamic_form
   fog
-  foreman
   formtastic (~> 2.1)
   formtastic-plus-bootstrap
   garb
