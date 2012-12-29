@@ -1,0 +1,35 @@
+- model_class = SportsEvent
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:quarter)
+      %th= model_class.human_attribute_name(:start_time)
+      %th= model_class.human_attribute_name(:end_time)
+      %th= model_class.human_attribute_name(:datetime)
+      %th= model_class.human_attribute_name(:description)
+      %th= model_class.human_attribute_name(:team)
+      %th= model_class.human_attribute_name(:opponent)
+      %th= model_class.human_attribute_name(:location)
+      %th= model_class.human_attribute_name(:created_at)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @sports_events.each do |sports_event|
+      %tr
+        %td= link_to sports_event.id, sports_event_path(sports_event)
+        %td= sports_event.quarter
+        %td= sports_event.start_time
+        %td= sports_event.end_time
+        %td= sports_event.datetime
+        %td= sports_event.description
+        %td= sports_event.team
+        %td= sports_event.opponent
+        %td= sports_event.location
+        %td=l sports_event.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_sports_event_path(sports_event), :class => 'btn btn-mini'
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), sports_event_path(sports_event), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_sports_event_path, :class => 'btn btn-primary'

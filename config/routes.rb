@@ -1,4 +1,6 @@
 RadioDePaulWebsite2::Application.routes.draw do
+  resources :sports_events
+
   resources :events
 
   resources :awards

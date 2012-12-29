@@ -1,0 +1,41 @@
+- model_class = SportsEvent
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human
+
+%p
+  %strong= model_class.human_attribute_name(:quarter) + ':'
+  %br
+  = @sports_event.quarter
+%p
+  %strong= model_class.human_attribute_name(:start_time) + ':'
+  %br
+  = @sports_event.start_time
+%p
+  %strong= model_class.human_attribute_name(:end_time) + ':'
+  %br
+  = @sports_event.end_time
+%p
+  %strong= model_class.human_attribute_name(:datetime) + ':'
+  %br
+  = @sports_event.datetime
+%p
+  %strong= model_class.human_attribute_name(:description) + ':'
+  %br
+  = @sports_event.description
+%p
+  %strong= model_class.human_attribute_name(:team) + ':'
+  %br
+  = @sports_event.team
+%p
+  %strong= model_class.human_attribute_name(:opponent) + ':'
+  %br
+  = @sports_event.opponent
+%p
+  %strong= model_class.human_attribute_name(:location) + ':'
+  %br
+  = @sports_event.location
+
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")), sports_events_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_sports_event_path(@sports_event), :class => 'btn'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), sports_event_path(@sports_event), :method => "delete", :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-danger'
