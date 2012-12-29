@@ -1,0 +1,36 @@
+= form_for @sports_event, :html => { :class => 'form-horizontal' } do |f|
+  .control-group
+    = f.label :quarter, :class => 'control-label'
+    .controls
+      = f.text_field :quarter, :class => 'text_field'
+  .control-group
+    = f.label :start_time, :class => 'control-label'
+    .controls
+      = f.datetime_select :start_time, :class => 'datetime_select'
+  .control-group
+    = f.label :end_time, :class => 'control-label'
+    .controls
+      = f.datetime_select :end_time, :class => 'datetime_select'
+  .control-group
+    = f.label :datetime, :class => 'control-label'
+    .controls
+      = f.text_field :datetime, :class => 'text_field'
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_area :description, :class => 'text_area'
+  .control-group
+    = f.label :team, :class => 'control-label'
+    .controls
+      = f.text_field :team, :class => 'text_field'
+  .control-group
+    = f.label :opponent, :class => 'control-label'
+    .controls
+      = f.text_field :opponent, :class => 'text_field'
+  .control-group
+    = f.label :location, :class => 'control-label'
+    .controls
+      = f.text_field :location, :class => 'text_field'
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), sports_events_path, :class => 'btn'
