@@ -1,25 +1,24 @@
-- model_class = Application.new.class
 .page-header
   - if params[:archived] == 'true'
-    %h1= t '.title', :default => "Archived #{model_class.model_name.human.pluralize}"
+    %h1= t '.title', :default => "Archived Applications"
     = link_to 'Inbox', apps_path
     = link_to 'Archived', :action => 'index', :archived => true
     = link_to 'Hired', :action => 'index', :hired => true
     = link_to 'Rejected', :action => 'index', :rejected => true
   - elsif params[:hired] == 'true'
-    %h1= t '.title', :default => "Hired #{model_class.model_name.human.pluralize}"
+    %h1= t '.title', :default => "Hired Applications"
     = link_to 'Inbox', apps_path
     = link_to 'Archived', :action => 'index', :archived => true
     = link_to 'Hired', :action => 'index', :hired => true
     = link_to 'Rejected', :action => 'index', :rejected => true
   - elsif params[:rejected] == 'true'
-    %h1= t '.title', :default => "Rejected #{model_class.model_name.human.pluralize}"
+    %h1= t '.title', :default => "Rejected Applications"
     = link_to 'Inbox', apps_path
     = link_to 'Archived', :action => 'index', :archived => true
     = link_to 'Hired', :action => 'index', :hired => true
     = link_to 'Rejected', :action => 'index', :rejected => true
   - else
-    %h1= t '.title', :default => "#{model_class.model_name.human} Inbox"
+    %h1= t '.title', :default => "Application Inbox"
     = link_to 'Inbox', apps_path
     = link_to 'Archived', :action => 'index', :archived => true
     = link_to 'Hired', :action => 'index', :hired => true

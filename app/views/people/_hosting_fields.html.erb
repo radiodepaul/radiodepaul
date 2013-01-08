@@ -1,4 +1,0 @@
-<p>
-<%= f.collection_select :show_id, Show.find(:all, :conditions => {:archived => false}, :order => :title), :id, :title %>
-  <%= f.link_to_remove "remove" %>
-</p>

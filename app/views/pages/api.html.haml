@@ -1,0 +1,34 @@
+%h1 API Documentation
+%h2 Resoueces
+%h3 getSchedule
+%p Returns the current Radio DePaul schedule
+%h4 Paramaters
+%p quarter | optional - Specifies the schedule to return. Default is the current schedule. Example value: wq2011
+%h3 getOnAir
+%p Returns the show currently airing on Radio DePaul
+%h4 Paramaters
+%p None
+%h3 shows/getList
+%p Returns a list of shows on Radio DePaul
+%h4 Paramaters
+%p quarter | optional - Specifies the quarter of shows to return. Default is shows active within the current schedule. Example value: wq2011
+%h3 shows/getShow
+%p Returns information for a show
+%h4 Paramaters
+%p id | required
+%h3 shows/getRandom
+%p Returns a list of random shows
+%h4 Paramaters
+%p number | optional - Specified the number of random shows to return. Default number is 1. Example value: 5
+%h3 people/getList
+%p Returns a list of people at Radio DePaul
+%h4 Paramaters
+%p quarter | optional - Specifies the quarter of people to return. Default is people active within the current schedule. Example value: wq2011
+%h3 people/getManagers
+%p Returns a list of managers at Radio DePaul
+%h4 Paramaters
+%p quarter | optional - Specifies the quarter of managers to return. Default is people active within the current schedule. Example value: wq2011
+%h3 people/getPerson
+%p Returns information for a person
+%h4 Paramaters
+%p id | required

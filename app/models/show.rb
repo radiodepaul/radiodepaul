@@ -23,10 +23,14 @@ class Show < ActiveRecord::Base
   def active_slots
     self.slots.where(quarter: Settings.active_schedule)
   end
+
+  def photos
+    self.avatar.square.versions
+  end
   
   def as_json(options={})
     options[:include] ||= [:hosts]
-    options[:methods] ||= [:active_slots]
+    options[:methods] ||= [:active_slots, :photos, :genre_list]
 
     super(options)
   end

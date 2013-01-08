@@ -1,0 +1,9 @@
+= @person.first_name.capitalize
+,
+%p Your Radio DePaul account has been created!
+The password #{@new_password} has been automatically generated for you.
+%p
+  You can login to your account at #{link_to edit_person_registration_url(:auth_token => @person.authentication_token), edit_person_registration_url(@person, :auth_token => @person.authentication_token)} .
+%p Please change your password as soon as you login.
+%p Sincerely,
+%p The Radio DePaul Staff

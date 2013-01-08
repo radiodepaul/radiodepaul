@@ -1,0 +1,36 @@
+- model_class = @setting.class
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human
+%dl.dl-horizontal
+  %dt
+    %strong
+      = model_class.human_attribute_name(:var)
+      \:
+  %dd= @setting.var
+  %dt
+    %strong
+      = model_class.human_attribute_name(:value)
+      \:
+  %dd= @setting.value
+  %dt
+    %strong
+      = model_class.human_attribute_name(:target_id)
+      \:
+  %dd= @setting.target_id
+  %dt
+    %strong
+      = model_class.human_attribute_name(:target_type)
+      \:
+  %dd= @setting.target_type
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")), |
+    settings_path, :class => 'btn'                           |
+  -#
+  = link_to t('.edit', :default => t("helpers.links.edit")), |
+    edit_setting_path(@setting), :class => 'btn'             |
+  -#
+  = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
+    setting_path(@setting),                                                                         |
+    :method => 'delete',                                                                            |
+    :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
+    :class => 'btn btn-danger'                                                                      |

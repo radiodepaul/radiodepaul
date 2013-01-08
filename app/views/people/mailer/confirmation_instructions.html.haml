@@ -1,0 +1,9 @@
+%p
+  Welcome #{@resource.first_name}!
+%p Your Radio DePaul account has been created.
+%p You can confirm your account through the link below:
+%p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+Sincerely,
+
+Scott Vyverman, M.A.
+Radio DePaul General Manager

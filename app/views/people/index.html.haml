@@ -6,7 +6,7 @@
   - else
     %h1= t '.title', :default => "Active #{model_class.model_name.human.pluralize}"
     = link_to 'Show Archived', :action => 'index', :archived => true
-- else
+
   = form_tag admin_people_path, :method => :put do
     %div{:class => 'btn-toolbar'}
       .btn-group
