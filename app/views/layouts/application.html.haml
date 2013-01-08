@@ -82,46 +82,15 @@
               .well.sidebar-nav
                 %h3 Stats
                 %ul#on-air.nav.nav-list
-                  %li
-                    Active Schedule: #{Settings.active_schedule}
-                  %li
-                    Shows: #{Show.count}
-                  %li
-                    Staff: #{Person.count}
-                  %li
-                    Managers: #{Manager.count}
-                  %li
-                    Podcasts: #{Podcast.count}
-                  %li
-                    News Posts: #{NewsPost.count}
-              / .well
-          / /span
-        / /row
-      / /content
+                  %li Active Schedule: #{Settings.active_schedule}
+                  %li Shows: #{Show.count}
+                  %li Staff: #{Person.count}
+                  %li Managers: #{Manager.count}
+                  %li Podcasts: #{Podcast.count}
+                  %li News Posts: #{NewsPost.count}
+                  %li On Air Now: #{Slot.on_air.show.title}
+
       %footer
         %p © Radio DePaul 2012
-    / /container
-    /
-      Javascripts
-      \==================================================
-    / Placed at the end of the document so the pages load faster
+
     = javascript_include_tag "application", "autocomplete-rails"
-    :javascript
-      $.ajax({
-            url: "http://radiodepaul.herokuapp.com/api/getOnAir.js",
-            dataType: "jsonp",
-            type: "GET",
-            processData: false,
-            contentType: "application/json",
-            success: function(data) {   
-              console.log(data);
-              var html = 'On Air Now';
-              html += "" + data[0].show.title + "with"
-              jQuery.each(data[0].show.hosts, function() {
-                console.log($(this));
-                html += "" + $(this)[0].name + "";
-             });
-              
-              $('#on-air').append(html);
-            }
-        });

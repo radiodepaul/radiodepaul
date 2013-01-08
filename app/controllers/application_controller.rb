@@ -1,12 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_timezone
-  helper_method :pretty_time
+  helper_method :pretty_time, :pretty_date
 
   add_breadcrumb 'Home', :root_path
 
   def pretty_time(time = Time.now)
     time.strftime('%I:%M%p %Z')
+  end
+
+  def pretty_date(time = Time.now)
+    time.strftime("%m/%d/%Y")
   end
 
   def set_timezone

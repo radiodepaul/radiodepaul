@@ -1,21 +1,18 @@
-- model_class = Podcast.new.class
 .page-header
-  %h1= t '.title', :default => model_class.model_name.human.pluralize
-= link_to t('.new', :default => t("helpers.links.new")), |
-  new_podcast_path,                                      |
-  :class => 'btn btn-primary'                            |
+  %h1.title Podcasts
+= link_to 'New', new_podcast_path, :class => 'btn btn-primary' 
 %br
   %br
     %table.datatable.table.table-striped
       %thead
         %tr
-          %th= model_class.human_attribute_name(:title)
-          %th= model_class.human_attribute_name(:podcast_type)
-          %th= model_class.human_attribute_name(:contributors)
-          %th= model_class.human_attribute_name(:file)
-          %th= model_class.human_attribute_name(:priority)
-          %th= model_class.human_attribute_name(:created_at)
-          %th= t '.actions', :default => t("helpers.actions")
+          %th Title
+          %th Type
+          %th Contributors
+          %th File
+          %th Priority
+          %th Created At
+          %th Actions
       %tbody
         - @podcasts.each do |podcast|
           %tr
@@ -28,12 +25,9 @@
               - else
                 No file attached
             %td= podcast.priority
-            %td= podcast.created_at.strftime("%I:%M%p %Z") unless podcast.created_at.nil?
+            %td= pretty_date podcast.created_at unless podcast.created_at.nil?
             %td
-              = link_to t('.edit', :default => t("helpers.links.edit")), |
-                edit_podcast_path(podcast), :class => 'btn btn-mini'     |
-    = link_to t('.new', :default => t("helpers.links.new")), |
-      new_podcast_path,                                      |
-      :class => 'btn btn-primary'                            |
+              = link_to 'Edit', edit_podcast_path(podcast), :class => 'btn btn-mini'
+    = link_to 'New', new_podcast_path, :class => 'btn btn-primary'
     %br
       %br
