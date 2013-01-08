@@ -1,37 +1,53 @@
 class Show < ActiveRecord::Base
-  attr_accessible :title, :short_description, :long_description, :facebook_page_username, :twitter_username, :email, :website_url, :attachments_attributes, :avatar, :remove_avatar, :avatar_cache, :remote_avatar_url, :genre_list, :hostings_attributes
+  include Randomizable
 
-  # relationships
-  has_many :hostings, :dependent => :destroy
-  has_many :hosts, :through => :hostings, source: :person
+  scope :archived, where(archived: true)
+
+  has_and_belongs_to_many :hosts, class_name: 'Person'
   has_many :slots
-  has_many :attachments, :as => :attachable, :dependent => :destroy
-  has_many :podcasts, class_name: 'Attachment', as: :attachable, :dependent => :destroy
+  has_many :podcasts, class_name: 'Attachment', as: :attachable, dependent: :destroy
 
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
-  accepts_nested_attributes_for :hostings, :allow_destroy => true
+  accepts_nested_attributes_for :podcasts, allow_destroy: true
+  accepts_nested_attributes_for :hosts, allow_destroy: true
+
   acts_as_taggable_on :genres
 
   mount_uploader :avatar, AvatarUploader
   
   validates :title, :presence => true, :uniqueness => true
 
-  def convert_markdown(input)
-    RDiscount.new(input).to_html
-  end
-
   def active_slots
-    self.slots.where(quarter: Settings.active_schedule)
+    slots.where(quarter: Settings.active_schedule)
   end
 
-  def photos
-    self.avatar.square.versions
+  def thumb_url
+    square_avatar.thumb.url
+  end
+
+  def small_url
+    square_avatar.small.url
+  end
+
+  def medium_url
+   square_avatar.medium.url
+  end
+
+  def large_url
+   square_avatar.large.url
   end
   
   def as_json(options={})
-    options[:include] ||= [:hosts]
-    options[:methods] ||= [:active_slots, :photos, :genre_list]
+    options[:except]  ||= [:archived, :avatar]
+    options[:include] ||= { hosts: { only: [:id], methods: [:name, :thumb_url] } }
+    options[:methods] ||= [:genre_list, :thumb_url, :small_url, :medium_url, :large_url]
 
     super(options)
   end
+
+  private
+
+  def square_avatar
+    avatar.square
+  end
+
 end

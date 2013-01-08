@@ -1,28 +1,25 @@
 class Person < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+  include Randomizable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   mount_uploader :avatar, AvatarUploader
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :authentication_token
-  attr_accessible :first_name, :last_name, :nickname, :bio, :influences, :facebook_username, :linkedin_username, :website_url, :email, :major, :class_year, :hometown, :avatar, :depaul_id, :hostings_attributes, :twitter_username, :tumblr_username, :avatar_cache, :remote_avatar_url, :remove_avatar
-
   # relationships
-  has_many :hostings, :dependent => :destroy
-  has_many :shows, through: :hostings
+  has_and_belongs_to_many :shows
   has_many :podcasts, through: :shows, source: :attachments
 
-  accepts_nested_attributes_for :hostings, :allow_destroy => true
+  accepts_nested_attributes_for :shows, :allow_destroy => true
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
 
+  # scopes
+  scope :archived, where(archived: true)
+
   # callbacks
   before_validation(:on => :create) do
-    self.set_password
+    set_password
   end
   after_create :send_welcome_email
 
@@ -39,56 +36,68 @@ class Person < ActiveRecord::Base
   end
 
   def last_first_name 
-    return self.last_name + ', ' + self.first_name
+    "#{last_name}, #{first_name}"
   end
 
   def set_password
-    if self.password.nil? || self.password.blank?
+    if password.nil? || password.blank?
       password = Devise.friendly_token.first(8)
-      self.password = password
-      self.password_confirmation = password
+      password = password
+      password_confirmation = password
     end
   end
 
   def position
-    manager = Manager.find_by_person_id(self.id)
-    unless manager.nil?
-      return manager.position
-    end
+    manager = Manager.find(id)
+    manager.position if manager
   end
 
   def holds_position?(position)
-    manager = Manager.find_by_person_id(self.id) 
-    if manager && manager.position.capitalize == position.capitalize
-      true
-    else
-      false
-    end
+    position == position
   end
   
   def convert_markdown(input)
-    markdown = RDiscount.new(input)
-    return markdown.to_html
+    RDiscount.new(input).to_html
   end
 
   def send_welcome_email
-    self.send_reset_password_instructions
+    send_reset_password_instructions
   end
 
   def replace_avatar_from(resource)
-    self.avatar = resource.avatar.file
+    avatar = resource.avatar.file
+  end
+
+  def avatar_url
+    read_attribute(:avatar_url) || avatar.url
+  end
+
+  def thumb_url
+    avatar.square.thumb.url
+  end
+
+  def small_url
+    avatar.square.small.url
+  end
+
+  def medium_url
+   avatar.square.medium.url
+  end
+
+  def large_url
+   avatar.square.large.url
   end
 
   def as_json(options={})
-    options[:except]  ||= [:depaul_id, :phone, :welcome_email_sent_at]
-    options[:include] ||= [:shows]
-    options[:methods] ||= [:name, :position]
+    options[:except]  ||= [:depaul_id, :phone, :welcome_email_sent_at, :admin, :archived, :avatar]
+    options[:include] ||= { shows: { only: [:id], methods: [:title, :thumb_url] } }
+    options[:methods] ||= [:name, :position, :avatar_url, :thumb_url, :small_url, :medium_url, :large_url]
     
     super(options)
    end
 
-  def self.find_for_database_authentication(conditions={})
-      self.where("username = ?", conditions[:email]).limit(1).first ||
-      self.where("email = ?", conditions[:email]).limit(1).first
+  def find_for_database_authentication(conditions={})
+      where('username = ?', conditions[:email]).limit(1).first ||
+      where('email = ?', conditions[:email]).limit(1).first
   end
 end

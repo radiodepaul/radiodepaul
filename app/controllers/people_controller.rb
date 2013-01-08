@@ -87,7 +87,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
-    add_breadcrumb @person.first_last_name, @person
+    add_breadcrumb @person.name, @person
 
     respond_to do |format|
       format.html {

@@ -1,12 +1,18 @@
 class PodcastsController < ApplicationController
+
+  before_filter :setAccess
   before_filter :authenticate_person!, :except => [:getPodcasts]
   allowed_roles = Array["Podcast Programmer"]
   before_filter :except => [:index, :new, :create, :show, :edit, :update, :getPodcasts] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
-  # GET /podcasts
-  # GET /podcasts.json
 
   add_breadcrumb 'Podcasts', :podcasts_path
+
+  respond_to :html, :json
+
+  def setAccess
+    @allowed_roles = ['Podcast Programmer']
+  end
   
   def validate_podcast_access(podcast)
     allowed_roles = Array["Podcast Programmer"]
@@ -21,45 +27,30 @@ class PodcastsController < ApplicationController
   def index
     @podcasts = Podcast.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @podcasts }
-      format.js  { render :json => @podcasts, :callback => params[:callback] }
-    end
+    respond_with(@podcasts)
   end
 
-  # GET /podcasts/1
-  # GET /podcasts/1.json
   def show
     @podcast = Podcast.find(params[:id])
     add_breadcrumb @podcast.title, podcast_path(@podcast)
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @podcast }
-    end
+    respond_with(@podcast)
   end
 
-  # GET /podcasts/new
-  # GET /podcasts/new.json
   def new
     @podcast = Podcast.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @podcast }
-    end
+    respond_with(@podcast)
   end
 
-  # GET /podcasts/1/edit
   def edit
     @podcast = Podcast.find(params[:id])
     add_breadcrumb @podcast.title, podcast_path(@podcast)
     validate_podcast_access(@podcast)
+
+    respond_with(@podcast)
   end
 
-  # POST /podcasts
-  # POST /podcasts.json
   def create
     @podcast = Podcast.new(params[:podcast])
 
@@ -74,8 +65,6 @@ class PodcastsController < ApplicationController
     end
   end
 
-  # PUT /podcasts/1
-  # PUT /podcasts/1.json
   def update
     @podcast = Podcast.find(params[:id])
     validate_podcast_access(@podcast)
@@ -91,8 +80,6 @@ class PodcastsController < ApplicationController
     end
   end
 
-  # DELETE /podcasts/1
-  # DELETE /podcasts/1.json
   def destroy
     @podcast = Podcast.find(params[:id])
     @podcast.destroy
@@ -102,14 +89,4 @@ class PodcastsController < ApplicationController
       format.json { head :ok }
     end
   end
-
-  def getPodcasts
-    respond_to do |format|
-      format.html { redirect_to pages_api_path}
-      @podcasts = Podcast.all
-      format.json { render json: @podcasts, :callback => params[:callback] }
-      format.js  { render :json => @podcasts, :callback => params[:callback] }
-    end
-  end
-
 end
