@@ -10,14 +10,19 @@ class Person < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   has_and_belongs_to_many :shows
+  accepts_nested_attributes_for :shows, :allow_destroy => true
+
   has_many :podcasts, through: :shows, source: :attachments
 
-  accepts_nested_attributes_for :shows, :allow_destroy => true
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
 
+  has_one :position
+
+  delegate :title, to: :position, allow_nil: true
+
   before_validation(:on => :create) do
-    set_password
+    reset_password!
   end
   after_create :send_welcome_email
 
@@ -36,14 +41,6 @@ class Person < ActiveRecord::Base
     "#{last_name}, #{first_name}"
   end
 
-  def set_password
-    if password.nil? || password.blank?
-      password = Devise.friendly_token.first(8)
-      password = password
-      password_confirmation = password
-    end
-  end
-
   def reset_password!(new_password = Devise.friendly_token.first(8))
     self.password = new_password
     self.password_confirmation = new_password
@@ -56,13 +53,8 @@ class Person < ActiveRecord::Base
     Notifier.welcome(@person, new_password).deliver if save
   end
 
-  def position
-    manager = Manager.find(id)
-    manager.position if manager
-  end
-
   def holds_position?(position)
-    position == position
+    self.position == position
   end
 
   def convert_markdown(input)

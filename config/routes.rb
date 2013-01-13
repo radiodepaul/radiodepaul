@@ -44,6 +44,7 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :news_posts
   resources :podcasts
   resources :slots
+  resources :positions
   resources :managers
 
   resources :applications do
