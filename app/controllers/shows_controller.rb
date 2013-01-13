@@ -6,7 +6,7 @@ class ShowsController < ApplicationController
   before_filter :setAccess
 
   respond_to :html, :json
-  
+
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
   add_breadcrumb 'Shows', :shows_path
 
@@ -16,22 +16,24 @@ class ShowsController < ApplicationController
   end
 
   def validate_show_access(show)
-    if current_person.admin?  || @allowed_roles.include?(Manager.find_by_person_id(current_person.id).try(:position)) || current_person.try(:shows).include?(show)
+    if current_person.admin? || @allowed_roles.include?(Manager.find_by_person_id(current_person.id).try(:position)) || current_person.try(:shows).include?(show)
       return true
     end
     flash[:notice] = 'You do not have access to this show.'
     redirect_to root_path
     return false
   end
-  
-  def index
-    if params.has_key?(:archived) && params[:archived] = 'true'
-      @shows = Show.archived.sort_by(&:title)
-    else
-      @shows = Show.all.sort_by(&:title)
-    end
 
-    respond_with(@shows)
+  def index
+    @link_text = params[:archived] ? 'Archived' : 'Active'
+    @href      = params[:archived] ? shows_path : shows_path(archived: true)
+    @shows     = params[:archived] ? Show.archived : Show.active
+
+    respond_to do |format|
+      format.html { render :html => @shows }
+      format.js
+      format.json { render json: @shows, :callback => params[:callback] }
+    end
   end
 
   def admin

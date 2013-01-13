@@ -4,21 +4,21 @@ RadioDePaulWebsite2::Application.routes.draw do
   namespace :api , defaults: { format: 'json' } do
     namespace :v2 do
 
-      resources :shows do
-        collection do 
+      resources :shows, except: [:new, :edit] do
+        collection do
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
         end
       end
 
-      resources :people do
-        collection do 
+      resources :people, except: [:new, :edit] do
+        collection do
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
         end
       end
 
-      resources :events
-      resources :news_posts
-      resources :slots do
+      resources :events,     except: [:new, :edit]
+      resources :news_posts, except: [:new, :edit]
+      resources :slots,      except: [:new, :edit] do
         collection do
           get 'on_air'
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
@@ -35,7 +35,6 @@ RadioDePaulWebsite2::Application.routes.draw do
   get 'welcome' => 'pages#welcome', as: 'welcome'
   get 'home' => 'pages#home', as: 'home'
   get 'apps/hire/:id' => 'applications#hire', as: 'applications_hire'
-  get 'pages/api'
   get 'application' => 'applications#new', as: '/application'
 
   resources :sports_events
@@ -65,6 +64,10 @@ RadioDePaulWebsite2::Application.routes.draw do
     collection do
       get 'search'
       put 'admin'
+      post :reset_password
+      post :send_password_reset
+      post :archive
+      post :restore
     end
   end
 

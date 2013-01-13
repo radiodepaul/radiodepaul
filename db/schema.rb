@@ -238,18 +238,6 @@ ActiveRecord::Schema.define(:version => 20130108010702) do
     t.integer  "show_id"
   end
 
-  create_table "sports_events", :force => true do |t|
-    t.string   "quarter"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.text     "description"
-    t.string   "team"
-    t.string   "opponent"
-    t.string   "location"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

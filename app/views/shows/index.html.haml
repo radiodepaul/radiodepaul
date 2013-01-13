@@ -1,29 +1,15 @@
-- model_class = Show.new.class
-- form_tag search_shows_path, :method => 'get' do
-  #search
-    = text_field_tag :search_text
-    = submit_tag 'Search', :class => "form_submit"
 .page-header
-  - if params[:archived] == 'true'
-    %h1= t '.title', :default => "Archived #{model_class.model_name.human.pluralize}"
-    = link_to 'Show Active', shows_path
-  - else
-    %h1= t '.title', :default => "Active #{model_class.model_name.human.pluralize}"
-    = link_to 'Show Archived', :action => 'index', :archived => true
-- if params[:archived] == 'true'
-  = form_tag admin_shows_path, :method => :put do
-    = link_to_function '✓', '$("input[id=show_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
-    = link_to t('.new', :default => t("helpers.links.new")), new_show_path, :class => 'btn btn-primary'
-    = submit_tag 'Restore', :name => 'restore_button', :class => 'btn'
-    %br
-    %br
-    = render :partial => 'table'
-- else
-  = form_tag admin_shows_path, :method => :put do
-    = link_to_function '✓', '$("input[id=show_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
-    = link_to t('.new', :default => t("helpers.links.new")), new_show_path, :class => 'btn btn-primary'
-    = submit_tag 'Archive', :name => 'archive_button', :class => 'btn btn-danger'
-    %br
-    %br
-    = render :partial => 'table'
-= submit_tag 'Archive', :class => 'btn'
+  %h1.title Shows
+  = link_to 'Showing Archived (toggle)', shows_path(archived: true), remote: true, id: 'toggle'
+
+  = form_tag admin_shows_path, method: :put do
+    %div{:class => 'btn-toolbar'}
+      .btn-group
+        = link_to_function '✓', '$("input[id=show_ids_]").toggleCheckbox();', class: 'btn btn-warning'
+        = link_to 'New', new_show_path, class: 'btn btn-primary'
+        = submit_tag 'Archive', name: 'archive_button', class: 'btn'
+        = submit_tag 'Restore', name: 'restore_button', class: 'btn'
+
+    = render partial: 'table'
+
+= link_to 'New', new_show_path, class: 'btn btn-primary'

@@ -4,9 +4,11 @@ class Person < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
+  scope :active,   where(archived: false)
+  scope :archived, where(archived: true)
+
   mount_uploader :avatar, AvatarUploader
 
-  # relationships
   has_and_belongs_to_many :shows
   has_many :podcasts, through: :shows, source: :attachments
 
@@ -14,19 +16,14 @@ class Person < ActiveRecord::Base
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
 
-  # scopes
-  scope :archived, where(archived: true)
-
-  # callbacks
   before_validation(:on => :create) do
     set_password
   end
   after_create :send_welcome_email
 
-  # validation
   validates :first_name, :presence => true
   validates :last_name, :presence => true
-  
+
   def after_token_authentication
     update_attributes :authentication_token => nil
   end
@@ -35,7 +32,7 @@ class Person < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def last_first_name 
+  def last_first_name
     "#{last_name}, #{first_name}"
   end
 
@@ -47,6 +44,18 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def reset_password!(new_password = Devise.friendly_token.first(8))
+    self.password = new_password
+    self.password_confirmation = new_password
+
+    if valid?
+      clear_reset_password_token
+      after_password_reset
+    end
+
+    Notifier.welcome(@person, new_password).deliver if save
+  end
+
   def position
     manager = Manager.find(id)
     manager.position if manager
@@ -55,13 +64,14 @@ class Person < ActiveRecord::Base
   def holds_position?(position)
     position == position
   end
-  
+
   def convert_markdown(input)
     RDiscount.new(input).to_html
   end
 
   def send_welcome_email
     send_reset_password_instructions
+    self.welcome_email_sent_at = Time.now.utc
   end
 
   def replace_avatar_from(resource)
@@ -92,12 +102,12 @@ class Person < ActiveRecord::Base
     options[:except]  ||= [:depaul_id, :phone, :welcome_email_sent_at, :admin, :archived, :avatar]
     options[:include] ||= { shows: { only: [:id], methods: [:title, :thumb_url] } }
     options[:methods] ||= [:name, :position, :avatar_url, :thumb_url, :small_url, :medium_url, :large_url]
-    
+
     super(options)
    end
 
   def find_for_database_authentication(conditions={})
       where('username = ?', conditions[:email]).limit(1).first ||
-      where('email = ?', conditions[:email]).limit(1).first
+      where('email = ?',    conditions[:email]).limit(1).first
   end
 end

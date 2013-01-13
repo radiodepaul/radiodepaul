@@ -1,0 +1,10 @@
+%tr
+  %th= check_box_tag 'show_ids[]', show.id
+  %td= image_tag(show.avatar.square.thumb.url)
+  %td= link_to show.title, show_path(show)
+  %td= show.genre_list
+  %td= show.hosts.count
+  %td= show.slots.count
+  %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
+  %td
+    = link_to 'Edit', edit_show_path(show), class: 'btn btn-mini'

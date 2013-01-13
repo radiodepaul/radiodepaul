@@ -2,6 +2,7 @@ class Show < ActiveRecord::Base
   include Randomizable
 
   scope :archived, where(archived: true)
+  scope :active,   where(archived: false)
 
   has_and_belongs_to_many :hosts, class_name: 'Person'
   has_many :slots
@@ -13,7 +14,7 @@ class Show < ActiveRecord::Base
   acts_as_taggable_on :genres
 
   mount_uploader :avatar, AvatarUploader
-  
+
   validates :title, :presence => true, :uniqueness => true
 
   def active_slots
