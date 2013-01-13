@@ -1,0 +1,44 @@
+- model_class = Show.new.class
+%h1 Search Shows
+= form_tag search_shows_path, :method => 'get' do
+  #search
+    = text_field_tag :search_text
+    = submit_tag 'Search', :class => "form_submit"
+- if @shows
+  - if @shows.length > 0
+    - if @shows.length == 1
+      %h1
+        Found #{@shows.length} Match for "#{params[:search_text]}"
+    - else
+      %h1
+        Found #{@shows.length} Matches for "#{params[:search_text]}"
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= model_class.human_attribute_name(:avatar)
+          %th= model_class.human_attribute_name(:title)
+          %th= model_class.human_attribute_name(:genre)
+          %th # Hosts
+          %th # Slots
+          %th= t '.actions', :default => t("helpers.actions")
+      %tbody
+        - @shows.each do |show|
+          %tr
+            %td= image_tag(show.avatar.square.thumb.url)
+            %td= link_to show.title, show_path(show)
+            %td= show.genre
+            %td= show.people.count
+            %td= show.slots.count
+            %td
+              = link_to t('.edit', :default => t("helpers.links.edit")), |
+                edit_show_path(show), :class => 'btn btn-mini'           |
+              -#
+              = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
+                show_path(show),                                                                                |
+                :method => :delete,                                                                             |
+                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
+                :class => 'btn btn-mini btn-danger'                                                             |
+  - else
+    %p Your search returned no results.
+- else
+  %p Your search returned no results.

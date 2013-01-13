@@ -1,0 +1,24 @@
+.page-header
+  %h1 News Post
+
+%dl.dl-horizontal
+  %dt
+    %strong Headline
+  %dd= @news_post.headline
+
+  %dt
+    %strong Published At
+  %dd= @news_post.datetime_published
+
+  %dt
+    %strong Content
+  %dd= @news_post.content
+
+  %dt
+    %strong Author
+  %dd= @news_post.author
+
+.form-actions
+  = link_to 'Back', news_posts_path, class: 'btn'
+  = link_to 'Edit', edit_news_post_path(@news_post), class: 'btn'
+  = link_to 'Delete', news_post_path(@news_post), method: 'delete', confirm: 'Are you sure?', class: 'btn btn-danger'

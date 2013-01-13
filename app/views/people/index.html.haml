@@ -1,23 +1,18 @@
-- model_class = Person.new.class
 .page-header
-  - if params[:archived] == 'true'
-    %h1= t '.title', :default => "Archived #{model_class.model_name.human.pluralize}"
-    = link_to 'Show Active', people_path
-  - else
-    %h1= t '.title', :default => "Active #{model_class.model_name.human.pluralize}"
-    = link_to 'Show Archived', :action => 'index', :archived => true
-- else
-  = form_tag admin_people_path, :method => :put do
+  %h1.title People
+  = link_to 'Showing Archived (toggle)', people_path(archived: true), remote: true, id: 'toggle'
+
+  = form_tag admin_people_path, method: :put do
     %div{:class => 'btn-toolbar'}
       .btn-group
-        = link_to_function '✓', '$("input[id=person_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
-        = link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'
-        = submit_tag 'Archive', :name => 'archive_button', :class => 'btn'
-        = submit_tag 'Restore', :name => 'restore_button', :class => 'btn'
+        = link_to_function '✓', '$("input[id=person_ids_]").toggleCheckbox();', class: 'btn btn-warning'
+        = link_to 'New', new_person_path, :class => 'btn btn-primary'
+        = submit_tag 'Archive', name: 'archive_button', class: 'btn'
+        = submit_tag 'Restore', name: 'restore_button', class: 'btn'
       .btn-group
         = submit_tag 'Send Welcome Email', :name => 'send_welcome_email_button', :class => 'btn'
         = submit_tag 'Reset Password', :name => 'reset_password_button', :class => 'btn'
-    %br
-    %br
-    = render :partial => 'table'
-= link_to t('.new', :default => t("helpers.links.new")), new_person_path, :class => 'btn btn-primary'
+
+    = render partial: 'table'
+
+= link_to 'New', new_person_path, class: 'btn btn-primary'

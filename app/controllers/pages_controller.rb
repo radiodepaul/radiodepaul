@@ -1,11 +1,5 @@
 class PagesController < ApplicationController
   before_filter :authenticate_person!, :except => [:welcome, :application_success]
-  require 'exits'
-
-  def get_analytics_profile
-    profile = Garb::Management::Profile.all.first
-    @analytics = Exits.results(profile, :filters => {:page_path.contains => '/'})
-  end
 
   def welcome
     show_ids = Show.where("archived is FALSE AND avatar IS NOT NULL").select(:id).map( &:id )

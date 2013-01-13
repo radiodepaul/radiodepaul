@@ -1,0 +1,17 @@
+- model_class = Setting.new.class
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize
+%table.datatable.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:var)
+      %th= model_class.human_attribute_name(:value)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @settings.each do |setting|
+      %tr
+        %td= link_to setting.var, setting_path(setting)
+        %td= text_field_tag setting.var, setting.value, :disabled => 'disabled'
+        %td
+          = link_to "Edit", "#", :class => 'btn btn-mini ajax-edit'
+          = link_to "Save", "#", :class => 'btn btn-mini ajax-save'

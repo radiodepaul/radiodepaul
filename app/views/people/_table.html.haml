@@ -1,24 +1,13 @@
-- model_class = Person.new.class
 %table.datatable.table.table-striped
   %thead
     %tr
       %th
-      %th= model_class.human_attribute_name(:avatar)
-      %th.sort_on_asc= model_class.human_attribute_name(:name)
-      %th= model_class.human_attribute_name(:nickname)
-      %th= model_class.human_attribute_name(:email)
+      %th Avatar
+      %th.sort_on_asc Name
+      %th Nickname
+      %th Email
       %th # Shows:
-      %th= model_class.human_attribute_name(:updated_at)
-      %th= t '.actions', :default => t("helpers.actions")
-  %tbody
-    - @people.each do |person|
-      %tr
-        %th= check_box_tag 'person_ids[]', person.id
-        %td= image_tag(person.avatar.square.thumb.url)
-        %td= link_to person.last_first_name, person
-        %td= person.nickname
-        %td= link_to person.email, "mailto:" + person.email unless person.email.nil?
-        %td= person.shows.count
-        %td=l person.updated_at
-        %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(person), :class => 'btn btn-mini'
+      %th Updated At
+      %th Actions
+  %tbody#people
+    = render @people

@@ -1,0 +1,21 @@
+= form_for @news_post, :html => { :class => 'form-horizontal' } do |f|
+  .control-group
+    = f.label :headline, :class => 'control-label'
+    .controls
+      = f.text_field :headline, :class => 'text_field'
+  .control-group
+    = f.label :datetime_published, :class => 'control-label'
+    .controls
+      = f.datetime_select :datetime_published, :class => 'datetime_select'
+  .control-group
+    = f.label :content, :class => 'control-label'
+    .controls
+      = f.text_area :content, :class => 'text_area', :rows => 5, :style => "width:400px;"
+  .control-group
+    = f.label :person_id, :class => 'control-label'
+    .controls
+      = collection_select(:news_post, :person_id, Person.find(:all, :order => 'last_name'), :id, :last_first_name, :prompt => true)
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), |
+      news_posts_path, :class => 'btn'                             |

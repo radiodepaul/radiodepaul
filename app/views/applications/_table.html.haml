@@ -2,19 +2,19 @@
   %thead
     %tr
       %th
-      %th= model_class.human_attribute_name(:avatar)
-      %th= model_class.human_attribute_name(:name)
-      %th= model_class.human_attribute_name(:year)
-      %th= model_class.human_attribute_name(:email)
-      %th= model_class.human_attribute_name(:position)
-      %th.sort_on_desc= model_class.human_attribute_name(:created_at)
+      %th Avatar
+      %th Name
+      %th Year
+      %th Email
+      %th Position
+      %th.sort_on_desc Created At
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
     - @applications.each do |application|
       %tr
         %th= check_box_tag 'app_ids[]', application.id
         %td= image_tag(application.avatar.square.thumb.url)
-        %td= link_to application.first_last_name, app_path(application)
+        %td= link_to application.name, app_path(application)
         %td= application.year
         %td= application.email
         %td= application.position
