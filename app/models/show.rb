@@ -1,8 +1,9 @@
 class Show < ActiveRecord::Base
   include Randomizable
 
-  scope :archived, where(archived: true)
+  default_scope    where(archived: false)
   scope :active,   where(archived: false)
+  scope :archived, where(archived: true)
 
   has_and_belongs_to_many :hosts, class_name: 'Person'
   has_many :slots
@@ -35,14 +36,6 @@ class Show < ActiveRecord::Base
 
   def large_url
    square_avatar.large.url
-  end
-  
-  def as_json(options={})
-    options[:except]  ||= [:archived, :avatar]
-    options[:include] ||= { hosts: { only: [:id], methods: [:name, :thumb_url] } }
-    options[:methods] ||= [:genre_list, :thumb_url, :small_url, :medium_url, :large_url]
-
-    super(options)
   end
 
   private

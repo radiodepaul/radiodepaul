@@ -4,6 +4,8 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 RadioDePaulWebsite2::Application.initialize!
 
+ActiveRecord::Base.include_root_in_json = false
+
 # Sendgrid setup
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {

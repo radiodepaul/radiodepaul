@@ -4,8 +4,10 @@ class Person < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
+  default_scope    where(archived: false)
   scope :active,   where(archived: false)
   scope :archived, where(archived: true)
+  scope :managers, where('id in (select person_id from positions)')
 
   mount_uploader :avatar, AvatarUploader
 
@@ -17,7 +19,7 @@ class Person < ActiveRecord::Base
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
 
-  has_one  :position
+  has_one  :position, dependent: :nullify
   delegate :title, to: :position, prefix: false, allow_nil: true
 
   before_validation(:on => :create) do
@@ -86,14 +88,6 @@ class Person < ActiveRecord::Base
   def large_url
    avatar.square.large.url
   end
-
-  def as_json(options={})
-    options[:except]  ||= [:depaul_id, :phone, :welcome_email_sent_at, :admin, :archived, :avatar]
-    options[:include] ||= { shows: { only: [:id], methods: [:title, :thumb_url] } }
-    options[:methods] ||= [:name, :position, :avatar_url, :thumb_url, :small_url, :medium_url, :large_url]
-
-    super(options)
-   end
 
   def find_for_database_authentication(conditions={})
       where('username = ?', conditions[:email]).limit(1).first ||
