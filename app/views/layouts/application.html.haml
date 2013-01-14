@@ -1,21 +1,21 @@
 !!!
-%html{:lang => 'en'}
+%html{lang: 'en'}
   %head
-    %meta{:charset => 'utf-8'}
-      %meta{:content => 'width=device-width, initial-scale=1.0', :name => 'viewport'}
-        %title= content_for?(:title) ? yield(:title) : 'Radio DePaul'
-        = csrf_meta_tags
-        / Le HTML5 shim, for IE6-8 support of HTML elements
-        /[if lt IE 9]
-          <script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
-        = stylesheet_link_tag 'application', :media => 'all'
-        %link{:href => 'images/favicon.ico', :rel => 'shortcut icon'}
-          %link{:href => 'images/apple-touch-icon.png', :rel => 'apple-touch-icon'}
-            %link{:href => 'images/apple-touch-icon-72x72.png', :rel => 'apple-touch-icon', :sizes => '72x72'}
-              %link{:href => 'images/apple-touch-icon-114x114.png', :rel => 'apple-touch-icon', :sizes => '114x114'}
-                %script{:src => 'http://use.typekit.com/kng1gpc.js', :type => 'text/javascript'}
-                :javascript
-                  try{Typekit.load();}catch(e){}  
+    %meta{charset: 'utf-8'}
+    %meta{content: 'width=device-width, initial-scale=1.0', name: 'viewport'}
+    %title= content_for?(:title) ? yield(:title) : 'Radio DePaul'
+    = csrf_meta_tags
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      <script src='http://html5shim.googlecode.com/svn/trunk/html5.js' type='text/javascript'></script>
+    = stylesheet_link_tag 'application', media: 'all'
+    %link{href: 'images/favicon.ico', rel: 'shortcut icon'}
+    %link{href: 'images/apple-touch-icon.png', rel: 'apple-touch-icon'}
+    %link{href: 'images/apple-touch-icon-72x72.png', rel: 'apple-touch-icon', sizes: '72x72'}
+    %link{href: 'images/apple-touch-icon-114x114.png', rel: 'apple-touch-icon', sizes: '114x114'}
+    %script{src: 'http://use.typekit.com/kng1gpc.js', type: 'text/javascript'}
+    :javascript
+      try{Typekit.load();}catch(e){}
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -24,7 +24,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand{:href => '/'} Radio DePaul
+          %a.brand{href: '/'} Radio DePaul
           .container.nav-collapse
             %ul.nav
               - if person_signed_in?
@@ -41,12 +41,12 @@
               - if person_signed_in?
                 - if current_person.admin? || current_person.holds_position?('Program Director')
                   %li
-                    - new_apps = Application.find(:all, :conditions => {:archived => false, :hired => false, :rejected => false}).length
-                    %a{:href => apps_path}
+                    - new_apps = Application.find(:all, conditions: {archived: false, hired: false, rejected: false}).length
+                    %a{href: apps_path}
                       %span.badge.badge-important= "#{new_apps}"
                 %li.drowndown
                   %a{class: 'dropdown-toggle', href: '#', :'data-toggle' => 'dropdown'}
-                    = image_tag(current_person.avatar.square.thumb.url, :style => 'height:25px')
+                    = image_tag(current_person.avatar.square.thumb.url, style: 'height:25px')
                     #{current_person.first_name}
                     %strong.caret
                   %ul.dropdown-menu
@@ -56,17 +56,17 @@
                       = link_to 'Change my Password', edit_person_registration_path
                     %li.divider
                     %li
-                      = link_to('Logout', destroy_person_session_path, :method => :delete)
+                      = link_to('Logout', destroy_person_session_path, method: :delete)
               - else
                 %li.dropdown
                   %a{class: 'dropdown-toggle', href: '#', :'data-toggle' => 'dropdown'}
                     Login
                     %strong.caret
                   %div{class: 'dropdown-menu', style: 'padding: 15px;padding-bottom:0'}
-                    = form_for(:person, :url => person_session_path) do |f|
-                      = f.text_field :email, :placeholder => 'Email'
-                      = f.password_field :password, :placeholder => 'Password'
-                      = submit_tag 'Login', :class => 'btn btn-primary'
+                    = form_for(:person, url: person_session_path) do |f|
+                      = f.text_field :email, placeholder: 'Email'
+                      = f.password_field :password, placeholder: 'Password'
+                      = submit_tag 'Login', class: 'btn btn-primary'
     .container
       .content
         .row

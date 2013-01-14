@@ -96,7 +96,7 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
-    add_breadcrumb @person.first_last_name, @person
+    add_breadcrumb @person.fullname, @person
     validate_person_access(@person)
   end
 
@@ -137,12 +137,12 @@ class PeopleController < ApplicationController
       format.html { redirect_to people_url }
     end
   end
-  
+
   def search
-    if params[:search_text] && params[:search_text] != '' 
+    if params[:search_text] && params[:search_text] != ''
       match_term = "%#{params[:search_text]}%"
 
-      @people = Person.find(:all, :conditions => ['first_name like ?', match_term]) + 
+      @people = Person.find(:all, :conditions => ['first_name like ?', match_term]) +
                 Person.find(:all, :conditions => ['last_name like ?', match_term])
     end
   end

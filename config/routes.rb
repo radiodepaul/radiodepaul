@@ -45,8 +45,6 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :podcasts
   resources :slots
   resources :positions
-  resources :managers
-
   resources :applications do
     get :autocomplete_genre_name, on: :collection
     collection do

@@ -5,6 +5,7 @@ gem 'rails', '3.2.11'
 gem 'pg',                              '~> 0.14.1'
 gem 'rdiscount',                       '~> 1.6.8'
 gem 'json',                            '~> 1.7.6'
+gem 'dalli',                           '~> 2.2.1'
 
 gem 'unicorn',                         '~> 4.5.0'
 gem 'ransack',                         '~> 0.7.2'
@@ -17,7 +18,6 @@ gem 'active_model_serializers',        :git => 'git://github.com/rails-api/activ
 
 gem 'breadcrumbs_on_rails',            '~> 2.3.0'
 
-gem 'twitter-bootstrap-rails',         '~> 2.2.0'
 gem 'formtastic',                      '~> 2.2.1'
 gem 'formtastic-plus-bootstrap',       '~> 1.1.4'
 gem 'dynamic_form',                    '~> 1.1.4'
@@ -39,7 +39,7 @@ gem 'ledermann-rails-settings',        :require => 'rails-settings'
 group :assets do
   gem 'sass-rails',                    '~> 3.2.3'
   gem 'coffee-rails',                  '~> 3.2.1'
-  gem 'uglifier',                      '>= 1.0.3'
+  gem 'uglifier',                      '~> 1.0.3'
 end
 
 group :development do

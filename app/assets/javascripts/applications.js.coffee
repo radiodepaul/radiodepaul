@@ -2,8 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-//= require jquery.maskedinput-1.3.min
-
 $('#talk_host_inputs').hide()
 $('#talk_podcast_show_inputs').hide()
 $('#application_position_other_input').hide()
@@ -24,4 +22,3 @@ $('#application_host_type_input input').click ->
   else
     $('#talk_podcast_show_inputs').slideDown()
     $('#music_show_inputs').slideUp()
-$('#application_phone').mask("(999) 999-9999")
