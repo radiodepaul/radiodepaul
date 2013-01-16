@@ -110,6 +110,7 @@ GEM
       multi_json (~> 1.0)
       multi_xml
     i18n (0.6.1)
+    ice_cube (0.9.3)
     journey (1.0.4)
     jquery-datatables-rails (1.11.2)
       jquery-rails
@@ -229,6 +230,7 @@ DEPENDENCIES
   haml-rails
   hpricot (~> 0.8.6)
   html2haml!
+  ice_cube (~> 0.9.3)
   jquery-datatables-rails
   jquery-rails
   jquery-ui-rails

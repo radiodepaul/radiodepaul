@@ -1,4 +1,11 @@
+require 'ice_cube'
+
 class Slot < ActiveRecord::Base
+  include JSONTools::JSONStore, IceCube
+
+  attr_protected :recurrence
+
+  store :recurrence
   belongs_to :show
 
   scope :active, where(quarter: Settings.active_schedule)
@@ -14,6 +21,14 @@ class Slot < ActiveRecord::Base
     end
 
     days
+  end
+
+  def schedule
+    Schedule.from_hash(self.recurrence)
+  end
+
+  def schedule=(new_schedule)
+    self.recurrence = new_schedule.to_hash
   end
 
   def self.on_air
