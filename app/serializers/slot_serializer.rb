@@ -1,3 +1,3 @@
-class SlotSerializer < ActiveModel::Serializer
-  attributes :id, :time, :days
+class SlotSerializer < ApplicationSerializer
+  attributes :id, :quarter, :start_time, :end_time, :days
 end

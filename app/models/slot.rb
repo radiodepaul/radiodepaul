@@ -1,14 +1,11 @@
 class Slot < ActiveRecord::Base
   belongs_to :show
 
+  scope :active, where(quarter: Settings.active_schedule)
+  scope :archived, where("quarter <> '#{Settings.active_schedule}'")
+
   validates :quarter, :presence => true
   validates :show_id, :presence => true
-
-  scope :active, where(quarter: Settings.active_schedule)
-
-  def time
-    "#{start_time} - #{end_time}"
-  end
 
   def days
     days = []
@@ -27,6 +24,6 @@ class Slot < ActiveRecord::Base
     default = new(show: hal, quarter: Settings.active_schedule)
 
     current_day = Time.now.strftime('%A').downcase!
-    find(:all, :conditions => ['quarter = ? AND start_time <= ? AND end_time >=  ? AND ' + current_day + " = 't'", Settings.active_schedule, Time.now, Time.now]).first || default
+    active.find(:all, :conditions => ['quarter = ? AND start_time <= ? AND end_time >=  ? AND ' + current_day + " = 't'", Settings.active_schedule, Time.now, Time.now]).first || default
   end
 end

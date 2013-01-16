@@ -4,7 +4,6 @@ class Person < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
-  default_scope    where(archived: false)
   scope :active,   where(archived: false)
   scope :archived, where(archived: true)
   scope :managers, where('id in (select person_id from positions)')

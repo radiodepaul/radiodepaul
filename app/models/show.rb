@@ -1,8 +1,8 @@
 class Show < ActiveRecord::Base
   include Randomizable
 
-  default_scope    where(archived: false)
-  scope :active,   where(archived: false)
+  scope :current, where("id in (select show_id from slots where quarter = '#{Settings.active_schedule}')")
+  scope :active, current.where(archived: false)
   scope :archived, where(archived: true)
 
   has_and_belongs_to_many :hosts, class_name: 'Person'
@@ -17,10 +17,6 @@ class Show < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   validates :title, :presence => true, :uniqueness => true
-
-  def active_slots
-    slots.where(quarter: Settings.active_schedule)
-  end
 
   def thumb_url
     square_avatar.thumb.url

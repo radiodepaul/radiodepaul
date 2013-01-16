@@ -3,9 +3,9 @@ class Api::V2::ShowsController < Api::V2::ApiController
 
   def index
     if id = params[:person_id]
-      shows = Person.find(id).shows
+      shows = Person.find(id).shows.active
     else
-      shows = Show.all
+      shows = Show.active
     end
     render json: shows, root: false
   end
