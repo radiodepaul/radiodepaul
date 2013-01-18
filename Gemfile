@@ -52,5 +52,13 @@ group :development do
 end
 
 group :test do
-  gem 'turn',                          '~> 0.8.3', :require => false
+  gem 'capybara',                      '~> 2.0.2',  require: false
+  gem 'database_cleaner',              '~> 0.9.1',  require: false
+  gem 'factory_girl_rails',            '~> 4.1.0',  require: false
+  gem 'fuubar',                        '~> 1.1.0'
+  gem 'fuubar-cucumber',               '~> 0.0.18'
+  gem 'capybara-webkit',               '~> 0.14.0', require: false
+  gem 'pry',                           '~> 0.9.8',  require: false
+  gem 'rspec-rails',                   '~> 2.12.0', require: false
+  gem 'shoulda-matchers',              '~> 1.3.0',  require: false
 end
