@@ -4,6 +4,6 @@
     = f.input :for
     = f.input :year
     = f.input :award_organization_id, :as => :select, :collection => AwardOrganization.all, :prompt => true
-  = f.actions do   
+  = f.actions do
     = f.action :submit, :label => 'Submit', :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), awards_path, :class => 'btn'

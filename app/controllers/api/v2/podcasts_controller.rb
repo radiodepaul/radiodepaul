@@ -17,7 +17,7 @@ class Api::V2::PodcastsController < Api::V2::ApiController
   end
 
   def create
-    render json: Podcast.create(params[:show]), root: false
+    render json: Podcast.create!(params[:show]), root: false
   end
 
   def update

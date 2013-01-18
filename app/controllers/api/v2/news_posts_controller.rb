@@ -10,7 +10,7 @@ class Api::V2::NewsPostsController < Api::V2::ApiController
   end
 
   def create
-    render json: NewsPost.create(params[:show]), root: false
+    render json: NewsPost.create!(params[:show]), root: false
   end
 
   def update

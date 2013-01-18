@@ -10,7 +10,7 @@ class Api::V2::EventsController < Api::V2::ApiController
   end
 
   def create
-    respond_with Event.create(params[:show]), root: false
+    respond_with Event.create!(params[:show]), root: false
   end
 
   def update

@@ -15,7 +15,7 @@ class Api::V2::ShowsController < Api::V2::ApiController
   end
 
   def create
-    render json: Show.create(params[:show]), root: false
+    render json: Show.create!(params[:show]), root: false
   end
 
   def update

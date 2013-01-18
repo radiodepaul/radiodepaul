@@ -15,7 +15,7 @@ class Api::V2::AwardsController < Api::V2::ApiController
   end
 
   def create
-    render json: Award.create(params[:show]), root: false
+    render json: Award.create!(params[:show]), root: false
   end
 
   def update

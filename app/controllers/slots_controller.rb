@@ -7,7 +7,7 @@ class SlotsController < ApplicationController
   before_filter :set_timezone
 
   add_breadcrumb 'Schedule A Show', :slots_path
-  
+
   def index
     @q = Slot.search(params[:q])
     @slots = @q.result(:distinct => true)
@@ -23,7 +23,7 @@ class SlotsController < ApplicationController
 
   def show
     @slot = Slot.find(params[:id])
-    
+
     add_breadcrumb "#{@slot.quarter} Slot", slot_path(@slot)
 
     respond_to do |format|
@@ -80,7 +80,7 @@ class SlotsController < ApplicationController
       format.html { redirect_to slots_url }
     end
   end
-  
+
   def current
     @slots = Slot.active
 

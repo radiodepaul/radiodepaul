@@ -15,7 +15,7 @@ class Api::V2::PeopleController < Api::V2::ApiController
   end
 
   def create
-    render json: Person.create(params[:show]), root: false
+    render json: Person.create!(params[:show]), root: false
   end
 
   def update

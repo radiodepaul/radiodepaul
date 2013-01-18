@@ -10,7 +10,7 @@ class Api::V2::SlotsController < Api::V2::ApiController
   end
 
   def create
-    render json: Slot.create(params[:slot]), root: false
+    render json: Slot.create!(params[:slot]), root: false
   end
 
   def update
