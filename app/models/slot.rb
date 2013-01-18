@@ -10,6 +10,20 @@ class Slot < ActiveRecord::Base
   validates :quarter, :presence => true
   validates :show_id, :presence => true
 
+  def schedule
+    Schedule.from_hash(self.schedule_hash)
+  end
+
+  delegate :occurs_at?, :start_time, :end_time, :duration, to: :schedule
+
+  def schedule=(new_schedule)
+    self.schedule_hash = new_schedule.to_hash
+  end
+
+  def occurences
+    schedule.all_occurences
+  end
+
   def self.on_air(time = Time.now)
     if override_enabled?
       override_show
@@ -33,7 +47,7 @@ class Slot < ActiveRecord::Base
   private
 
   def self.on_air_slot(time)
-    Slot.active.find {|slot| slot.time_span.cover?(time) }
+    Slot.active.find {|slot| slot.time_span.cover?(time)  && slot.occurs_at?(time) }
   end
 
   def self.override_enabled?
