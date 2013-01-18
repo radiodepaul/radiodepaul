@@ -1,44 +1,54 @@
 require 'ice_cube'
+require 'json_tools'
 
 class Slot < ActiveRecord::Base
   include JSONTools::JSONStore, IceCube
 
-  attr_protected :recurrence
-
-  store :recurrence
+  store :schedule_hash
   belongs_to :show
-
-  scope :active, where(quarter: Settings.active_schedule)
-  scope :archived, where("quarter <> '#{Settings.active_schedule}'")
 
   validates :quarter, :presence => true
   validates :show_id, :presence => true
 
-  def days
-    days = []
-    [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday].each do |day|
-      days.push(day.to_s) if send(day)
+  def self.on_air(time = Time.now)
+    if override_enabled?
+      override_show
+    else
+      on_air_slot(time) || default_slot
     end
-
-    days
   end
 
-  def schedule
-    Schedule.from_hash(self.recurrence)
+  def self.active_schedule
+    Settings.active_schedule
   end
 
-  def schedule=(new_schedule)
-    self.recurrence = new_schedule.to_hash
+  def time_span
+    TimeSpan.new(start_time, end_time)
   end
 
-  def self.on_air
-    return Slot.new(show: Show.find(Settings.override_show),
-                    quarter: Settings.active_schedule) if Settings.override
+  # Placed below in order to use self.active_schedule
+  scope :active, where(quarter: active_schedule)
+  scope :archived, where("quarter <> '#{active_schedule}'")
 
-    hal = Show.where('title like ?', 'HAL %').first
-    default = new(show: hal, quarter: Settings.active_schedule)
+  private
 
-    current_day = Time.now.strftime('%A').downcase!
-    active.find(:all, :conditions => ['quarter = ? AND start_time <= ? AND end_time >=  ? AND ' + current_day + " = 't'", Settings.active_schedule, Time.now, Time.now]).first || default
+  def self.on_air_slot(time)
+    Slot.active.find {|slot| slot.time_span.cover?(time) }
+  end
+
+  def self.override_enabled?
+    Settings.override
+  end
+
+  def self.default_slot
+    new(show: hal_show, quarter: active_schedule)
+  end
+
+  def self.hal_show
+    Show.where('title like ?', 'HAL %').first
+  end
+
+  def self.override_show
+    Slot.new(show: Show.find(Settings.override_show), quarter: active_schedule)
   end
 end

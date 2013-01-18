@@ -21,10 +21,10 @@ describe TimeSpan do
       time_span.cover?(two_o_clock).should be_false
     end
 
-    it 'returns true when the minute is between the hours of the TimeSpan' do
+    it 'returns true when the minutes are within the same hour' do
       time1 = Time.new(2008, 1, 1, 2,1,0, '-06:00')
-      time2 = Time.new(2008, 1, 1, 4,3,0, '-06:00')
-      time3 = Time.new(2008, 1, 1, 3,5,0, '-06:00')
+      time2 = Time.new(2008, 1, 1, 2,5,0, '-06:00')
+      time3 = Time.new(2008, 1, 1, 2,3,0, '-06:00')
 
       time_span = TimeSpan.new(time1, time2)
 
