@@ -1,0 +1,10 @@
+%tr
+  %th= check_box_tag 'person_ids[]', person.id
+  %td= image_tag(person.avatar.square.thumb.url)
+  %td= link_to person.last_first_name, person
+  %td= person.nickname
+  %td= link_to person.email, "mailto:" + person.email unless person.email.nil?
+  %td= person.shows.count
+  %td=l person.updated_at
+  %td
+    = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(person), :class => 'btn btn-mini'

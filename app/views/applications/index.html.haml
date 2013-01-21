@@ -1,41 +1,40 @@
-- model_class = Application.new.class
 .page-header
   - if params[:archived] == 'true'
-    %h1= t '.title', :default => "Archived #{model_class.model_name.human.pluralize}"
+    %h1= t '.title', default: 'Archived Applications'
     = link_to 'Inbox', apps_path
-    = link_to 'Archived', :action => 'index', :archived => true
-    = link_to 'Hired', :action => 'index', :hired => true
-    = link_to 'Rejected', :action => 'index', :rejected => true
+    = link_to 'Archived', action: 'index', :archived => true
+    = link_to 'Hired', action: 'index', :hired => true
+    = link_to 'Rejected', action: 'index', :rejected => true
   - elsif params[:hired] == 'true'
-    %h1= t '.title', :default => "Hired #{model_class.model_name.human.pluralize}"
+    %h1= t '.title', default: 'Hired Applications'
     = link_to 'Inbox', apps_path
-    = link_to 'Archived', :action => 'index', :archived => true
-    = link_to 'Hired', :action => 'index', :hired => true
-    = link_to 'Rejected', :action => 'index', :rejected => true
+    = link_to 'Archived', action: 'index', :archived => true
+    = link_to 'Hired', action: 'index', :hired => true
+    = link_to 'Rejected', action: 'index', :rejected => true
   - elsif params[:rejected] == 'true'
-    %h1= t '.title', :default => "Rejected #{model_class.model_name.human.pluralize}"
+    %h1= t '.title', default: 'Rejected Applications'
     = link_to 'Inbox', apps_path
-    = link_to 'Archived', :action => 'index', :archived => true
-    = link_to 'Hired', :action => 'index', :hired => true
-    = link_to 'Rejected', :action => 'index', :rejected => true
+    = link_to 'Archived', action: 'index', :archived => true
+    = link_to 'Hired', action: 'index', :hired => true
+    = link_to 'Rejected', action: 'index', :rejected => true
   - else
-    %h1= t '.title', :default => "#{model_class.model_name.human} Inbox"
+    %h1= t '.title', default: 'Application Inbox'
     = link_to 'Inbox', apps_path
-    = link_to 'Archived', :action => 'index', :archived => true
-    = link_to 'Hired', :action => 'index', :hired => true
-    = link_to 'Rejected', :action => 'index', :rejected => true
-- else
+    = link_to 'Archived', action: 'index', :archived => true
+    = link_to 'Hired', action: 'index', :hired => true
+    = link_to 'Rejected', action: 'index', :rejected => true
+
   = form_tag admin_apps_path, :method => :put do
-    %div{:class => 'btn-toolbar'}
+    %div{class: 'btn-toolbar'}
       .btn-group
-        = link_to_function '✓', '$("input[id=app_ids_]").toggleCheckbox();', :class => 'btn btn-warning'
+        = link_to_function '✓', '$("input[id=app_ids_]").toggleCheckbox();', class: 'btn btn-warning'
         = link_to t('.new', :default => t("helpers.links.new")), new_app_path, :class => 'btn btn-primary'
       .btn-group
-        = submit_tag 'Hire', :name => 'hire_button', :class => 'btn'
-        = submit_tag 'Mark as Hired', :name => 'mark_as_hired_button', :class => 'btn'
-        = submit_tag 'Reject', :name => 'reject_button', :class => 'btn'
+        = submit_tag 'Hire', name: 'hire_button', class: 'btn'
+        = submit_tag 'Mark as Hired', name: 'mark_as_hired_button', class: 'btn'
+        = submit_tag 'Reject', name: 'reject_button', class: 'btn'
       .btn-group
-        = submit_tag 'Archive', :name => 'archive_button', :class => 'btn'
-        = submit_tag 'Move To Inbox', :name => 'restore_button', :class => 'btn'
-    = render :partial => 'table', :locals => {:model_class => Application.new.class}
-= link_to t('.new', :default => t("helpers.links.new")), new_app_path, :class => 'btn btn-primary'
+        = submit_tag 'Archive', name: 'archive_button', class: 'btn'
+        = submit_tag 'Move To Inbox', name: 'restore_button', class: 'btn'
+    = render partial: 'table', :locals => {:model_class => Application.new.class}
+= link_to t('.new', :default => t("helpers.links.new")), new_app_path, class: 'btn btn-primary'

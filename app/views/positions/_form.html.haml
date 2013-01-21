@@ -1,0 +1,25 @@
+= form_for @position do |f|
+  - if @position.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
+      %ul
+        - @position.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :phone
+    = f.text_field :phone
+  .field
+    = f.label :office_hours
+    = f.text_area :office_hours
+  .field
+    = f.label :person_id
+    = f.number_field :person_id
+  .actions
+    = f.submit 'Save'

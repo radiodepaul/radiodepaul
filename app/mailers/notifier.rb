@@ -7,10 +7,11 @@ class Notifier < ActionMailer::Base
   end
 
   def welcome(person, new_password)
-    @person = person
-    @new_password = new_password
+    @person, @new_password = person, new_password
+
     @person.reset_authentication_token!
-    mail(:to => person.email, :subject => 'Your Radio DePaul Account')
+
+    mail(:to => @person.email, :subject => 'Your Radio DePaul Account')
   end
 
 end

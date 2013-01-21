@@ -1,0 +1,35 @@
+%h1 Search Staff
+= form_tag search_people_path, :method => 'get' do
+  #search
+    = text_field_tag :search_text
+    = submit_tag 'Search', :class => "form_submit"
+- if @people
+  - if @people.length > 0
+    - if @people.length == 1
+      %h1
+        Found #{@people.length} Match for "#{params[:search_text]}"
+    - else
+      %h1
+        Found #{@shows.length} Matches for "#{params[:search_text]}"
+    %table
+      %tr
+        %th
+        %th Name
+        %th Nickname
+        %th Email
+        %th # Shows
+        %th
+        %th
+        %th
+      - @people.each do |person|
+        %tr{:class => cycle("even", "odd")}
+          %td= image_tag(person.avatar.square.thumb.url) if person.avatar?
+          %td= link_to person.last_first_name, person
+          %td= person.nickname
+          %td= link_to person.email, "mailto:" + person.email unless person.email.nil?
+          %td= person.shows.count
+          %td= link_to 'Show', person, :class => "action"
+          %td= link_to 'Edit', edit_person_path(person), :class => "action"
+          %td= link_to 'Delete', person, confirm: 'Are you sure?', method: :delete, :class => "action"
+  - else
+    %p Your search returned no results.

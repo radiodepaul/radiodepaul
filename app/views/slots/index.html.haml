@@ -1,0 +1,56 @@
+.page-header
+  %h1.title Slots
+#search_form
+  = search_form_for @q do |f|
+    .controls
+    =f.label :quarter_cont, 'Quarter'
+    =f.text_field :quarter_cont
+    =f.label :monday_true, 'Monday'
+    =f.check_box :monday_true
+    =f.label :tuesday_true, 'Tuesday'
+    =f.check_box :tuesday_true
+    =f.label :wednesday_true, 'Wednesday'
+    =f.check_box :wednesday_true
+    =f.label :thursday_true, 'Thursday'
+    =f.check_box :thursday_true
+    =f.label :friday_true, 'Friday'
+    =f.check_box :friday_true
+    =f.label :saturday_true, 'Saturday'
+    =f.check_box :saturday_true
+    =f.label :sunday_true, 'Sunday'
+    =f.check_box :sunday_true
+    =f.label :start_time_gteq, 'Time between'
+    =f.time_select :start_time_gteq, { default: { hour: 0, minute: 0 }, ampm: true, minute_step: 30 }
+    =f.label :end_time_lteq, 'and'
+    =f.time_select :end_time_lteq, { default: { hour: 0, minute: 0 }, ampm: true, minute_step: 30 }
+    =f.submit
+= link_to 'New', new_slot_path, class: 'btn btn-primary'
+%br
+  %br
+    %table.datatable.table.table-striped
+      %thead
+        %tr
+          %th Avatar
+          %th Show ID
+          %th Quarter
+          %th Days
+          %th Start Time
+          %th End Time
+          %th Created At
+          %th Actions
+      %tbody
+        - @slots.each do |slot|
+          %tr
+            %td= image_tag(slot.show.avatar.square.thumb.url)
+            %td= link_to slot.show.title, slot_path(slot)
+            %td= slot.quarter
+            %td= slot.days.join(',')
+            %td= pretty_time slot.start_time unless slot.start_time.nil?
+            %td= pretty_time slot.end_time unless slot.end_time.nil?
+            %td= pretty_date slot.created_at unless slot.created_at.nil?
+            %td
+              = link_to 'Edit', edit_slot_path(slot), class: 'btn btn-mini'
+              = link_to 'Delete', slot_path(slot), method: :delete, confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+    = link_to t('.new', default: t("helpers.links.new")), new_slot_path, class: 'btn btn-primary'
+    %br
+      %br

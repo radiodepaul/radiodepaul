@@ -1,60 +1,59 @@
-- model_class = @person.class
 .page-header
-  %h1= @person.first_last_name
+  %h1= @person.name
   %h3= @person.created_at.strftime("Added on %m/%d/%Y at %I:%M%p")
-%div#tabs
+
+#tabs
   %ul
-    %li
-      = link_to 'Info', '#info' 
-    %li
-      = link_to 'Shows', '#shows'
-  %div#info
-    = image_tag(@person.avatar.square.small.url, :style => "margin-left:10px;float:right")
+    %li= link_to 'Info', '#info' 
+    %li= link_to 'Shows', '#shows'
+      
+  #info
+    = image_tag(@person.small_url, style: 'margin-left:10px;float:right')
     %dl.dl
       %dt
-        %strong
-          = model_class.human_attribute_name(:nickname)
+        %strong Nickname
       %dd= @person.nickname
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:bio)
+        %strong Bio
       %dd= @person.bio
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:influences)
+        %strong Influences
       %dd= @person.influences
+      
       %dt
-        %strong
-          = model_class.human_attribute_name(:facebook_username)
+        %strong Facebook Username
       %dd= @person.facebook_username
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:linkedin_username)
+        %strong LinkedIn Username
       %dd= @person.linkedin_username
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:twitter_username)
+        %strong Twitter Username
       %dd= @person.twitter_username
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:website_url)
+        %strong Website URL
       %dd= @person.website_url
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:email)
+        %strong Email
       %dd= mail_to @person.email
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:major)
+        %strong Major
       %dd= @person.major
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:class_year)
+        %strong Class Year
       %dd= @person.class_year
+
       %dt
-        %strong
-          = model_class.human_attribute_name(:hometown)
+        %strong Hometown
       %dd= @person.hometown
+
       - if current_person.admin? 
         %dt
           %strong Depaul ID#
@@ -71,7 +70,8 @@
           %dd= @person.welcome_email_sent_at.strftime("%m/%d/%Y at %I:%M%p") 
         - else
           %dd Welcome email never sent
-  %div#shows
+
+  #shows
     %h2 Shows
     - if @person.shows.length == 0
       %p No shows at the moment.
@@ -79,12 +79,12 @@
       %table.datatable.table.table-striped
         %thead
           %tr
-            %th= Show.human_attribute_name(:avatar)
-            %th= Show.human_attribute_name(:title)
-            %th= Show.human_attribute_name(:genres)
+            %th Avatar
+            %th Title
+            %th Genre
             %th # Host
             %th # Slos
-            %th= Show.human_attribute_name(:updated_at)
+            %th Updated At
             %th= t '.actions', :default => t("helpers.actions")
         %tbody
           - @person.shows.each do |show|
@@ -92,13 +92,14 @@
               %td= image_tag(show.avatar.square.thumb.url)
               %td= link_to show.title, show_path(show)
               %td= show.genre_list
-              %td= show.people.count
+              %td= show.hosts.count
               %td= show.slots.count
               %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
               %td
                 = link_to t('.edit', :default => t("helpers.links.edit")), |
                   edit_show_path(show), :class => 'btn btn-mini'           |
+
 .form-actions
   = link_to "Back", :back, :class => 'btn'
   = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(@person), :class => 'btn'
-  = link_to 'Delete', person_path(@person), :method => 'delete', :data => { :confirm => "Are you sure you want to delete #{@person.first_last_name}?" }, :class => 'btn btn-danger'
+  = link_to 'Delete', person_path(@person), :method => 'delete', :data => { :confirm => "Are you sure you want to delete #{@person.name}?" }, :class => 'btn btn-danger'
