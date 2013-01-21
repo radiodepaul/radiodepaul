@@ -1,10 +1,11 @@
 RadioDePaulWebsite2::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  config.mailer = "Devise::Mailer"
+  config.mailer = 'Devise::Mailer'
   config.action_mailer.default_url_options = { :host => 'radiodepaul.herokuapp.com' }
   # Code is not reloaded between requests
   config.cache_classes = true
+  config.cache_store = :dalli_store, { expires_in: 2.weeks, compress: true }
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false

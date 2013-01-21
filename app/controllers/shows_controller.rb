@@ -66,7 +66,7 @@ class ShowsController < ApplicationController
 
     respond_with(@show)
   end
-  
+
 
   def edit
     @show = Show.find(params[:id])
@@ -109,7 +109,7 @@ class ShowsController < ApplicationController
       format.html { redirect_to shows_url }
     end
   end
-  
+
   def search
     if params[:search_text] && params[:search_text] != ""
       match_term =  "%" + params[:search_text] + "%"

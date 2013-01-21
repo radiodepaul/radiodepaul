@@ -17,7 +17,7 @@
             %td= "#{pretty_date(news_post.datetime_published)} - #{pretty_time(news_post.datetime_published)}"
             %td= news_post.created_at.strftime("%I:%M%p %Z") unless news_post.created_at.nil?
             %td
-              = link_to t('.edit', :default => t("helpers.links.edit")), edit_news_post_path(news_post), :class => 'btn btn-mini' 
+              = link_to t('.edit', :default => t("helpers.links.edit")), edit_news_post_path(news_post), :class => 'btn btn-mini'
     = link_to t('.new', :default => t("helpers.links.new")), new_news_post_path, :class => 'btn btn-primary'
     %br
       %br

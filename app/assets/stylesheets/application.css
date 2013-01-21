@@ -7,7 +7,9 @@
  *= require dataTables/jquery.dataTables
  *= require formtastic
  *= require my_formtastic_changes
- *= require_tree . 
+ *= require twitter/bootstrap
+ *= require twitter/responsive
+ *= require_tree .
  *= require formtastic-plus-bootstrap/responsive
  *= require formtastic-plus-bootstrap
 */

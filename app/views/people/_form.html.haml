@@ -1,29 +1,29 @@
-= semantic_nested_form_for @person, :html => { :class => 'form-horizontal', :html => {:multipart => true} } do |f|
+= semantic_nested_form_for @person, html: { class: 'form-horizontal', html: {multipart: true} } do |f|
   = f.error_messages
-  = image_tag(@person.avatar.square.small.url, :style => 'float:right;')
+  = image_tag(@person.avatar.square.small.url, style: 'float:right;')
   = f.inputs do
     %h2 Basic Info
     = f.inputs :first_name, :last_name, :nickname
-    = f.input :depaul_id, :label => 'DePaul ID#'
-    = f.input :bio, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
-    = f.input :influences, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
-    = f.input :facebook_username, :hint => 'http://facebook.com/facebook_username'
-    = f.input :linkedin_username, :hint => 'http://linkedin.com/in/linkedin_username'
-    = f.input :twitter_username, :hint => 'http://facebook.com/twitter_username'
-    = f.input :tumblr_username, :hint => 'http://tumblr_username.tumblr.com'
+    = f.input :depaul_id, label: 'DePaul ID#'
+    = f.input :bio, input_html: { class: 'autogrow', rows: 10, cols: 80  }
+    = f.input :influences, input_html: { class: 'autogrow', rows: 10, cols: 80  }
+    = f.input :facebook_username, hint: 'http://facebook.com/facebook_username'
+    = f.input :linkedin_username, hint: 'http://linkedin.com/in/linkedin_username'
+    = f.input :twitter_username, hint: 'http://facebook.com/twitter_username'
+    = f.input :tumblr_username, hint: 'http://tumblr_username.tumblr.com'
     = f.input :website_url
-    = f.input :email, :as => :email
-    = f.input :major, :label => 'Major/Minor'
-    = f.input :class_year, :as => :radio, :collection => ["Freshmen", "Sophomore", "Junior", "Senior"]
+    = f.input :email, as: :email
+    = f.input :major, label: 'Major/Minor'
+    = f.input :class_year, as: :radio, collection: ['Freshmen', 'Sophomore', 'Junior', 'Senior']
     = f.input :hometown
-    = f.input :avatar, :as => :file, :label => 'Photo'
-    = f.input :avatar_cache, :as => :hidden
-    = f.input :remote_avatar_url, :as => :url, :label => 'Remote Photo URL'
+    = f.input :avatar, as: :file, label: 'Photo'
+    = f.input :avatar_cache, as: :hidden
+    = f.input :remote_avatar_url, as: :url, label: 'Remote Photo URL'
     %h2 Shows
-    = f.semantic_fields_for :hostings do |show|
-      = show.input :show, :as => :select, :collection => Show.find(:all, :order => :title), :prompt => true
-      = show.link_to_remove "remove"
-    = f.link_to_add 'Add Show', :hostings
+    = f.semantic_fields_for :shows do |show|
+      = show.input :id, as: :select, collection: Show.find(:all, order: :title), prompt: true
+      = show.link_to_remove 'remove'
+    = f.link_to_add 'Add Show', :shows
   = f.actions do
-    = f.action :submit, :label => 'Save'
-    = f.action :cancel, :label => 'Cancel'
+    = f.action :submit, label: 'Save'
+    = f.action :cancel, label: 'Cancel'

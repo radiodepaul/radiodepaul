@@ -13,7 +13,7 @@ class PodcastsController < ApplicationController
   def setAccess
     @allowed_roles = ['Podcast Programmer']
   end
-  
+
   def validate_podcast_access(podcast)
     allowed_roles = Array["Podcast Programmer"]
     if current_person.admin? || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position) || current_person.try(:podcasts).include?(podcast)
@@ -23,7 +23,7 @@ class PodcastsController < ApplicationController
     redirect_to root_path
     return false
   end
-  
+
   def index
     @podcasts = Podcast.all
 

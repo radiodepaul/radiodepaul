@@ -4,26 +4,40 @@ RadioDePaulWebsite2::Application.routes.draw do
   namespace :api , defaults: { format: 'json' } do
     namespace :v2 do
 
-      resources :shows, except: [:new, :edit] do
+      resources :people, except: [:new, :edit] do
+        resources :shows,    except: [:new, :edit]
+        resources :podcasts, except: [:new, :edit]
+        resources :awards,   except: [:new, :edit]
+
         collection do
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
+          get 'archived', action: :archived
+          get 'managers', action: :managers
         end
       end
 
-      resources :people, except: [:new, :edit] do
+      resources :shows, except: [:new, :edit] do
+        resources :people,   except: [:new, :edit]
+        resources :podcasts, except: [:new, :edit]
+        resources :slots,    except: [:new, :edit]
+
         collection do
+          get 'random(/:limit)', action: :random, defaults: { limit: 1 }
+          get 'archived',        action: :archived
+        end
+      end
+
+      resources :slots, except: [:new, :edit] do
+        collection do
+          get 'on_air'
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
         end
       end
 
       resources :events,     except: [:new, :edit]
       resources :news_posts, except: [:new, :edit]
-      resources :slots,      except: [:new, :edit] do
-        collection do
-          get 'on_air'
-          get 'random(/:limit)', action: :random, defaults: { limit: 1 }
-        end
-      end
+      resources :awards,     except: [:new, :edit]
+      resources :podcasts,   except: [:new, :edit]
     end
   end
 
@@ -45,8 +59,6 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :podcasts
   resources :slots
   resources :positions
-  resources :managers
-
   resources :applications do
     get :autocomplete_genre_name, on: :collection
     collection do
