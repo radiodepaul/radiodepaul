@@ -23,7 +23,7 @@ file = File.open('import_google_082812.tsv')
       puts $2
       app.created_at = DateTime.strptime($2, '%m/%d/%Y %H:%M:%S')
 
-      app.save
+      app.save!
     end
   end
 file.close

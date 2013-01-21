@@ -23,6 +23,8 @@ module RadioDePaulWebsite2
     config.assets.enabled = true
     config.assets.version = '1.0'
 
+    config.assets.initialize_on_precompile = false
+
     config.gem 'rdiscount'
     #
     # Only load the plugins named here, in the order given (default is alphabetical).

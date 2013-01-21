@@ -1,8 +1,9 @@
 class Show < ActiveRecord::Base
   include Randomizable
 
+  scope :current, where("id in (select show_id from slots where quarter = '#{Settings.active_schedule}')")
+  scope :active, current.where(archived: false)
   scope :archived, where(archived: true)
-  scope :active,   where(archived: false)
 
   has_and_belongs_to_many :hosts, class_name: 'Person'
   has_many :slots
@@ -16,10 +17,6 @@ class Show < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   validates :title, :presence => true, :uniqueness => true
-
-  def active_slots
-    slots.where(quarter: Settings.active_schedule)
-  end
 
   def thumb_url
     square_avatar.thumb.url
@@ -35,14 +32,6 @@ class Show < ActiveRecord::Base
 
   def large_url
    square_avatar.large.url
-  end
-  
-  def as_json(options={})
-    options[:except]  ||= [:archived, :avatar]
-    options[:include] ||= { hosts: { only: [:id], methods: [:name, :thumb_url] } }
-    options[:methods] ||= [:genre_list, :thumb_url, :small_url, :medium_url, :large_url]
-
-    super(options)
   end
 
   private

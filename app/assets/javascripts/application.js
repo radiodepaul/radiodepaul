@@ -6,8 +6,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap-tooltip
+//= require twitter/bootstrap-popover
+//= require twitter/bootstrap-dropdown
 //= require jquery.ui.all
-//= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require jquery_nested_form

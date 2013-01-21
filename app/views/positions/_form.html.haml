@@ -1,25 +1,19 @@
-= form_for @position do |f|
-  - if @position.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
-      %ul
-        - @position.errors.full_messages.each do |msg|
-          %li= msg
+- if @position.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@position.errors.count, "error")} prohibited this position from being saved:"
+    %ul
+      - @position.errors.full_messages.each do |msg|
+        %li= msg
+=semantic_form_for @position, html: { class: 'form-horizontal' } do |f|
+  =f.error_messages
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :phone
-    = f.text_field :phone
-  .field
-    = f.label :office_hours
-    = f.text_area :office_hours
-  .field
-    = f.label :person_id
-    = f.number_field :person_id
-  .actions
-    = f.submit 'Save'
+  =f.inputs do
+    =f.input :person, as: :select, collection: Hash[Person.all.map{|person| [person.fullname, person.id]}]
+    =f.input :title
+    =f.input :office_hours, input_html: { class: 'autogrow', rows: 10, cols: 80 }
+    =f.input :email, as: :email
+    =f.input :phone, as: :phone
+
+  =f.actions do
+    =f.action :cancel, label: 'Cancel', class: 'btn'
+    =f.action :submit, label: 'Submit', class: 'btn'

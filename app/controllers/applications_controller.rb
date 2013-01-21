@@ -6,9 +6,9 @@ class ApplicationsController < ApplicationController
   # GET /applications
   # GET /applications.json
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
-  
+
   add_breadcrumb 'Applications', :apps_path
-  
+
   def admin
     if params.has_key?(:app_ids)
       if params[:hire_button]
@@ -20,7 +20,7 @@ class ApplicationsController < ApplicationController
             @a.hired = true
             @a.rejected = false
             @a.archived = false
-            @a.save
+            @a.save!
           end
         end
         flash[:notice] = "#{params[:app_ids].try(:length)} applicant(s) have been hired"
@@ -31,7 +31,7 @@ class ApplicationsController < ApplicationController
           @a.update_attribute(:hired, true)
           @a.update_attribute(:rejected, false)
           @a.update_attribute(:archived, false)
-          @a.save(:validation => false)
+          @a.save!(:validation => false)
         end
         flash[:notice] = "#{params[:app_ids].try(:length)} applicant(s) have been marked as hired"
         redirect_to apps_path
@@ -59,13 +59,13 @@ class ApplicationsController < ApplicationController
 
   def index
     if params.has_key?(:hired) && params[:hired] = 'true'
-      @applications = Application.find(:all, :conditions => {:hired => true}, :order => 'created_at desc')
+      @applications = Application.hired.order('created_at DESC')
     elsif params.has_key?(:rejected) && params[:rejected] = 'true'
-      @applications = Application.find(:all, :conditions => {:rejected => true}, :order => 'created_at desc')
+      @applications = Application.rejected.order('created_at DESC')
     elsif params.has_key?(:archived) && params[:archived] = 'true'
-      @applications = Application.find(:all, :conditions => {:archived => true}, :order => 'created_at desc')
+      @applications = Application.archived.order('created_at DESC')
     else
-      @applications = Application.find(:all, :conditions => {:archived => false, :hired => false, :rejected => false}, :order => 'created_at desc')
+      @applications = Application.pending.order('created_at DESC')
     end
 
     respond_to do |format|
@@ -79,7 +79,7 @@ class ApplicationsController < ApplicationController
   def hire
     @a = Application.find(params[:id])
     @person = Person.new(:email => @a.email, :first_name => @a.first_name, :last_name => @a.last_name, :bio => @a.bio, :facebook_username => @a.facebook_username, :twitter_username => @a.twitter_username, :tumblr_username => @a.tumblr_username, :major => @a.major, :class_year => @a.year, :hometown => "#{@a.home_city}, #{@a.home_state}", :influences => @a.influences, :depaul_id => @a.depaul_id, :password => Devise.friendly_token.first(8))
-                        
+
     @person.replace_avatar_from(@a)
     respond_to do |format|
       if @person.save

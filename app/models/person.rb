@@ -6,20 +6,20 @@ class Person < ActiveRecord::Base
 
   scope :active,   where(archived: false)
   scope :archived, where(archived: true)
+  scope :managers, where('id in (select person_id from positions)')
 
   mount_uploader :avatar, AvatarUploader
 
   has_and_belongs_to_many :shows
   accepts_nested_attributes_for :shows, :allow_destroy => true
 
-  has_many :podcasts, through: :shows, source: :attachments
+  has_many :podcasts, through: :shows
 
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
 
-  has_one :position
-
-  delegate :title, to: :position, allow_nil: true
+  has_one  :position, dependent: :nullify
+  delegate :title, to: :position, prefix: false, allow_nil: true
 
   before_validation(:on => :create) do
     reset_password!
@@ -27,19 +27,17 @@ class Person < ActiveRecord::Base
   after_create :send_welcome_email
 
   validates :first_name, :presence => true
-  validates :last_name, :presence => true
+  validates :last_name,  :presence => true
 
   def after_token_authentication
     update_attributes :authentication_token => nil
   end
 
   def name
-    "#{first_name} #{last_name}"
+    @name ||= UserName.new(self)
   end
 
-  def last_first_name
-    "#{last_name}, #{first_name}"
-  end
+  delegate :fullname, :last_first_name, :anonymized, to: :name, prefix: false
 
   def reset_password!(new_password = Devise.friendly_token.first(8))
     self.password = new_password
@@ -53,8 +51,8 @@ class Person < ActiveRecord::Base
     Notifier.welcome(@person, new_password).deliver if save
   end
 
-  def holds_position?(position)
-    self.position == position
+  def holds_position?(title)
+    self.title == title
   end
 
   def convert_markdown(input)
@@ -89,14 +87,6 @@ class Person < ActiveRecord::Base
   def large_url
    avatar.square.large.url
   end
-
-  def as_json(options={})
-    options[:except]  ||= [:depaul_id, :phone, :welcome_email_sent_at, :admin, :archived, :avatar]
-    options[:include] ||= { shows: { only: [:id], methods: [:title, :thumb_url] } }
-    options[:methods] ||= [:name, :position, :avatar_url, :thumb_url, :small_url, :medium_url, :large_url]
-
-    super(options)
-   end
 
   def find_for_database_authentication(conditions={})
       where('username = ?', conditions[:email]).limit(1).first ||

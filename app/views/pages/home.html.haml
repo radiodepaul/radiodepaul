@@ -1,7 +1,7 @@
 %div#tabs
   %ul
     %li
-      = link_to 'My Profile', '#profile' 
+      = link_to 'My Profile', '#profile'
     %li
       = link_to 'My Shows', '#shows'
     %li
@@ -9,10 +9,10 @@
   %div#profile
     - if current_person && current_person.admin?
       %p Login as
-      = select "login_as_", "id", Person.order('first_name').all.map {|u| [u.first_last_name,u.id]}, :prompt => true
+      = select "login_as_", "id", Person.order('first_name').all.map {|u| [u.fullname,u.id]}, :prompt => true
       = image_tag(@person.avatar.square.small.url, :style => "float:right")
     %h1
-      = @person.first_last_name
+      = @person.fullname
       - if @person.admin?
         (Admin)
     %h2 My Info
@@ -21,37 +21,37 @@
         %strong
           Email:
         #{@person.email}
-      %li 
+      %li
         %strong
-          Year: 
+          Year:
         #{@person.class_year}
       %li
         %strong
-          Major: 
+          Major:
         #{@person.major}
-      %li 
+      %li
         %strong
-          Hometown: 
+          Hometown:
         #{@person.hometown}
-      %li 
+      %li
         %strong
-          DePaul ID: 
+          DePaul ID:
         #{@person.depaul_id}
-      %li 
+      %li
         %strong
-          Facebook Username: 
+          Facebook Username:
         #{@person.facebook_username}
-      %li 
+      %li
         %strong
-          LinkedIn Username: 
+          LinkedIn Username:
         #{@person.linkedin_username}
-      %li 
+      %li
         %strong
-          Twitter Username: 
+          Twitter Username:
         #{@person.twitter_username}
-      %li 
+      %li
         %strong
-          Website URL: 
+          Website URL:
         #{@person.website_url}
     %p
       %strong
@@ -65,7 +65,7 @@
     = link_to 'Change my Password', edit_person_registration_path, :class => 'btn'
 
     -#%h2 Some Analytics
-    -#@analytics.each do |a| 
+    -#@analytics.each do |a|
     -##{a.page_path} #{a.pageviews}
   %div#shows
     %h2 My Shows
@@ -88,15 +88,14 @@
               %td= image_tag(show.avatar.square.thumb.url)
               %td= link_to(show.title, show_path(show))
               %td= show.genre_list
-              %td= show.people.count
+              %td= show.hosts.count
               %td= show.slots.count
               %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
               %td
-                = link_to t('.edit', :default => t("helpers.links.edit")), |
-                  edit_show_path(show), :class => 'btn btn-mini'           |
+                = link_to 'Edit', edit_show_path(show), :class => 'btn btn-mini'
   %div#podcasts
     %h2 My Show Podcasts
-    - if @person.podcasts.length == 0
+    - if @person.podcasts.empty?
       %p Your shows have no podcasts at the moment.
     - else
       %table.datatable.table.table-striped

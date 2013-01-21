@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def pretty_date(time = Time.now)
-    time.strftime("%m/%d/%Y")
+    time.strftime('%m/%d/%Y')
   end
 
   def set_timezone
@@ -18,14 +18,14 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    home_path 
-  end 
+    home_path
+  end
 
   def isAdmin?
     if current_person.admin?
       return true
     end
-    redirect_to root_url, :notice => "Restricted Access."
+    redirect_to root_url, :notice => 'Restricted Access.'
     return false
   end
 
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     if current_person.try(:admin?) || allowed_roles.include?(current_person.position)
             return true
     end
-    redirect_to root_url, :notice => "Restricted Access."
+    redirect_to root_url, :notice => 'Restricted Access.'
     return false
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113062941) do
+ActiveRecord::Schema.define(:version => 20130118101951) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(:version => 20130113062941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "show_id"
+    t.text     "schedule_hash", :default => "{}"
   end
 
   create_table "taggings", :force => true do |t|
