@@ -29,4 +29,8 @@ class TimeSpan
   def coerce(time)
     time.strftime("%H:%M")
   end
+
+  def to_s
+    "#{start_time.strftime('%H:%M')} - #{end_time.strftime('%H:%M')}"
+  end
 end

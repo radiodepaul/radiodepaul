@@ -6,6 +6,7 @@ class Slot < ActiveRecord::Base
   belongs_to :show
   belongs_to :schedule
   store :days_array
+  store :time_hash
 
   validates :show_id, :presence => true
 
@@ -26,7 +27,7 @@ class Slot < ActiveRecord::Base
   end
 
   def time_span
-    TimeSpan.new(start_time, end_time)
+    TimeSpan.from_hash(time_hash)
   end
 
   # Placed below in order to use self.active_schedule

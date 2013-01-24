@@ -7,6 +7,16 @@ class TimeObject
   end
 
   def strftime(string)
-    "#{hour}:#{min}"
+    to_s
+  end
+
+  def to_s
+    "#{format hour}:#{format min}"
+  end
+
+  private
+
+  def format(time)
+    sprintf '%02d', time
   end
 end
