@@ -5,8 +5,8 @@ class Slot < ActiveRecord::Base
 
   belongs_to :show
   belongs_to :schedule
+  store :days_array
 
-  validates :quarter, :presence => true
   validates :show_id, :presence => true
 
   def self.on_air(time = Time.now)
@@ -15,6 +15,10 @@ class Slot < ActiveRecord::Base
     else
       on_air_slot(time) || default_slot
     end
+  end
+
+  def days
+    self.days_array
   end
 
   def self.active_schedule
