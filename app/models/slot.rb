@@ -30,6 +30,14 @@ class Slot < ActiveRecord::Base
     TimeSpan.from_hash(time_hash)
   end
 
+  def start_time
+    time_span.start_time.to_s
+  end
+
+  def end_time
+    time_span.end_time.to_s
+  end
+
   # Placed below in order to use self.active_schedule
   scope :active, where(quarter: active_schedule)
   scope :archived, where("quarter <> '#{active_schedule}'")
@@ -37,7 +45,7 @@ class Slot < ActiveRecord::Base
   private
 
   def self.on_air_slot(time = Time.now)
-    Slot.active.find_all {|slot| slot.time_span.include?(time) && slot.days.include?(time.wday)}
+    Slot.active.find {|slot| slot.time_span.include?(time) && slot.days.include?(time.wday)}
   end
 
   def self.override_enabled?

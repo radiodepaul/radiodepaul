@@ -11,19 +11,30 @@ RadioDePaulWebsite2::Application.routes.draw do
 
         collection do
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
-          get 'archived', action: :archived
-          get 'managers', action: :managers
+          get 'archived'
+          get 'managers'
+        end
+      end
+
+      resources :schedules, except: [:new, :edit] do
+        collection do
+          get 'current'
+        end
+
+        member do
+          get 'slots'
+          get 'shows'
+          get 'hosts'
         end
       end
 
       resources :shows, except: [:new, :edit] do
         resources :people,   except: [:new, :edit]
         resources :podcasts, except: [:new, :edit]
-        resources :slots,    except: [:new, :edit]
 
         collection do
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
-          get 'archived',        action: :archived
+          get 'archived'
         end
       end
 
