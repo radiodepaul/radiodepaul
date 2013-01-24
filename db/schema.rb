@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124024032) do
+ActiveRecord::Schema.define(:version => 20130124025732) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -243,15 +243,6 @@ ActiveRecord::Schema.define(:version => 20130124024032) do
 
   create_table "slots", :force => true do |t|
     t.string   "quarter"
-    t.time     "start_time"
-    t.time     "end_time"
-    t.boolean  "monday"
-    t.boolean  "tuesday"
-    t.boolean  "wednesday"
-    t.boolean  "thursday"
-    t.boolean  "friday"
-    t.boolean  "saturday"
-    t.boolean  "sunday"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "show_id"

@@ -36,8 +36,8 @@ class Slot < ActiveRecord::Base
 
   private
 
-  def self.on_air_slot(time)
-    Slot.active.find {|slot| slot.time_span.cover?(time) }
+  def self.on_air_slot(time = Time.now)
+    Slot.active.find_all {|slot| slot.time_span.include?(time) && slot.days.include?(time.wday)}
   end
 
   def self.override_enabled?
