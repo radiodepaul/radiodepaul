@@ -4,4 +4,6 @@ class PersonSerializer < ApplicationSerializer
     :class_year, :website_url, :twitter_username, :facebook_username,
     :linkedin_username, :tumblr_username, :favorite_artists, :favorite_films,
     :favorite_tv_shows
+
+  has_many :shows, serializer: ShortShowSerializer
 end

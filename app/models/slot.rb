@@ -1,28 +1,13 @@
-require 'ice_cube'
 require 'json_tools'
 
 class Slot < ActiveRecord::Base
-  include JSONTools::JSONStore, IceCube
+  include JSONTools::JSONStore
 
-  store :schedule_hash
   belongs_to :show
+  belongs_to :schedule
 
   validates :quarter, :presence => true
   validates :show_id, :presence => true
-
-  def schedule
-    Schedule.from_hash(self.schedule_hash)
-  end
-
-  delegate :occurs_at?, :start_time, :end_time, :duration, to: :schedule
-
-  def schedule=(new_schedule)
-    self.schedule_hash = new_schedule.to_hash
-  end
-
-  def occurences
-    schedule.all_occurences
-  end
 
   def self.on_air(time = Time.now)
     if override_enabled?
@@ -47,7 +32,7 @@ class Slot < ActiveRecord::Base
   private
 
   def self.on_air_slot(time)
-    Slot.active.find {|slot| slot.time_span.cover?(time)  && slot.occurs_at?(time) }
+    Slot.active.find {|slot| slot.time_span.cover?(time) }
   end
 
   def self.override_enabled?
