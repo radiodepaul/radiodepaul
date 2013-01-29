@@ -7,6 +7,7 @@ class Show < ActiveRecord::Base
 
   has_and_belongs_to_many :hosts, class_name: 'Person'
   has_many :slots
+  has_many :schedules, through: :slots
   has_many :podcasts, class_name: 'Attachment', as: :attachable, dependent: :destroy
 
   accepts_nested_attributes_for :podcasts, allow_destroy: true

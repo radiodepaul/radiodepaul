@@ -27,7 +27,7 @@ class Api::V2::SchedulesController < Api::V2::ApiController
 
   def slots
     if params[:id].downcase == 'current'
-      respond_with Schedule.current.slots, root: false
+      respond_with Schedule.current.slots.sort_by(&:start_time), root: false
     else
       respond_with Schedule.find_by_code(params[:id]).slots, root: false
     end

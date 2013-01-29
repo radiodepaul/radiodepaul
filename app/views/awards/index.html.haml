@@ -1,25 +1,26 @@
-- model_class = Award
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.pluralize
+  %h1 Awards
+
+= link_to 'New', new_award_path, :class => 'btn btn-primary'
+
 %table.table.table-striped.datatable
   %thead
     %tr
-      %th= model_class.human_attribute_name(:name)
-      %th= model_class.human_attribute_name(:for)
-      %th= model_class.human_attribute_name(:year)
-      %th= model_class.human_attribute_name(:award_organization_id)
-      %th= model_class.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
+      %th Name
+      %th For
+      %th Year
+      %th Organization
+      %th Actions
   %tbody
     - @awards.each do |award|
       %tr
         %td= link_to award.name, award_path(award)
         %td= award.for
         %td= award.year
-        %td= award.award_organization.name
+        %td= award.award_organization_name
         %td=l award.created_at
         %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_award_path(award), :class => 'btn btn-mini'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), award_path(award), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'
+          = link_to 'Edit', edit_award_path(award), class: 'btn btn-mini'
+          = link_to 'Delete', award_path(award), method: :delete, confirm: 'Are you sure?', class: 'btn btn-mini btn-danger'
 
-= link_to t('.new', :default => t("helpers.links.new")), new_award_path, :class => 'btn btn-primary'
+= link_to 'New', new_award_path, :class => 'btn btn-primary'

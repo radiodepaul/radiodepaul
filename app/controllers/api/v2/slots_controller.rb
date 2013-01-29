@@ -22,7 +22,7 @@ class Api::V2::SlotsController < Api::V2::ApiController
   end
 
   def on_air
-    render json Slot.on_air, root: false
+    render json: Slot.on_air, root: false
   end
 
   def random

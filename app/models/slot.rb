@@ -19,7 +19,7 @@ class Slot < ActiveRecord::Base
   end
 
   def days
-    self.days_array
+    self.days_array.map {|day| Date::DAYNAMES[day].downcase}
   end
 
   def self.active_schedule
@@ -53,7 +53,11 @@ class Slot < ActiveRecord::Base
   end
 
   def self.default_slot
-    new(show: hal_show, quarter: active_schedule)
+    new(show: hal_show, quarter: active_schedule, time_hash: self.default_time_hash)
+  end
+
+  def self.default_time_hash
+    { start_time: {hour: Time.now.hour , min: 0}, end_time: {hour: Time.now.hour + 1, min: 0 } }
   end
 
   def self.hal_show

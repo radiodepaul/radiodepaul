@@ -1,5 +1,5 @@
 class SlotSerializer < ApplicationSerializer
-  attributes :id, :quarter, :start_time, :end_time
+  attributes :id, :quarter, :start_time, :end_time, :days
 
-  has_one :show, serializer: ShortShowSerializer
+  has_one :show
 end
