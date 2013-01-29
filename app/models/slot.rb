@@ -30,6 +30,10 @@ class Slot < ActiveRecord::Base
     TimeSpan.from_hash(time_hash)
   end
 
+  def time_span=(new_time_span)
+    self.time_hash = new_time_span.to_hash
+  end
+
   def start_time
     time_span.start_time.to_s
   end
