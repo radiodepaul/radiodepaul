@@ -6,6 +6,7 @@ class UserName
   end
 
   def fullname
+    return anonymized if user.hide_fullname?
     "#{user.first_name} #{user.last_name}"
   end
 

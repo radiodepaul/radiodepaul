@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124032928) do
+ActiveRecord::Schema.define(:version => 20130129025106) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20130124032928) do
     t.string   "username"
     t.boolean  "archived",               :default => false
     t.datetime "welcome_email_sent_at"
+    t.boolean  "hide_fullname",          :default => false
   end
 
   add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true

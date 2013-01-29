@@ -4,6 +4,7 @@
   = f.inputs do
     %h2 Basic Info
     = f.inputs :first_name, :last_name, :nickname
+    = f.input :hide_fullname, label: 'Hide full name on website'
     = f.input :depaul_id, label: 'DePaul ID#'
     = f.input :bio, input_html: { class: 'autogrow', rows: 10, cols: 80  }
     = f.input :influences, input_html: { class: 'autogrow', rows: 10, cols: 80  }
