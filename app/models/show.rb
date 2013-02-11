@@ -1,4 +1,5 @@
 class Show < ActiveRecord::Base
+  resourcify
   include Randomizable
 
   scope :current, where("id in (select show_id from slots where quarter = '#{Settings.active_schedule}')")

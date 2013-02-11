@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     home_path
   end
 
+  def current_ability
+      @current_ability ||= Ability.new(current_person)
+  end
+
   private
 
   def markdown
