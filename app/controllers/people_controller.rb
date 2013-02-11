@@ -2,7 +2,6 @@ class PeopleController < ApplicationController
 
   allowed_roles = Array['Program Director']
   before_filter :authenticate_person!
-  before_filter :except => [:edit, :update, :show, :index] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
 
   add_breadcrumb 'People', :people_path
@@ -17,16 +16,6 @@ class PeopleController < ApplicationController
     return unless current_person.admin?
     sign_in(:person, Person.find(params[:id]))
     redirect_to root_path
-  end
-
-  def validate_person_access(person)
-    allowed_roles = Array['Program Director']
-    if current_person.admin? || allowed_roles.include?(person.position) || current_person  == person
-      return true
-    end
-    flash[:notice] = 'You do not have access to this person.'
-    redirect_to root_path
-    return false
   end
 
   def reset_password
@@ -97,7 +86,6 @@ class PeopleController < ApplicationController
   def edit
     @person = Person.find(params[:id])
     add_breadcrumb @person.fullname, @person
-    validate_person_access(@person)
   end
 
   def create
@@ -114,9 +102,8 @@ class PeopleController < ApplicationController
 
   def update
     @person = Person.find(params[:id])
-    validate_person_access(@person)
 
-    if !current_person.admin? && current_person.try(:position) != 'Program Director'
+    if !current_person.admin?
       params[:person].delete :hostings_attributes
     end
 

@@ -33,8 +33,4 @@ class Api::V2::PeopleController < Api::V2::ApiController
   def archived
     render json: Person.archived, root: false
   end
-
-  def managers
-    render json: Person.managers, root: false
-  end
 end

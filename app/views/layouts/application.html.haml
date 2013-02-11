@@ -30,7 +30,6 @@
               - if person_signed_in?
                 %li= link_to 'Shows', shows_path
                 %li= link_to 'People', people_path
-                %li= link_to 'Positions', positions_path
                 %li= link_to 'Schedule A Show', slots_path
                 %li= link_to 'Podcasts', podcasts_path
                 %li= link_to 'News Posts', news_posts_path
@@ -39,7 +38,7 @@
                 %li= link_to 'Settings', settings_path
             %ul.nav.pull-right
               - if person_signed_in?
-                - if current_person.admin? || current_person.holds_position?('Program Director')
+                - if current_person.admin?
                   %li
                     - new_apps = Application.find(:all, conditions: {archived: false, hired: false, rejected: false}).length
                     %a{href: apps_path}
@@ -85,7 +84,6 @@
                   %li Active Schedule: #{Settings.active_schedule}
                   %li Shows: #{Show.count}
                   %li Staff: #{Person.count}
-                  %li Managers: #{Person.managers.count}
                   %li Podcasts: #{Podcast.count}
                   %li News Posts: #{NewsPost.count}
                   %li On Air Now: #{Slot.on_air.show.title}

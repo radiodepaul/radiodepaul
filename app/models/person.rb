@@ -6,7 +6,6 @@ class Person < ActiveRecord::Base
 
   scope :active,   where(archived: false)
   scope :archived, where(archived: true)
-  scope :managers, where('id in (select person_id from positions)')
 
   mount_uploader :avatar, AvatarUploader
 
@@ -17,9 +16,6 @@ class Person < ActiveRecord::Base
 
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
-
-  has_one  :position, dependent: :nullify
-  delegate :title, to: :position, prefix: false, allow_nil: true
 
   before_validation(:on => :create) do
     reset_password!
@@ -49,10 +45,6 @@ class Person < ActiveRecord::Base
     end
 
     Notifier.welcome(@person, new_password).deliver if save
-  end
-
-  def holds_position?(title)
-    self.title == title
   end
 
   def convert_markdown(input)

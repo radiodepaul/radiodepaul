@@ -191,16 +191,6 @@ ActiveRecord::Schema.define(:version => 20130129025106) do
     t.boolean  "priority"
   end
 
-  create_table "positions", :force => true do |t|
-    t.string   "title"
-    t.string   "email"
-    t.string   "phone"
-    t.text     "office_hours"
-    t.integer  "person_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "schedules", :force => true do |t|
     t.string   "name"
     t.string   "code"

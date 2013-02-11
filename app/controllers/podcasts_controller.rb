@@ -2,8 +2,6 @@ class PodcastsController < ApplicationController
 
   before_filter :setAccess
   before_filter :authenticate_person!, :except => [:getPodcasts]
-  allowed_roles = Array["Podcast Programmer"]
-  before_filter :except => [:index, :new, :create, :show, :edit, :update, :getPodcasts] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
 
   add_breadcrumb 'Podcasts', :podcasts_path
@@ -12,16 +10,6 @@ class PodcastsController < ApplicationController
 
   def setAccess
     @allowed_roles = ['Podcast Programmer']
-  end
-
-  def validate_podcast_access(podcast)
-    allowed_roles = Array["Podcast Programmer"]
-    if current_person.admin? || allowed_roles.include?(Manager.find_by_person_id(current_person.id).position) || current_person.try(:podcasts).include?(podcast)
-      return true
-    end
-    flash[:notice] = "You do not have access to this podcast."
-    redirect_to root_path
-    return false
   end
 
   def index
@@ -46,7 +34,6 @@ class PodcastsController < ApplicationController
   def edit
     @podcast = Podcast.find(params[:id])
     add_breadcrumb @podcast.title, podcast_path(@podcast)
-    validate_podcast_access(@podcast)
 
     respond_with(@podcast)
   end
@@ -67,7 +54,6 @@ class PodcastsController < ApplicationController
 
   def update
     @podcast = Podcast.find(params[:id])
-    validate_podcast_access(@podcast)
 
     respond_to do |format|
       if @podcast.update_attributes(params[:podcast])

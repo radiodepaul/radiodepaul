@@ -1,8 +1,5 @@
 class SlotsController < ApplicationController
-  allowed_roles = Array['Program Director']
-
   before_filter :authenticate_person!, :except => [:new, :create, :getOnAir, :getSchedule, :now_playing]
-  before_filter :except => [:new, :create, :getOnAir, :getSchedule, :now_playing] { |c| c.validate_access allowed_roles }
   before_filter :isAdmin?, :only => [:destroy]
   before_filter :set_timezone
 

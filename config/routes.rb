@@ -12,7 +12,6 @@ RadioDePaulWebsite2::Application.routes.draw do
         collection do
           get 'random(/:limit)', action: :random, defaults: { limit: 1 }
           get 'archived'
-          get 'managers'
         end
       end
 
@@ -69,7 +68,6 @@ RadioDePaulWebsite2::Application.routes.draw do
   resources :news_posts
   resources :podcasts
   resources :slots
-  resources :positions
   resources :applications do
     get :autocomplete_genre_name, on: :collection
     collection do
