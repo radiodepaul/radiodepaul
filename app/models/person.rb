@@ -13,6 +13,7 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :shows, :allow_destroy => true
 
   has_many :podcasts, through: :shows
+  has_one :position
 
   has_and_belongs_to_many :awards
   accepts_nested_attributes_for :awards
