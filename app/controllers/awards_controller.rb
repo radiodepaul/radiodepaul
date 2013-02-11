@@ -1,8 +1,6 @@
 class AwardsController < ApplicationController
-  before_filter :authenticate_person!
-  before_filter :only => [:new, :create, :destroy, :edit, :update] { |c| c.validate_access }
-  # GET /awards
-  # GET /awards.json
+  load_and_authorize_resource
+
   def index
     @awards = Award.all(:order => 'year desc')
 
@@ -12,8 +10,6 @@ class AwardsController < ApplicationController
     end
   end
 
-  # GET /awards/1
-  # GET /awards/1.json
   def show
     @award = Award.find(params[:id])
 
@@ -23,8 +19,6 @@ class AwardsController < ApplicationController
     end
   end
 
-  # GET /awards/new
-  # GET /awards/new.json
   def new
     @award = Award.new
 
@@ -34,13 +28,10 @@ class AwardsController < ApplicationController
     end
   end
 
-  # GET /awards/1/edit
   def edit
     @award = Award.find(params[:id])
   end
 
-  # POST /awards
-  # POST /awards.json
   def create
     @award = Award.new(params[:award])
 
@@ -55,8 +46,6 @@ class AwardsController < ApplicationController
     end
   end
 
-  # PUT /awards/1
-  # PUT /awards/1.json
   def update
     @award = Award.find(params[:id])
 
@@ -71,8 +60,6 @@ class AwardsController < ApplicationController
     end
   end
 
-  # DELETE /awards/1
-  # DELETE /awards/1.json
   def destroy
     @award = Award.find(params[:id])
     @award.destroy

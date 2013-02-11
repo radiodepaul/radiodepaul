@@ -4,11 +4,11 @@
   %b Title:
   = @event.title
 %p
-  %b Start:
-  = @event.start
+  %b First Line:
+  = @event.first_line
 %p
-  %b End:
-  = @event.end
+  %b Second Line:
+  = @event.second_line
 %p
   %b Location:
   = @event.location
@@ -17,5 +17,4 @@
   = @event.description
 
 = link_to 'Edit', edit_event_path(@event)
-\|
 = link_to 'Back', events_path

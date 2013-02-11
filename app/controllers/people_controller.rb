@@ -1,8 +1,6 @@
 class PeopleController < ApplicationController
-
-  allowed_roles = Array['Program Director']
+  load_and_authorize_resource
   before_filter :authenticate_person!
-  before_filter :isAdmin?, :only => [:destroy]
 
   add_breadcrumb 'People', :people_path
 

@@ -2,6 +2,8 @@ class Person < ActiveRecord::Base
   rolify
   include Randomizable
 
+  attr_accessible :first_name, :last_name, :nickname, :hide_fullname, :depaul_id, :bio, :influences, :facebook_username, :linkedin_username, :twitter_username, :tumblr_username, :website_url, :email, :major, :class_year, :hometown, :avatar_cache, :remote_avatar_url, :shows_attributes
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 

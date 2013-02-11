@@ -1,9 +1,5 @@
 class NewsPostsController < ApplicationController
-  before_filter :authenticate_person!, :except => [:getList, :getPost]
-  before_filter :except => [:index, :getList, :getPost, :show] { |c| c.validate_access }
-  before_filter :isAdmin?, :only => [:destroy]
-  # GET /news_posts
-  # GET /news_posts.json
+  load_and_authorize_resource
 
   add_breadcrumb 'News Posts', :news_posts_path
 
@@ -16,8 +12,6 @@ class NewsPostsController < ApplicationController
     end
   end
 
-  # GET /news_posts/1
-  # GET /news_posts/1.json
   def show
     @news_post = NewsPost.find(params[:id])
     @markdown_content = RDiscount.new(@news_post.content, :smart, :filter_html).to_html.html_safe
@@ -28,8 +22,6 @@ class NewsPostsController < ApplicationController
     end
   end
 
-  # GET /news_posts/new
-  # GET /news_posts/new.json
   def new
     @news_post = NewsPost.new
 
@@ -39,13 +31,10 @@ class NewsPostsController < ApplicationController
     end
   end
 
-  # GET /news_posts/1/edit
   def edit
     @news_post = NewsPost.find(params[:id])
   end
 
-  # POST /news_posts
-  # POST /news_posts.json
   def create
     @news_post = NewsPost.new(params[:news_post])
 
@@ -60,8 +49,6 @@ class NewsPostsController < ApplicationController
     end
   end
 
-  # PUT /news_posts/1
-  # PUT /news_posts/1.json
   def update
     @news_post = NewsPost.find(params[:id])
 
@@ -76,8 +63,6 @@ class NewsPostsController < ApplicationController
     end
   end
 
-  # DELETE /news_posts/1
-  # DELETE /news_posts/1.json
   def destroy
     @news_post = NewsPost.find(params[:id])
     @news_post.destroy
@@ -87,25 +72,4 @@ class NewsPostsController < ApplicationController
       format.json { head :ok }
     end
   end
-
-  def getList
-    respond_to do |format|
-      format.html { redirect_to pages_api_path}
-      @news_posts = NewsPost.find(:all, :order => 'datetime_published')
-      format.js  { render :json => @news_posts, :callback => params[:callback] }
-      format.json  { render :json => @news_posts }
-    end
-  end
-
-  def getPost
-    respond_to do |format|
-      format.html { redirect_to pages_api_path}
-      @news_post = NewsPost.find(params[:id])
-      format.js  { render :json => @news_post, :callback => params[:callback] }
-      format.json  { render :json => @news_post }
-    end
-  end
-
-
-
 end

@@ -1,16 +1,8 @@
 class PodcastsController < ApplicationController
-
-  before_filter :setAccess
-  before_filter :authenticate_person!, :except => [:getPodcasts]
-  before_filter :isAdmin?, :only => [:destroy]
-
+  load_and_authorize_resource
   add_breadcrumb 'Podcasts', :podcasts_path
 
   respond_to :html, :json
-
-  def setAccess
-    @allowed_roles = ['Podcast Programmer']
-  end
 
   def index
     @podcasts = Podcast.all

@@ -3,8 +3,8 @@
 %table
   %tr
     %th Title
-    %th Start
-    %th End
+    %th First Line
+    %th Second Line
     %th Location
     %th Description
     %th
@@ -14,8 +14,8 @@
   - @events.each do |event|
     %tr
       %td= event.title
-      %td= event.start
-      %td= event.end
+      %td= event.first_line
+      %td= event.second_line
       %td= event.location
       %td= event.description
       %td= link_to 'Show', event

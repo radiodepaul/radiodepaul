@@ -1,7 +1,6 @@
 class ShowsController < ApplicationController
   load_and_authorize_resource
   before_filter :authenticate_person!
-  before_filter :isAdmin?, :only => [:destroy]
 
   respond_to :html, :json
 
@@ -69,7 +68,7 @@ class ShowsController < ApplicationController
   def update
     @show = Show.find(params[:id])
 
-    #unless current_person.admin?
+    #unless current_person.has_role? :admin or current_person.has_role? :manager
     #  params[:show].delete :hostings_attributes
     #end
 

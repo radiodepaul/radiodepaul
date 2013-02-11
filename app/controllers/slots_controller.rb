@@ -1,6 +1,5 @@
 class SlotsController < ApplicationController
-  before_filter :authenticate_person!, :except => [:new, :create, :getOnAir, :getSchedule, :now_playing]
-  before_filter :isAdmin?, :only => [:destroy]
+  load_and_authorize_resource
   before_filter :set_timezone
 
   add_breadcrumb 'Schedule A Show', :slots_path
