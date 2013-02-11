@@ -1,71 +1,21 @@
-- model_class = @slot.class
 .page-header
-  %h1= t '.title', :default => model_class.model_name.human
+  %h1 Slot
 %dl.dl-horizontal
   %dt
-    %strong
-      = model_class.human_attribute_name(:quarter)
-      \:
+    %strong Quarter
   %dd= @slot.quarter
   %dt
-    %strong
-      = model_class.human_attribute_name(:start_time)
-      \:
-  %dd= @slot.start_time.strftime("%I:%M%p %Z") unless @slot.start_time.nil?
+    %strong Start time
+  %dd= @slot.start_time
+  %dt
+    %strong End time
+  %dd= @slot.end_time
   %dt
     %strong
-      = model_class.human_attribute_name(:end_time)
-      \:
-  %dd= @slot.end_time.strftime("%I:%M%p %Z") unless @slot.end_time.nil?
   %dt
-    %strong
-      = model_class.human_attribute_name(:monday)
-      \:
-  %dd= @slot.monday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:tuesday)
-      \:
-  %dd= @slot.tuesday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:wednesday)
-      \:
-  %dd= @slot.wednesday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:thursday)
-      \:
-  %dd= @slot.thursday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:friday)
-      \:
-  %dd= @slot.friday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:saturday)
-      \:
-  %dd= @slot.saturday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:sunday)
-      \:
-  %dd= @slot.sunday
-  %dt
-    %strong
-      = model_class.human_attribute_name(:show_id)
-      \:
+    %strong Show
   %dd= @slot.show.title
 .form-actions
-  = link_to t('.back', :default => t("helpers.links.back")), |
-    slots_path, :class => 'btn'                              |
-  -#
-  = link_to t('.edit', :default => t("helpers.links.edit")), |
-    edit_slot_path(@slot), :class => 'btn'                   |
-  -#
-  = link_to t('.destroy', :default => t("helpers.links.destroy")),                                  |
-    slot_path(@slot),                                                                               |
-    :method => 'delete',                                                                            |
-    :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), |
-    :class => 'btn btn-danger'                                                                      |
+  = link_to 'Back', slots_path, class: 'btn'
+  = link_to 'Edit', edit_slot_path(@slot), class: 'btn'
+  = link_to 'Delete', slot_path(@slot), method: 'delete', confirm: 'Are you sure?', class: 'btn btn-danger'

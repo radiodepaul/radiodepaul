@@ -17,7 +17,7 @@ class Show < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :title, :presence => true, :uniqueness => true
+  validates :title, presence: true, uniqueness: true
 
   def thumb_url
     square_avatar.thumb.url
@@ -40,5 +40,4 @@ class Show < ActiveRecord::Base
   def square_avatar
     avatar.square
   end
-
 end

@@ -15,20 +15,20 @@
     = f.input :avatar_cache, :as => :hidden
     = f.input :remote_avatar_url, :as => :url, :label => 'Remote Photo URL'
     %h2 Attachments
-    = f.semantic_fields_for :attachments do |attachment|
-      = attachment.inputs do
-        = attachment.input :title
-        = attachment.input :description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
-        = attachment.input :contributors
-        = attachment.input :file, :as => :file, :label => 'File'
-        = attachment.input :file_cache, :as => :hidden
-        = attachment.link_to_remove "remove"
-    = f.link_to_add 'Add Attachment', :attachments
+    = f.semantic_fields_for :podcasts do |podcast|
+      = podcast.inputs do
+        = podcast.input :title
+        = podcast.input :description, :input_html => { :class => 'autogrow', :rows => 10, :cols => 80  }
+        = podcast.input :contributors
+        = podcast.input :file, :as => :file, :label => 'File'
+        = podcast.input :file_cache, :as => :hidden
+        = podcast.link_to_remove "remove"
+    = f.link_to_add 'Add Attachment', :podcasts
     %h2 Hosts
-    = f.semantic_fields_for :hostings do |person|
-      = person.input :person, :as => :select, :collection => Person.order(:first_name), :member_label => :first_last_name, :prompt => true
-      = person.link_to_remove "remove"
-    = f.link_to_add 'Add Person', :hostings
+    = f.semantic_fields_for :hosts do |host|
+      = host.input :fullname, as: :select, collection: Person.order(:first_name, :last_name), member_label: :fullname, prompt: true
+      = host.link_to_remove "remove"
+    = f.link_to_add 'Add Host', :hosts
   = f.actions do
     = f.action :submit, :label => 'Save'
     = f.action :cancel, :label => 'Cancel'

@@ -32,10 +32,12 @@ class Application < ActiveRecord::Base
   end
 
   def name
-    "#{first_name} #{last_name}"
+    @name ||= UserName.new(self)
   end
 
-  def last_first_name
-    "#{last_name}, #{first_name}"
+  delegate :fullname, :last_first_name, :anonymized, to: :name, prefix: false
+
+  def hide_fullname?
+    false
   end
 end

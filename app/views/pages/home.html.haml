@@ -75,13 +75,13 @@
       %table.datatable.table.table-striped
         %thead
           %tr
-            %th= Show.human_attribute_name(:avatar)
-            %th= Show.human_attribute_name(:title)
-            %th= Show.human_attribute_name(:genres)
+            %th Avatar
+            %th Title
+            %th Genres
             %th # Hosts
             %th # Slots
-            %th= Show.human_attribute_name(:updated_at)
-            %th= t '.actions', :default => t("helpers.actions")
+            %th Updated At
+            %th Actions
         %tbody
           - @shows.each do |show|
             %tr

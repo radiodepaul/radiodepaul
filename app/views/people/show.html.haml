@@ -1,5 +1,5 @@
 .page-header
-  %h1= @person.name
+  %h1= @person.fullname
   %h3= @person.created_at.strftime("Added on %m/%d/%Y at %I:%M%p")
 
 #tabs
@@ -83,9 +83,9 @@
             %th Title
             %th Genre
             %th # Host
-            %th # Slos
+            %th # Slots
             %th Updated At
-            %th= t '.actions', :default => t("helpers.actions")
+            %th Actions
         %tbody
           - @person.shows.each do |show|
             %tr
@@ -96,10 +96,9 @@
               %td= show.slots.count
               %td= show.updated_at.strftime("%I:%M%p %Z") unless show.updated_at.nil?
               %td
-                = link_to t('.edit', :default => t("helpers.links.edit")), |
-                  edit_show_path(show), :class => 'btn btn-mini'           |
+                = link_to 'Edit', edit_show_path(show), class: 'btn btn-mini'
 
 .form-actions
-  = link_to "Back", :back, :class => 'btn'
-  = link_to t('.edit', :default => t("helpers.links.edit")), edit_person_path(@person), :class => 'btn'
-  = link_to 'Delete', person_path(@person), :method => 'delete', :data => { :confirm => "Are you sure you want to delete #{@person.name}?" }, :class => 'btn btn-danger'
+  = link_to 'Back', :back, class: 'btn'
+  = link_to 'Edit', edit_person_path(@person), class: 'btn'
+  = link_to 'Delete', person_path(@person), method: 'delete', data: { confirm: "Are you sure you want to delete #{@person.name}?" }, class: 'btn btn-danger'
