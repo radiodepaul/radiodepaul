@@ -13,7 +13,6 @@ class PeopleController < ApplicationController
   end
 
   def become
-    return unless current_person.admin?
     sign_in(:person, Person.find(params[:id]))
     redirect_to root_path
   end
@@ -103,9 +102,9 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
 
-    if !current_person.admin?
-      params[:person].delete :hostings_attributes
-    end
+    #if !current_person.admin?
+    #  params[:person].delete :hostings_attributes
+    #end
 
     respond_to do |format|
       if @person.update_attributes(params[:person])

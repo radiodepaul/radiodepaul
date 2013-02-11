@@ -21,14 +21,6 @@ class ApplicationController < ActionController::Base
     home_path
   end
 
-  def isAdmin?
-    if current_person.admin?
-      return true
-    end
-    redirect_to root_url, :notice => 'Restricted Access.'
-    return false
-  end
-
   private
 
   def markdown

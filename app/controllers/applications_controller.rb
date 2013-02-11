@@ -1,6 +1,5 @@
 class ApplicationsController < ApplicationController
   before_filter :authenticate_person!, :except => [:new, :create]
-  before_filter :isAdmin?, :only => [:destroy, :edit, :update]
   autocomplete :genre, :name, :class_name => 'ActsAsTaggableOn::Tag'
 
   add_breadcrumb 'Applications', :apps_path

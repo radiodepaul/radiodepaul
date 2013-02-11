@@ -53,23 +53,21 @@
       %dt
         %strong Hometown
       %dd= @person.hometown
-
-      - if current_person.admin?
-        %dt
-          %strong Depaul ID#
-        %dd= @person.depaul_id
-        %dt
-          %strong Last Signed In At
-        - if @person.last_sign_in_at
-          %dd= @person.last_sign_in_at.strftime("%m/%d/%Y at %I:%M%p")
-        - else
-          %dd Person has never signed in
-        %dt
-          %strong Welcome Email Sent At
-        - if @person.welcome_email_sent_at
-          %dd= @person.welcome_email_sent_at.strftime("%m/%d/%Y at %I:%M%p")
-        - else
-          %dd Welcome email never sent
+      %dt
+        %strong Depaul ID#
+      %dd= @person.depaul_id
+      %dt
+        %strong Last Signed In At
+      - if @person.last_sign_in_at
+        %dd= @person.last_sign_in_at.strftime("%m/%d/%Y at %I:%M%p")
+      - else
+        %dd Person has never signed in
+      %dt
+        %strong Welcome Email Sent At
+      - if @person.welcome_email_sent_at
+        %dd= @person.welcome_email_sent_at.strftime("%m/%d/%Y at %I:%M%p")
+      - else
+        %dd Welcome email never sent
 
   #shows
     %h2 Shows

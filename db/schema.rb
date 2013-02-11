@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211011227) do
+ActiveRecord::Schema.define(:version => 20130211023033) do
 
   create_table "applications", :force => true do |t|
     t.string   "first_name"
@@ -156,7 +156,6 @@ ActiveRecord::Schema.define(:version => 20130211011227) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.boolean  "admin",                  :default => false, :null => false
     t.string   "tumblr_username"
     t.string   "phone"
     t.text     "favorite_artists"
@@ -166,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20130211011227) do
     t.boolean  "archived",               :default => false
     t.datetime "welcome_email_sent_at"
     t.boolean  "hide_fullname",          :default => false
+    t.boolean  "manager",                :default => false
   end
 
   add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true

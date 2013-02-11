@@ -7,14 +7,12 @@
     %li
       = link_to 'My Podcasts', '#podcasts'
   %div#profile
-    - if current_person && current_person.admin?
+    - if current_person
       %p Login as
       = select "login_as_", "id", Person.order('first_name').all.map {|u| [u.fullname,u.id]}, :prompt => true
       = image_tag(@person.avatar.square.small.url, :style => "float:right")
     %h1
       = @person.fullname
-      - if @person.admin?
-        (Admin)
     %h2 My Info
     %ul
       %li

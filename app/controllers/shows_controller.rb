@@ -68,9 +68,9 @@ class ShowsController < ApplicationController
   def update
     @show = Show.find(params[:id])
 
-    unless current_person.admin?
-      params[:show].delete :hostings_attributes
-    end
+    #unless current_person.admin?
+    #  params[:show].delete :hostings_attributes
+    #end
 
     respond_to do |format|
       if @show.update_attributes(params[:show])
