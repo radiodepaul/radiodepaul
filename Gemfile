@@ -14,6 +14,7 @@ gem 'haml',                            '~> 3.2.0.rc.2'
 
 gem 'devise',                          '~> 2.1.2'
 gem 'cancan',                          '~> 1.6.9'
+gem 'rolify',                          '~> 3.2.0'
 gem 'acts-as-taggable-on',             '~> 2.3.1'
 gem 'active_model_serializers',        :git => 'git://github.com/rails-api/active_model_serializers.git'
 gem 'ice_cube',                        '~> 0.9.3'

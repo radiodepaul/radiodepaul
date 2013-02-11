@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
+  rolify
   include Randomizable
 
   devise :database_authenticatable, :registerable,
