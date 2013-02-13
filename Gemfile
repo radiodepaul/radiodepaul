@@ -52,6 +52,8 @@ group :development do
   gem 'html2haml',                     :git => 'git://github.com/haml/html2haml.git'
   gem 'hpricot',                       '~> 0.8.6'
   gem 'ruby_parser',                   '~> 3.1.1'
+  gem 'better_errors',                 '~> 0.3.2'
+  gem 'binding_of_caller',             '~> 0.6.8'
 end
 
 group :test do
