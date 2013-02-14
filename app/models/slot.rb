@@ -23,7 +23,11 @@ class Slot < ActiveRecord::Base
   end
 
   def days
-    self.days_array.map {|day| Date::DAYNAMES[day].downcase}
+    self.days_array.map {|day| Date::DAYNAMES[day].downcase}.join(',')
+  end
+
+  def days=(days)
+    self.days_array = days.split(',').map{|day| Date::DAYNAMES.index(day.capitalize)}
   end
 
   def self.active_schedule
@@ -31,11 +35,29 @@ class Slot < ActiveRecord::Base
   end
 
   def start_time
-    time_span.start_time.to_s
+    time_span.start_time
   end
 
   def end_time
-    time_span.end_time.to_s
+    time_span.end_time
+  end
+
+  def start_time=(time)
+    parsed_time = parse_time(time)
+
+    update_attribute(:start_hour, parsed_time.hour)
+    update_attribute(:start_min, parsed_time.min)
+  end
+
+  def end_time=(time)
+    parsed_time = parse_time(time)
+
+    update_attribute(:end_hour, parsed_time.hour)
+    update_attribute(:end_min, parsed_time.min)
+  end
+
+  def parse_time(time)
+    Chronic.parse(time)
   end
 
   # Placed below in order to use self.active_schedule
@@ -45,7 +67,7 @@ class Slot < ActiveRecord::Base
   private
 
   def self.on_air_slot(time = Time.now)
-    Slot.active.find {|slot| slot.time_span.include?(time) && slot.days.include?(time.wday)}
+    Slot.active.find {|slot| slot.time_span.include?(time) && slot.days_array.include?(time.wday)}
   end
 
   def self.override_enabled?

@@ -18,7 +18,7 @@
           %tr
             %td= image_tag(slot.show.avatar.square.thumb.url)
             %td= link_to slot.show.title, slot_path(slot)
-            %td= slot.days.join(',')
+            %td= slot.days
             %td= slot.start_time
             %td= slot.end_time
             %td= pretty_date slot.created_at unless slot.created_at.nil?

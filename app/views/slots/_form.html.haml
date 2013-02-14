@@ -13,6 +13,10 @@
     .controls
       = f.text_field :end_time
   .control-group
+    = f.label :days, :class => 'control-label'
+    .controls
+      = f.text_field :days
+  .control-group
     = f.label :show_id, :class => 'control-label'
     .controls
       = collection_select(:slot, :show_id, Show.find(:all, order: 'title'), :id, :title, prompt: true)
