@@ -1,4 +1,5 @@
 class TimeSpan
+  include Comparable
   attr_accessor :start_hour, :start_min, :end_hour, :end_min
 
   def initialize(start_hour, start_min, end_hour, end_min)
@@ -18,6 +19,10 @@ class TimeSpan
     @end_time ||= TimeObject.new(end_hour, end_min)
   end
 
+  def <=>(other_time_span)
+    start_time <=> other_time_span.start_time
+  end
+
   private
 
   def coerce(time)
@@ -29,6 +34,7 @@ class TimeSpan
   end
 
   class TimeObject
+    include Comparable
     attr_accessor :hour, :min
 
     def initialize(hour, min)
@@ -42,6 +48,10 @@ class TimeSpan
 
     def to_s
       "#{format hour}:#{format min}"
+    end
+
+    def <=>(other_time)
+      self.strftime('%H:%M') <=> other_time.strftime('%H:%M')
     end
 
     private

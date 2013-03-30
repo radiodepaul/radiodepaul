@@ -24,7 +24,5 @@
             %td= pretty_date slot.created_at unless slot.created_at.nil?
             %td
               = link_to 'Edit', edit_slot_path(slot), class: 'btn btn-mini'
-              = link_to 'Delete', slot_path(slot), method: :delete, confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')), :class => 'btn btn-mini btn-danger'
-    = link_to t('.new', default: t("helpers.links.new")), new_slot_path, class: 'btn btn-primary'
-    %br
-      %br
+              = link_to 'Delete', slot_path(slot), method: :delete, confirm: 'Are you sure?', :class => 'btn btn-mini btn-danger'
+    = link_to 'New', new_slot_path, class: 'btn btn-primary'
